@@ -44,6 +44,8 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
+      - name: ffmpeg
+        run: which ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

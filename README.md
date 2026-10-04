@@ -25,7 +25,7 @@ Automatización de contenido para Instagram protagonizada por un macaco fotorrea
 - [x] **Fase 2:** adapters de imagen (Cloudflare / manual / mock), QC y post-proceso.
 - [x] **Fase 3:** captions, cola y PR de aprobación.
 - [x] **Fase 4:** publicación en Instagram + R2.
-- [ ] **Fase 5:** reels.
+- [x] **Fase 5:** reels.
 - [ ] **Fase 6:** Actions programadas, refresh de token, notificaciones y README final.
 
 ## Uso local
@@ -90,10 +90,20 @@ generate.yml (cron dom/mié o manual)
 3. La rama por defecto tiene que ser `main`: `approve.yml` escucha los merges a `main`.
 4. Para mantener el costo en $0: en claude.ai, activá el crédito mensual del Agent SDK y dejá **desactivados** los créditos pagos.
 
+## Reels (gratis, con ffmpeg)
+`mono generate -n 4 -f reel` genera de 2 a 10 fotos verticales (9:16) de una misma salida y arma el video con ffmpeg:
+- **Movimiento:** cada foto tiene un movimiento sutil distinto (zoom in, zoom out o paneo, tipo Ken Burns) y hay un fundido de 0,4 s entre fotos.
+- **Duración:** 2,5 s por foto, ajustable en `bible.yaml → formats.reel`.
+- **Formato:** MP4 H.264 1080×1920 a 30 fps, audio AAC 48 kHz, con `faststart`. Cumple las specs de Reels.
+- **Audio:** si ponés pistas libres de derechos en `audio/`, cada reel elige una. Si no, sale con audio silencioso y le podés agregar música de la biblioteca de Instagram desde la app.
+- **Revisión y aprobación:** el PR muestra el video y las fotos. Si borrás alguna foto antes de mergear, `mono approve` rearma el video solo con las aprobadas.
+- **Publicación:** se publica como `media_type=REELS` con `share_to_feed=true` e `is_ai_generated=true`. Por defecto sale los domingos y se genera los miércoles junto con el carrusel.
+- **A futuro:** `video.provider` es un adapter intercambiable. Hoy no hay una API de video IA gratis y confiable; cuando aparezca o haya presupuesto, se suma un proveedor sin tocar el resto del pipeline.
+
 ## Publicación en Instagram
 Se usa la **Instagram API con Instagram Login** (`graph.instagram.com`), que **no** requiere página de Facebook. Para cada entrada vencida de la cola:
 1. Sube los JPEG a R2.
-2. Crea los contenedores según el formato: IMAGE; STORIES; o un CAROUSEL con sus hijos.
+2. Crea los contenedores según el formato: IMAGE; STORIES; REELS; o un CAROUSEL con sus hijos.
 3. Espera a que el contenedor esté listo (`FINISHED`) y publica.
 4. Guarda el `ig_media_id` y el permalink en la cola y en el historial.
 5. Borra los archivos de R2.

@@ -22,6 +22,12 @@ dedup:
 qc:
   pass_score: 7.0          # 0-10
 
+video:
+  provider: slideshow      # slideshow (ffmpeg, gratis) | futuro: proveedor de video IA
+  fade: 0.4                # segundos de fundido entre fotos
+  zoom: 0.08               # intensidad del Ken Burns
+  audio_dir: audio         # pistas libres de derechos (opcional); vacío = audio silencioso
+
 media_host: r2              # hosting temporal de medios para la Graph API
 
 instagram:
@@ -29,6 +35,9 @@ instagram:
   ai_label: true           # is_ai_generated=true → etiqueta "Información de IA"
   poll_seconds: 3
   poll_timeout: 300
+  video_poll_seconds: 10
+  video_poll_timeout: 900
+  share_reels_to_feed: true
 
 captions:
   hashtags_max: 5
@@ -47,4 +56,4 @@ schedule:                  # días de publicación por formato (0 = lunes … 6 
 # Qué genera el cron de generate.yml según el día (UTC). Cada entrada = una tanda = un PR.
 generate_plan:
   sun: [{format: feed, count: 3}, {format: story, count: 4}]
-  wed: [{format: carousel, count: 5}]
+  wed: [{format: carousel, count: 5}, {format: reel, count: 4}]
