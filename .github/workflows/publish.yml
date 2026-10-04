@@ -1,7 +1,10 @@
 name: publish
 # Publica en Instagram lo que vence en data/queue.yaml (o una entrada puntual) y registra el resultado.
-# Fase 4: solo manual. El cron diario se agrega en la fase 6.
+# Corre 2 veces por día (13:07 y 19:07 en Buenos Aires); publica todo lo vencido, así que un cron
+# demorado solo atrasa el post. Si la cola no tiene nada vencido, termina sin usar credenciales.
 on:
+  schedule:
+    - cron: "7 16,22 * * *"
   workflow_dispatch:
     inputs:
       id:
@@ -30,9 +33,24 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
-      - run: pip install -e ".[publish]"
-      - name: Publicar
+      - run: pip install -e .
+      - name: ¿Hay algo vencido?
+        id: due
         env:
+          POST_ID: ${{ inputs.id }}
+        run: |
+          if [ -n "$POST_ID" ]; then echo "count=1" >> "$GITHUB_OUTPUT"; else mono queue --due --count; fi
+      - name: Publicar
+        if: steps.due.outputs.count != '0'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
@@ -46,20 +64,32 @@ jobs:
           args=()
           [ -n "$POST_ID" ] && args+=(--id "$POST_ID")
           [ "$DRY_RUN" = "true" ] && args+=(--dry-run)
+          pip install -e ".[publish]"
           mono publish "${args[@]}"
       - name: Commit del estado
-        if: always()
+        if: always() && steps.due.outputs.count != '0'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data
           git diff --cached --quiet && exit 0
           git commit -m "Registrar publicaciones"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
       - name: Avisar si falló
         if: failure()
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           GH_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          gh issue create --title "publish.yml falló (run ${{ github.run_id }})" \
-            --body "Ver ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true
+          mono notify --event failure --title "publish.yml falló" \
+            --body "Revisá el run para ver el detalle." \
+          || gh issue create --title "publish.yml falló" --body "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          || true

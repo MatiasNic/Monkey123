@@ -27,6 +27,7 @@ on:
         default: cloudflare
 
 permissions:
+  issues: write
   contents: write
   pull-requests: write
 
@@ -103,6 +104,7 @@ jobs:
           echo "batches=${ids[*]}" >> "$GITHUB_OUTPUT"
 
       - name: Abrir PR de aprobación
+        id: pr
         if: steps.plan.outputs.has_work == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
@@ -116,10 +118,34 @@ jobs:
             data/**
           labels: tanda
 
+      - name: Avisar tanda lista
+        if: steps.pr.outputs.pull-request-url != ''
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
+        run: mono notify --event batch_ready --title "Tanda lista para revisar" --body "$PR_URL"
       - name: Avisar si falló
         if: failure()
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           GH_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          gh issue create --title "generate.yml falló (run ${{ github.run_id }})" \
-            --body "Ver ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true
+          mono notify --event failure --title "generate.yml falló" \
+            --body "Revisá el run para ver el detalle." \
+          || gh issue create --title "generate.yml falló" --body "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          || true

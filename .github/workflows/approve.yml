@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  issues: write
   contents: write
 
 concurrency:
@@ -33,4 +34,22 @@ jobs:
           git add -A data drafts
           git diff --cached --quiet && exit 0
           git commit -m "Encolar piezas aprobadas"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
+      - name: Avisar si falló
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          mono notify --event failure --title "approve.yml falló" \
+            --body "Revisá el run para ver el detalle." \
+          || gh issue create --title "approve.yml falló" --body "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          || true

@@ -1,0 +1,77 @@
+name: token-refresh
+# Renueva el token de Instagram (dura 60 días) todos los lunes y actualiza el secret IG_ACCESS_TOKEN.
+# Requiere el secret GH_PAT: token fine-grained con permiso "Secrets: Read and write" sobre este repo
+# (el GITHUB_TOKEN automático no puede escribir secrets).
+on:
+  schedule:
+    - cron: "17 13 * * 1"   # lunes 10:17 Buenos Aires
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: repo-state
+  cancel-in-progress: false
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+  SMTP_HOST: ${{ secrets.SMTP_HOST }}
+  SMTP_PORT: ${{ secrets.SMTP_PORT }}
+  SMTP_USER: ${{ secrets.SMTP_USER }}
+  SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+  NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - name: ¿Está todo configurado?
+        id: cfg
+        env:
+          HAS_IG: ${{ secrets.IG_ACCESS_TOKEN != '' }}
+          HAS_PAT: ${{ secrets.GH_PAT != '' }}
+        run: |
+          if [ "$HAS_IG" != "true" ]; then echo "Sin IG_ACCESS_TOKEN todavía: nada que renovar."; echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$HAS_PAT" != "true" ]; then
+            mono notify --event token_expiring --title "Falta GH_PAT para renovar el token de Instagram" \
+              --body "Creá un token fine-grained con 'Secrets: Read and write' sobre este repo y guardalo como secret GH_PAT. Mientras tanto el token vence a los 60 días."
+            mono token-check || true
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+      - name: Renovar y guardar el secret
+        if: steps.cfg.outputs.skip != 'true'
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          tok="$RUNNER_TEMP/ig_token"
+          mono refresh-token --write-to "$tok"
+          gh secret set IG_ACCESS_TOKEN --repo "${{ github.repository }}" < "$tok"
+          rm -f "$tok"
+      - name: Commit del vencimiento
+        if: steps.cfg.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/token_status.yaml
+          git diff --cached --quiet && exit 0
+          git commit -m "Registrar renovación del token de Instagram"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push
+      - name: Avisar si falló
+        if: failure()
+        run: |
+          mono notify --event failure --title "token-refresh.yml falló" \
+            --body "No se pudo renovar el token de Instagram. Si venció, generá uno nuevo en Meta y actualizá IG_ACCESS_TOKEN."
