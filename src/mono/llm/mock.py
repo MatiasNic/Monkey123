@@ -48,7 +48,7 @@ class MockLLM(LLM):
         return {"ideas": ideas, "new_bank_ideas": [f"mock idea {self.rng.randint(0, 999)}"]}
 
     def _qc(self, ctx: dict) -> dict:
-        return {"score": 8.2, "pass": True, "identity_match": 8, "is_collage": False, "has_text": False,
+        return {"score": 8.2, "identity_match": 8, "species_ok": True, "anatomy": 8, "scale_ok": True, "is_collage": False, "has_text": False,
                 "ai_look": 3, "matches_idea": 8, "reasons": ["mock QC: sin evaluación real"]}
 
     def _caption(self, ctx: dict) -> dict:
