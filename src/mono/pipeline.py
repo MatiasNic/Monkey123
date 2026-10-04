@@ -106,9 +106,11 @@ def render_item(settings: Settings, item: dict, provider: ImageProvider, llm: LL
     max_attempts = settings.get("image.max_attempts", 3) if provider.automatic else 1
     item["provider"] = provider.name
     attempts = []
+    # Los paquetes manuales van a drafts/<tanda>/ para que entren al PR; lo automático, a output/raw/ (ignorado).
+    target_dir = raw_dir if provider.automatic else out_dir
     for attempt in range(1, max_attempts + 1):
         try:
-            result = provider.generate(_request(settings, item, attempt), raw_dir)
+            result = provider.generate(_request(settings, item, attempt), target_dir)
         except Exception as exc:  # noqa: BLE001 — se registra y se reintenta
             log.warning("%s intento %d: error del proveedor: %s", item["id"], attempt, exc)
             attempts.append({"attempt": attempt, "error": str(exc)[:300]})
@@ -186,6 +188,7 @@ def add_captions(settings: Settings, batch: dict, llm: LLM) -> None:
         pending = any(i["status"] == "awaiting_manual" for i in batch["items"])
         if ready and not pending and not batch.get("caption"):
             batch["caption"] = write_caption(settings, llm, ready)
+            batch["caption_items"] = [i["id"] for i in ready]
             for item in ready:
                 item["caption"] = batch["caption"]
         return
