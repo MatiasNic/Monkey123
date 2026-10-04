@@ -68,6 +68,26 @@ jobs:
             mono plan
           fi
 
+      - name: Verificar credenciales
+        if: steps.plan.outputs.has_work == 'true'
+        env:
+          HAS_CLAUDE: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+          HAS_CF: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
+          IN_PROVIDER: ${{ inputs.provider }}
+        run: |
+          provider="${IN_PROVIDER:-$(mono config image.provider)}"
+          missing=()
+          [ "$HAS_CLAUDE" = "true" ] || missing+=("CLAUDE_CODE_OAUTH_TOKEN (corré 'claude setup-token' en tu compu)")
+          if [ "$provider" = "cloudflare" ] && [ "$HAS_CF" != "true" ]; then
+            missing+=("CLOUDFLARE_ACCOUNT_ID y CLOUDFLARE_API_TOKEN (Cloudflare → Workers AI → Use REST API)")
+          fi
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error title=Faltan secrets::Cargalos en Settings → Secrets and variables → Actions"
+            for m in "${missing[@]}"; do echo "::error::Falta el secret $m"; done
+            exit 1
+          fi
+          echo "Credenciales OK (proveedor: $provider)"
+
       - name: Generar tandas
         id: gen
         if: steps.plan.outputs.has_work == 'true'
