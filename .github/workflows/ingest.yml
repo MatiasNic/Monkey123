@@ -1,0 +1,77 @@
+name: ingest
+# Modo manual: subí inbox/<id>.jpg a la rama del PR de la tanda → QC → post-proceso → caption → actualiza el PR.
+on:
+  push:
+    branches: ["generate/**"]
+    paths: ["inbox/**"]
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ingest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: ffmpeg
+        run: which ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: |
+          pip install -e .
+          npm install -g @anthropic-ai/claude-code
+      - name: Procesar inbox/
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: mono ingest
+      - name: Commit y actualizar PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A drafts data inbox
+          git diff --cached --quiet && exit 0
+          git commit -m "Procesar imágenes manuales de inbox/"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push
+          body="$RUNNER_TEMP/pr_body.md"
+          echo "Tandas de \`$BRANCH\` (actualizado por ingest.yml)." > "$body"
+          for f in $(git diff --name-only "origin/${{ github.event.repository.default_branch }}"...HEAD -- 'drafts/*/batch.yaml'); do
+            mono review "$(basename "$(dirname "$f")")" --image-base "https://raw.githubusercontent.com/$REPO/$BRANCH" >> "$body"
+          done
+          gh pr edit "$BRANCH" --body-file "$body" || true
+      - name: Avisar si falló
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          mono notify --event failure --title "ingest.yml falló" \
+            --body "Revisá el run para ver el detalle." \
+          || gh issue create --title "ingest.yml falló" --body "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          || true

@@ -1,0 +1,65 @@
+# Configuración no secreta del pipeline.
+timezone: America/Argentina/Buenos_Aires
+language: es-AR            # idioma de captions (español rioplatense)
+approval_mode: approval    # approval = PR humano | auto = publica sin aprobar
+
+llm:
+  provider: claude_cli     # claude_cli | anthropic_api | mock
+  model: ""                # vacío = default de Claude Code
+  timeout_s: 600
+
+image:
+  provider: cloudflare     # cloudflare | manual | mock
+  cloudflare_model: "@cf/black-forest-labs/flux-2-klein-9b"
+  max_attempts: 3          # regeneraciones si falla el QC
+
+dedup:
+  compare_last: 40         # contra cuántas piezas del historial se compara
+  text_similarity_max: 0.55
+  max_shared_axes: 3       # sobre los ejes clave
+  key_axes: [location, activity, pose, outfit, lighting, camera_look, camera_distance]
+
+qc:
+  pass_score: 7.0          # 0-10
+
+video:
+  provider: slideshow      # slideshow (ffmpeg, gratis) | futuro: proveedor de video IA
+  fade: 0.4                # segundos de fundido entre fotos
+  zoom: 0.08               # intensidad del Ken Burns
+  audio_dir: audio         # pistas libres de derechos (opcional); vacío = audio silencioso
+
+media_host: r2              # hosting temporal de medios para la Graph API
+
+instagram:
+  api_version: v25.0       # Instagram API con Instagram Login (graph.instagram.com)
+  ai_label: true           # is_ai_generated=true → etiqueta "Información de IA"
+  poll_seconds: 3
+  poll_timeout: 300
+  video_poll_seconds: 10
+  video_poll_timeout: 900
+  share_reels_to_feed: true
+
+captions:
+  hashtags_max: 5
+  # La etiqueta "Información de IA" se aplica por API (is_ai_generated=true). Texto extra opcional al final:
+  ai_disclosure_text: ""
+
+notifications:
+  # Canales gratis: github_issue (el aviso te llega por mail de GitHub), email (SMTP), telegram (bot).
+  channels: [github_issue]
+  # Eventos: failure | published | batch_ready | token_refreshed | token_expiring
+  events: [failure, token_expiring]
+
+schedule:                  # días de publicación por formato (0 = lunes … 6 = domingo), hora local
+  publish_time: "19:00"
+  story_time: "13:00"
+  slots:
+    feed: [0, 2, 4]        # lun / mié / vie
+    carousel: [5]          # sábado
+    story: [1, 3, 5, 6]    # 4 historias por semana
+    reel: [6]              # domingo (fase 5)
+
+# Qué genera el cron de generate.yml según el día (UTC). Cada entrada = una tanda = un PR.
+generate_plan:
+  sun: [{format: feed, count: 3}, {format: story, count: 4}]
+  wed: [{format: carousel, count: 5}, {format: reel, count: 4}]
