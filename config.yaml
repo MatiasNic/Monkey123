@@ -1,0 +1,31 @@
+# Configuración no secreta del pipeline.
+timezone: America/Argentina/Buenos_Aires
+language: es-AR            # idioma de captions (español rioplatense)
+approval_mode: approval    # approval = PR humano | auto = publica sin aprobar
+
+llm:
+  provider: claude_cli     # claude_cli | anthropic_api | mock
+  model: ""                # vacío = default de Claude Code
+  timeout_s: 600
+
+image:
+  provider: cloudflare     # cloudflare | manual | mock
+  cloudflare_model: "@cf/black-forest-labs/flux-2-klein-9b"
+  max_attempts: 3          # regeneraciones si falla el QC
+
+dedup:
+  compare_last: 40         # contra cuántas piezas del historial se compara
+  text_similarity_max: 0.55
+  max_shared_axes: 3       # sobre los ejes clave
+  key_axes: [location, activity, pose, outfit, lighting, camera_look, camera_distance]
+
+qc:
+  pass_score: 7.0          # 0-10
+
+schedule:                  # día de la semana -> formato (0 = lunes)
+  0: feed
+  2: feed
+  4: feed
+  5: carousel
+  stories_per_week: 4
+  publish_time: "19:00"
