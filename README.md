@@ -24,7 +24,7 @@ Automatización de contenido para Instagram protagonizada por un macaco fotorrea
 - [x] **Fase 1:** esqueleto, biblia, CLI con `--dry-run`, ideación + dedup.
 - [x] **Fase 2:** adapters de imagen (Cloudflare / manual / mock), QC y post-proceso.
 - [x] **Fase 3:** captions, cola y PR de aprobación.
-- [ ] **Fase 4:** publicación en Instagram + R2.
+- [x] **Fase 4:** publicación en Instagram + R2.
 - [ ] **Fase 5:** reels.
 - [ ] **Fase 6:** Actions programadas, refresh de token, notificaciones y README final.
 
@@ -40,6 +40,10 @@ mono ingest                       # procesa lo que subiste a inbox/
 mono approve                      # aprueba lo que está en drafts/ y lo agenda
 mono queue                        # ver la cola de publicación
 mono plan                         # qué tandas tocan hoy según config.yaml
+mono publish --dry-run            # muestra las llamadas a la API para lo que vence
+mono publish                      # publica lo que vence (o --id post-…)
+mono publish-test foto.jpg --caption "prueba." [--story]   # post de prueba directo
+mono refresh-token                # renueva el token de Instagram (60 días)
 mono generate -n 5 -f carousel --theme "un domingo en San Telmo"
 mono generate -n 6 --scene tienda_camisetas
 mono history --stats
@@ -85,6 +89,35 @@ generate.yml (cron dom/mié o manual)
    - `CLOUDFLARE_ACCOUNT_ID` y `CLOUDFLARE_API_TOKEN`: el token necesita el permiso Workers AI.
 3. La rama por defecto tiene que ser `main`: `approve.yml` escucha los merges a `main`.
 4. Para mantener el costo en $0: en claude.ai, activá el crédito mensual del Agent SDK y dejá **desactivados** los créditos pagos.
+
+## Publicación en Instagram
+Se usa la **Instagram API con Instagram Login** (`graph.instagram.com`), que **no** requiere página de Facebook. Para cada entrada vencida de la cola:
+1. Sube los JPEG a R2.
+2. Crea los contenedores según el formato: IMAGE; STORIES; o un CAROUSEL con sus hijos.
+3. Espera a que el contenedor esté listo (`FINISHED`) y publica.
+4. Guarda el `ig_media_id` y el permalink en la cola y en el historial.
+5. Borra los archivos de R2.
+
+Si algo falla, la entrada sigue en la cola y se reintenta; al tercer fallo pasa a `failed`. Antes de publicar se chequea el límite de 100 publicaciones por API cada 24 h.
+
+**Etiqueta de IA:** todos los posts se publican con `is_ai_generated=true` (`config.yaml → instagram.ai_label`), que activa la etiqueta "Información de IA" de Meta. En los carruseles va en el post padre, porque la API no la acepta en los hijos.
+
+### Setup de Meta (una vez, gratis)
+1. **Cuenta profesional:** en la app de Instagram, entrá a Configuración → Tipo de cuenta y herramientas → *Cambiar a cuenta profesional* y elegí **Creator** o **Business**. No hace falta página de Facebook.
+2. **App de Meta:** en [developers.facebook.com](https://developers.facebook.com) → *My Apps* → *Create app*. Como caso de uso elegí "Administrar mensajes y contenido en Instagram" (Instagram API) y como tipo, **Business**.
+3. En el panel de la app, andá a **Instagram → API setup with Instagram login** → *Generate access tokens* → **Add account** y entrá con la cuenta del mono. Aceptá los permisos `instagram_business_basic` y `instagram_business_content_publish`.
+4. El panel te muestra el **token** y el **Instagram user ID**. En modo desarrollo alcanza para publicar en tu propia cuenta, sin App Review.
+5. Cargá los Secrets `IG_USER_ID` e `IG_ACCESS_TOKEN`. El token dura 60 días; `mono refresh-token` lo renueva y la fase 6 lo automatiza.
+
+### Setup de Cloudflare R2 (gratis hasta 10 GB)
+1. En el dashboard de Cloudflare → **R2** → *Create bucket* (por ejemplo `mono-media`). Cloudflare puede pedir una tarjeta para activar R2, aunque el uso quede dentro del tier gratis.
+2. En el bucket → *Settings* → **Public Development URL** → *Enable*. Eso te da `https://pub-xxxx.r2.dev`, que va en `R2_PUBLIC_BASE_URL`.
+3. En **R2 → Manage API tokens** → *Create API token* con permiso **Object Read & Write** sobre ese bucket. Te da `R2_ACCESS_KEY_ID` y `R2_SECRET_ACCESS_KEY`.
+4. Cargá como Secrets: `R2_ACCOUNT_ID` (el Account ID de Cloudflare), `R2_BUCKET`, `R2_PUBLIC_BASE_URL`, `R2_ACCESS_KEY_ID` y `R2_SECRET_ACCESS_KEY`.
+
+### Primer post de prueba
+- **Local:** `pip install -e ".[publish]"`, completá `.env` y corré `mono publish-test character/reference/ref_02_balcon_diario_b.jpg --caption "prueba."`.
+- **Desde GitHub:** *Actions → publish → Run workflow* publica lo que vence en la cola.
 
 ## Estructura
 - `character/`: `bible.yaml` (fuente de verdad), `bible.md`, `reference/` (identidad canónica) y `style_refs/` (solo estilo).

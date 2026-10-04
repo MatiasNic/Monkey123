@@ -1,0 +1,65 @@
+name: publish
+# Publica en Instagram lo que vence en data/queue.yaml (o una entrada puntual) y registra el resultado.
+# Fase 4: solo manual. El cron diario se agrega en la fase 6.
+on:
+  workflow_dispatch:
+    inputs:
+      id:
+        description: "Id de la entrada (post-…) a publicar ya; vacío = lo que vence"
+        default: ""
+      dry_run:
+        description: "Solo mostrar las llamadas a la API"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: repo-state
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e ".[publish]"
+      - name: Publicar
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
+          POST_ID: ${{ inputs.id }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          args=()
+          [ -n "$POST_ID" ] && args+=(--id "$POST_ID")
+          [ "$DRY_RUN" = "true" ] && args+=(--dry-run)
+          mono publish "${args[@]}"
+      - name: Commit del estado
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet && exit 0
+          git commit -m "Registrar publicaciones"
+          git push
+      - name: Avisar si falló
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "publish.yml falló (run ${{ github.run_id }})" \
+            --body "Ver ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true

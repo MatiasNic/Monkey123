@@ -126,6 +126,71 @@ def queue(due: bool = typer.Option(False, help="Solo lo que ya corresponde publi
         typer.echo(f"{e['publish_at']}  {e['status']:<10} {e['format']:<8} {e['id']}  {e['caption'][:50]!r}")
 
 
+@app.command()
+def publish(
+    post_id: Optional[str] = typer.Option(None, "--id", help="Publicar esta entrada aunque no esté vencida"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Muestra las llamadas a la API sin ejecutarlas"),
+):
+    """Publica en Instagram lo que vence en data/queue.yaml."""
+    from .publish.publisher import publish_due
+
+    done = publish_due(Settings.load(), dry_run=dry_run, only_id=post_id)
+    if not done:
+        typer.echo("Nada para publicar ahora.")
+    failed = False
+    for e in done:
+        typer.echo(f"{e['status']:<10} {e['format']:<8} {e['id']}  {e.get('permalink') or e.get('last_error') or ''}")
+        failed |= e["status"] != "published"
+    if failed:
+        raise typer.Exit(1)
+
+
+@app.command("publish-test")
+def publish_test(
+    image: str = typer.Argument(..., help="Imagen a publicar (cualquier formato)"),
+    caption: str = typer.Option("prueba.", help="Caption del post"),
+    story: bool = typer.Option(False, "--story", help="Publicar como historia"),
+    look: str = typer.Option("35mm_kodak_portra", help="Look de post-proceso a aplicar"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+):
+    """Primer post de prueba: procesa una imagen y la publica directo (sin cola)."""
+    from pathlib import Path
+
+    from .postprocess.looks import process
+    from .publish.instagram import DryRunInstagram, InstagramClient
+    from .publish.media_host import get_media_host
+    from .publish.publisher import publish_entry
+
+    settings = Settings.load()
+    fmt = "story" if story else "feed"
+    size = tuple(settings.bible["formats"][fmt]["size"])
+    out = settings.path("output", "publish-test", f"test-{Path(image).stem}.jpg")
+    process(Path(image), out, size, settings.bible["camera_looks"][look]["post"])
+    entry = {"id": f"test-{Path(image).stem}", "format": fmt, "files": [str(out.relative_to(settings.root))],
+             "caption": caption, "alt_text": ""}
+    client = DryRunInstagram() if dry_run else InstagramClient.from_settings(settings)
+    result = publish_entry(settings, entry, client, get_media_host(settings, dry_run=dry_run))
+    for name, payload in getattr(client, "calls", []):
+        typer.echo(f"[dry-run] {name} {payload}")
+    typer.echo(f"Publicado: {result['permalink'] or result['media_id']}")
+
+
+@app.command("refresh-token")
+def refresh_token(dry_run: bool = typer.Option(False, "--dry-run")):
+    """Renueva el token de larga duración de Instagram (60 días). Imprime el nuevo token."""
+    from .publish.instagram import DryRunInstagram, InstagramClient
+
+    settings = Settings.load()
+    client = DryRunInstagram() if dry_run else InstagramClient.from_settings(settings)
+    data = client.refresh_token()
+    token = data["access_token"]
+    if os.environ.get("GITHUB_ACTIONS"):
+        typer.echo(f"::add-mask::{token}")
+    _github_output(token=token)
+    days = int(data.get("expires_in", 0)) // 86400
+    typer.echo(f"Token renovado ({token[:6]}…{token[-4:]}), vence en {days} días.")
+
+
 @app.command("plan")
 def plan_cmd(
     fmt: Optional[str] = typer.Option(None, "--format", help="Forzar formato (dispatch manual)"),
