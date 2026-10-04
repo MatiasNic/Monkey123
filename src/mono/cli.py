@@ -28,10 +28,12 @@ def generate(
     fmt: str = typer.Option("feed", "--format", "-f", help="feed | carousel | story | reel"),
     scene: Optional[str] = typer.Option(None, help="Carpeta en scenes/ a usar como lugar de referencia"),
     theme: Optional[str] = typer.Option(None, help="Tema o pista para la ideación"),
-    dry_run: bool = typer.Option(False, "--dry-run", help="LLM mock, sin red y sin tocar data/"),
+    provider: Optional[str] = typer.Option(None, help="cloudflare | manual | mock (default: config.yaml)"),
+    ideas_only: bool = typer.Option(False, "--ideas-only", help="Solo ideas + prompts, sin generar imágenes"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="LLM e imagen mock, sin red y sin tocar data/"),
 ):
-    """Genera una tanda nueva: ideas variadas + prompts de imagen."""
-    from .pipeline import plan_batch
+    """Genera una tanda nueva: ideas → prompts → imágenes → QC → post-proceso."""
+    from .pipeline import plan_batch, render_batch
 
     if fmt not in FORMATS:
         raise typer.BadParameter(f"formato inválido: {fmt}")
@@ -41,9 +43,29 @@ def generate(
     if scene and not settings.path("scenes", scene).is_dir():
         raise typer.BadParameter(f"no existe scenes/{scene}")
     batch = plan_batch(settings, count, fmt=fmt, scene=scene, theme=theme, dry_run=dry_run)
+    if not ideas_only:
+        batch = render_batch(settings, batch, provider_name=provider, dry_run=dry_run)
     for item in batch["items"]:
-        typer.echo(f"{item['id']}  [{item['camera_look']}] {item['concept_es'] or item['concept']}")
-    typer.echo(f"\nTanda guardada en {batch['dir']}/batch.yaml")
+        typer.echo(f"{item['id']}  {item['status']:<16} [{item['camera_look']}] {item['concept_es'] or item['concept']}")
+    typer.echo(f"\nTanda guardada en {batch['dir']}/ (batch.yaml + batch.md)")
+
+
+@app.command()
+def ingest(
+    batch: Optional[str] = typer.Option(None, help="Id de tanda (default: todas las de drafts/)"),
+    force: bool = typer.Option(False, help="Aceptar aunque no pase el QC"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+):
+    """Procesa imágenes generadas a mano y subidas a inbox/<id>.jpg (QC → post-proceso)."""
+    from .pipeline import ingest as run_ingest
+
+    settings = Settings.load()
+    dirs = [settings.path("drafts", batch)] if batch else None
+    items = run_ingest(settings, dirs, force=force, dry_run=dry_run)
+    if not items:
+        typer.echo("No hay imágenes nuevas en inbox/ para piezas pendientes.")
+    for item in items:
+        typer.echo(f"{item['id']}  {item['status']}  QC {item['qc']['score']:.1f}")
 
 
 @app.command()
