@@ -22,10 +22,15 @@ Este repo automatiza contenido de Instagram con un **macaco fotorrealista** que 
 - **Aprobación:** mergear el PR aprueba la tanda. Borrar un `.jpg` en el PR descarta esa pieza.
 - **Cola:** `approve.yml` corre `mono approve`, que agenda las piezas en `data/queue.yaml`.
 - **Modo manual:** subís `inbox/<id>.jpg` a la rama del PR y `ingest.yml` lo procesa.
+- **Publicación:** `publish.yml` corre a las 13:07 y 19:07 de Buenos Aires y llama a `mono publish`, que publica lo vencido.
+- **Token:** `token-refresh.yml` lo renueva los lunes; necesita el secret `GH_PAT`.
+- **Avisos:** `src/mono/notify.py` maneja los canales `github_issue` (deduplica por título y usa el label `alerta`), `email` y `telegram`. Un aviso nunca rompe el flujo.
+- **Salud y limpieza:** `mono doctor` muestra qué falta configurar y `mono prune` libera los medios de tandas viejas ya publicadas.
 - **Estados de una pieza:** `draft`, `awaiting_manual`, `qc_failed`, `approved`, `queued`, `published` y `discarded`.
 
 ## Convenciones
 - Todo comando soporta `--dry-run`, que usa el LLM mock, no hace llamadas de red y no escribe en `data/`.
 - Nunca se commitean secretos. Viven en `.env` (local) o en GitHub Secrets, y la plantilla es `.env.example`.
+- Los tests aíslan las credenciales del entorno (`tests/conftest.py`): nunca deben mandar avisos ni llamar APIs reales.
 - Antes de pushear corré `pytest -q` y `ruff check src tests`.
 - Commits chicos y descriptivos.
