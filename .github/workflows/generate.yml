@@ -103,9 +103,13 @@ jobs:
           } > "$RUNNER_TEMP/pr_body.md"
           echo "batches=${ids[*]}" >> "$GITHUB_OUTPUT"
 
+      - name: Modo de aprobación
+        id: mode
+        run: mono config approval_mode
+
       - name: Abrir PR de aprobación
         id: pr
-        if: steps.plan.outputs.has_work == 'true'
+        if: steps.plan.outputs.has_work == 'true' && steps.mode.outputs.value != 'auto'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: generate/${{ github.run_id }}
@@ -117,6 +121,37 @@ jobs:
             drafts/**
             data/**
           labels: tanda
+
+      # Modo auto: `mono generate` ya aprobó y encoló; se commitea directo a la rama por defecto, sin PR.
+      - name: Commit directo (modo auto)
+        id: direct
+        if: steps.plan.outputs.has_work == 'true' && steps.mode.outputs.value == 'auto'
+        env:
+          BATCHES: ${{ steps.gen.outputs.batches }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add drafts data
+          git diff --cached --quiet && exit 0
+          git commit -m "Agregar y encolar tanda $BATCHES (modo auto)"
+          git pull --rebase origin "$DEFAULT_BRANCH"
+          git push origin "HEAD:$DEFAULT_BRANCH"
+          echo "url=${{ github.server_url }}/${{ github.repository }}/commit/$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Avisar tanda encolada (modo auto)
+        if: steps.direct.outputs.url != ''
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          COMMIT_URL: ${{ steps.direct.outputs.url }}
+        run: mono notify --event batch_ready --title "Tanda encolada (modo auto)" --body "$COMMIT_URL"
 
       - name: Avisar tanda lista
         if: steps.pr.outputs.pull-request-url != ''

@@ -276,6 +276,17 @@ def token_check(warn_days: int = typer.Option(10, help="Avisar si quedan menos d
     typer.echo(f"Token OK: vence en {days:.0f} días.")
 
 
+@app.command("config")
+def config_get(key: str = typer.Argument(..., help="Clave con puntos, p. ej. approval_mode o image.provider")):
+    """Imprime un valor de config.yaml (y lo expone a GitHub Actions como `value`)."""
+    value = Settings.load().get(key)
+    if value is None:
+        raise typer.BadParameter(f"no existe {key} en config.yaml")
+    text = json.dumps(value) if isinstance(value, (dict, list)) else str(value)
+    typer.echo(text)
+    _github_output(value=text)
+
+
 @app.command("plan")
 def plan_cmd(
     fmt: Optional[str] = typer.Option(None, "--format", help="Forzar formato (dispatch manual)"),
