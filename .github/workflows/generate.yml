@@ -1,0 +1,123 @@
+name: generate
+# Genera tandas (ideas → imágenes → QC → post-proceso → captions) y abre UN PR por corrida para aprobar.
+# Mergear el PR = aprobar (ver approve.yml). Borrar un .jpg en el PR = descartar esa pieza.
+on:
+  schedule:
+    - cron: "0 12 * * 0,3"   # dom y mié 12:00 UTC (09:00 Buenos Aires); qué se genera: config.yaml → generate_plan
+  workflow_dispatch:
+    inputs:
+      cantidad:
+        description: "Cantidad de piezas"
+        default: "4"
+      formato:
+        description: "Formato"
+        type: choice
+        options: [feed, carousel, story, reel]
+        default: feed
+      escena:
+        description: "Carpeta en scenes/ (opcional)"
+        default: ""
+      tema:
+        description: "Tema o pista (opcional)"
+        default: ""
+      provider:
+        description: "Proveedor de imagen"
+        type: choice
+        options: [cloudflare, manual, mock]
+        default: cloudflare
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: generate
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Instalar dependencias y Claude Code
+        run: |
+          pip install -e .
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Plan del día
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          IN_FORMAT: ${{ inputs.formato }}
+          IN_COUNT: ${{ inputs.cantidad }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            mono plan --format "$IN_FORMAT" --count "$IN_COUNT"
+          else
+            mono plan
+          fi
+
+      - name: Generar tandas
+        id: gen
+        if: steps.plan.outputs.has_work == 'true'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          PLAN: ${{ steps.plan.outputs.plan }}
+          IN_SCENE: ${{ inputs.escena }}
+          IN_THEME: ${{ inputs.tema }}
+          IN_PROVIDER: ${{ inputs.provider }}
+          BRANCH: generate/${{ github.run_id }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          extra=()
+          [ -n "${IN_SCENE:-}" ] && extra+=(--scene "$IN_SCENE")
+          [ -n "${IN_THEME:-}" ] && extra+=(--theme "$IN_THEME")
+          [ -n "${IN_PROVIDER:-}" ] && extra+=(--provider "$IN_PROVIDER")
+          ids=()
+          for row in $(echo "$PLAN" | jq -c '.[]'); do
+            fmt=$(echo "$row" | jq -r .format); n=$(echo "$row" | jq -r .count)
+            mono generate -n "$n" -f "$fmt" "${extra[@]}"
+            ids+=("$(grep '^batch_id=' "$GITHUB_OUTPUT" | tail -1 | cut -d= -f2)")
+          done
+          {
+            echo "Tandas generadas por \`generate.yml\` (run ${{ github.run_id }})."
+            echo
+            for id in "${ids[@]}"; do
+              mono review "$id" --image-base "https://raw.githubusercontent.com/$REPO/$BRANCH"
+              echo
+            done
+          } > "$RUNNER_TEMP/pr_body.md"
+          echo "batches=${ids[*]}" >> "$GITHUB_OUTPUT"
+
+      - name: Abrir PR de aprobación
+        if: steps.plan.outputs.has_work == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: generate/${{ github.run_id }}
+          base: ${{ github.event.repository.default_branch }}
+          title: "Tanda ${{ steps.gen.outputs.batches }}"
+          body-path: ${{ runner.temp }}/pr_body.md
+          commit-message: "Agregar tanda ${{ steps.gen.outputs.batches }}"
+          add-paths: |
+            drafts/**
+            data/**
+          labels: tanda
+
+      - name: Avisar si falló
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "generate.yml falló (run ${{ github.run_id }})" \
+            --body "Ver ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || true

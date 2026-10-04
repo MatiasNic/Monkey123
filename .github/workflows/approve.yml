@@ -1,0 +1,34 @@
+name: approve
+# Al mergear un PR de tanda: las piezas que siguen en drafts/ pasan a aprobadas y se agendan en data/queue.yaml.
+on:
+  push:
+    branches: [main]
+    paths: ["drafts/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repo-state
+  cancel-in-progress: false
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e .
+      - run: mono approve
+      - name: Commit de la cola
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data drafts
+          git diff --cached --quiet && exit 0
+          git commit -m "Encolar piezas aprobadas"
+          git push
