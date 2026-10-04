@@ -1,0 +1,91 @@
+# Biblia del personaje — fuente única de verdad.
+# Todo prompt de imagen se construye a partir de este archivo (src/mono/prompting/builder.py).
+
+identity:
+  species: "real macaque monkey (small Old World monkey)"
+  description: >-
+    The same small young macaque in every image: light brown/olive-brown fur,
+    paler pinkish-beige bare face with fine wrinkles, short muzzle, round
+    amber-brown eyes, small rounded ears close to the head, slim long fingers
+    with dark skin on hands. Real animal fur texture, small body scale.
+  must_keep:
+    - facial features, muzzle shape and eye color identical to the reference images
+    - fur color and texture (light brown, soft, slightly tousled)
+    - small, believable size relative to furniture and people
+    - human posture and behaviour while still clearly a real monkey
+  never:
+    - chimpanzee, gorilla, orangutan or any great ape
+    - cartoon, 3D render, anime, plush toy, mascot or costume
+    - professional campaign pose, looking straight into the lens like a model
+    - visible text overlays, watermarks, logos added on top of the image
+  personality: "calm, cool, laid-back, urban, slightly ironic; never posing"
+  reference_dir: character/reference
+  style_refs_dir: character/style_refs   # solo encuadre/estilo, NUNCA identidad
+
+axes:
+  # Ejes que el motor de variedad rota. La ideación debe variar todos a la vez.
+  activity: [reading the newspaper, working on a laptop, scrolling the phone, video call, eating, drinking coffee, waiting, watching TV, shopping, trying on clothes, browsing records, taking a photo, napping, commuting, doing laundry, cooking, writing notes, people watching]
+  pose: [sitting, reclining, lying down, legs crossed, leaning against something, seen from behind, profile, seen through a mirror, sitting on the floor, sitting on a suitcase, on an armchair, on a stool, looking out a window, standing in line, crouching, walking]
+  camera_distance: [wide establishing (subject small in frame), medium wide, medium, medium close-up, close portrait]
+  expression: [absorbed, bored, mildly surprised, content, sleepy, skeptical, focused, amused, distracted, serene]
+  gaze: [at object in hands, out of frame left, out of frame right, down, out the window, at a screen, at another person, eyes closed, toward camera but unaware]
+  lighting: [soft window light, hard midday sun, golden hour, overcast flat light, fluorescent interior, tungsten practicals, neon night, on-camera flash, blue hour, mixed light]
+  outfit: [white tee and baggy jeans, bucket hat and tee, varsity jacket and cargo pants, quilted jacket and grey jeans, oversized hoodie, linen shirt and shorts, wool overcoat and scarf, cheap suit too big, tracksuit, knitted sweater, raincoat, pajamas and slippers]
+  accessories: [wired earphones, wireless earbuds, cap backwards, bucket hat, tote bag, film camera, iced coffee, paper bag of groceries, backpack, sunglasses, headphones, none]
+  location: [Buenos Aires balcony, Buenos Aires café, Palermo street corner, subte car, colectivo seat, laundromat, record store, bookstore, diner, airport gate, hotel corridor, rooftop terrace, plaza bench, kiosco, used camera shop, Manhattan street corner, Madrid metro, Tokyo konbini, apartment living room, barbershop]
+
+situations_seed:
+  - working on a MacBook in a café
+  - lying on the floor during a video call
+  - trying on a suit in front of a mirror
+  - reading the newspaper sitting on a crate on a Manhattan corner
+  - waiting for a flight with the laptop open
+  - working in a laundromat
+  - browsing vinyl records
+  - sitting in a bookstore aisle
+  - using a laptop in a diner booth
+  - riding the colectivo or the subte
+  - sitting alone in a park
+  - buying a used camera
+  - having breakfast in a hotel corridor
+  - improvised rooftop cinema
+
+photography:
+  always: "candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical light, slight optical imperfection"
+  avoid: "cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
+
+# Catálogo de cámaras/looks: parámetros de prompt + parámetros de post-proceso.
+camera_looks:
+  point_and_shoot_flash:
+    prompt: "shot on a cheap 35mm point-and-shoot with direct on-camera flash, slightly hard shadows behind subject, no red-eye, film snapshot"
+    post: {grain: 0.06, grain_size: 1.6, contrast: 0.10, saturation: 0.95, warmth: 0.02, vignette: 0.18, chroma_ab: 1.2, halation: 0.0, flash: 0.25, softness: 0.4}
+  35mm_kodak_portra:
+    prompt: "shot on 35mm film, Kodak Portra 400, soft natural colors, fine grain, gentle highlight rolloff"
+    post: {grain: 0.045, grain_size: 1.4, contrast: 0.05, saturation: 0.92, warmth: 0.04, vignette: 0.12, chroma_ab: 0.6, halation: 0.12, flash: 0.0, softness: 0.3}
+  35mm_cinestill_800t:
+    prompt: "shot on CineStill 800T film at night, tungsten balanced, red halation around highlights, visible grain"
+    post: {grain: 0.07, grain_size: 1.7, contrast: 0.08, saturation: 1.0, warmth: -0.03, vignette: 0.15, chroma_ab: 0.8, halation: 0.35, flash: 0.0, softness: 0.4}
+  iphone_night:
+    prompt: "casual iPhone photo at night, slight motion blur, noisy shadows, mixed street light, unedited camera roll look"
+    post: {grain: 0.035, grain_size: 1.0, contrast: 0.04, saturation: 1.02, warmth: 0.0, vignette: 0.05, chroma_ab: 0.3, halation: 0.0, flash: 0.0, softness: 0.6}
+  iphone_daylight:
+    prompt: "casual iPhone photo in daylight, slightly crooked framing, unedited camera roll look"
+    post: {grain: 0.02, grain_size: 1.0, contrast: 0.03, saturation: 1.0, warmth: 0.01, vignette: 0.03, chroma_ab: 0.2, halation: 0.0, flash: 0.0, softness: 0.2}
+  compacta_digital_2005:
+    prompt: "photo from a 2005 compact digital camera, 6 megapixel, slightly blown highlights, cool white balance, small sensor noise, timestamp-free"
+    post: {grain: 0.03, grain_size: 0.9, contrast: 0.12, saturation: 1.08, warmth: -0.04, vignette: 0.08, chroma_ab: 1.5, halation: 0.0, flash: 0.0, softness: 0.5}
+  medio_formato_luz_ventana:
+    prompt: "medium format film photo, Kodak Portra 160, soft window light, shallow depth of field, calm composition"
+    post: {grain: 0.03, grain_size: 1.2, contrast: 0.04, saturation: 0.9, warmth: 0.03, vignette: 0.10, chroma_ab: 0.3, halation: 0.06, flash: 0.0, softness: 0.2}
+  disposable_camera:
+    prompt: "disposable camera photo, Fujifilm QuickSnap, flash, slightly soft lens, colour shift toward green in shadows"
+    post: {grain: 0.08, grain_size: 1.8, contrast: 0.12, saturation: 1.05, warmth: -0.01, vignette: 0.25, chroma_ab: 1.6, halation: 0.05, flash: 0.2, softness: 0.7}
+  bw_tri_x:
+    prompt: "black and white 35mm photo, Kodak Tri-X 400, street photography, contrasty but natural"
+    post: {grain: 0.08, grain_size: 1.6, contrast: 0.15, saturation: 0.0, warmth: 0.0, vignette: 0.15, chroma_ab: 0.0, halation: 0.0, flash: 0.0, softness: 0.3}
+
+formats:
+  feed: {size: [1080, 1350], ratio: "4:5"}
+  carousel: {size: [1080, 1350], ratio: "4:5", min_items: 2, max_items: 10}
+  story: {size: [1080, 1920], ratio: "9:16"}
+  reel: {size: [1080, 1920], ratio: "9:16", fps: 30, seconds_per_image: 2.5}
