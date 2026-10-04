@@ -45,7 +45,7 @@ def _seam_positions(gray: np.ndarray, axis: int, margin: float = 0.12) -> list[f
     # Banda lisa (gutter) que cruza todo, flanqueada por contenido con textura (no un cielo liso).
     texture = gray.std(axis=1 - axis)
     gutters = [i / n for i in range(lo, hi)
-               if texture[i] < 0.012 and texture[max(0, i - 8)] > 0.05 and texture[min(n - 1, i + 8)] > 0.05]
+               if texture[i] < 0.006 and texture[max(0, i - 8)] > 0.05 and texture[min(n - 1, i + 8)] > 0.05]
     return _cluster(seams) + _cluster(gutters)
 
 

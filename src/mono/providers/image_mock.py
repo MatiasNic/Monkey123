@@ -20,17 +20,18 @@ class MockImageProvider(ImageProvider):
         w, h = req.size
         top, bottom = rng.integers(40, 220, 3), rng.integers(20, 160, 3)
         t = np.linspace(0, 1, h)[:, None, None]
-        arr = (top * (1 - t) + bottom * t).repeat(w, axis=1)
-        img = Image.fromarray(arr.astype(np.uint8))
+        x = np.linspace(-1, 1, w)[None, :, None]
+        arr = (top * (1 - t) + bottom * t) * (1 - 0.35 * x**2) + 25 * np.sin(x * 3 + t * 5)  # luz no uniforme
+        img = Image.fromarray(arr.clip(0, 255).astype(np.uint8))
         draw = ImageDraw.Draw(img)
         for _ in range(12):  # "objetos" de la escena
             x, y = rng.integers(0, w), rng.integers(0, h)
-            s = int(rng.integers(40, 260))
+            s = int(rng.integers(40, 200))
             draw.ellipse([x, y, x + s, y + s * 1.2], fill=tuple(int(c) for c in rng.integers(0, 255, 3)))
         cx, cy = w // 2, int(h * 0.6)  # silueta del "mono"
         draw.ellipse([cx - 90, cy - 260, cx + 90, cy - 80], fill=(140, 105, 70))
         draw.rounded_rectangle([cx - 140, cy - 90, cx + 140, cy + 220], 60, fill=(235, 235, 230))
-        img = img.filter(ImageFilter.GaussianBlur(2))
+        img = img.filter(ImageFilter.GaussianBlur(3))
         out_dir.mkdir(parents=True, exist_ok=True)
         out = out_dir / f"{req.item_id}.png"
         img.save(out)

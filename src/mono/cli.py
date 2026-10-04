@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from collections import Counter
 from typing import Optional
 
@@ -45,6 +46,11 @@ def generate(
     batch = plan_batch(settings, count, fmt=fmt, scene=scene, theme=theme, dry_run=dry_run)
     if not ideas_only:
         batch = render_batch(settings, batch, provider_name=provider, dry_run=dry_run)
+    _github_output(batch_id=batch["id"], batch_dir=batch["dir"], count=len(batch["items"]))
+    if settings.get("approval_mode") == "auto" and not dry_run and not ideas_only:
+        from .scheduling import approve_batches
+
+        approve_batches(settings, [settings.path(batch["dir"])])
     for item in batch["items"]:
         typer.echo(f"{item['id']}  {item['status']:<16} [{item['camera_look']}] {item['concept_es'] or item['concept']}")
     typer.echo(f"\nTanda guardada en {batch['dir']}/ (batch.yaml + batch.md)")
@@ -66,6 +72,71 @@ def ingest(
         typer.echo("No hay imágenes nuevas en inbox/ para piezas pendientes.")
     for item in items:
         typer.echo(f"{item['id']}  {item['status']}  QC {item['qc']['score']:.1f}")
+
+
+def _github_output(**values) -> None:
+    """Expone valores a los pasos siguientes de GitHub Actions."""
+    if path := os.environ.get("GITHUB_OUTPUT"):
+        with open(path, "a") as fh:
+            for key, value in values.items():
+                fh.write(f"{key}={value}\n")
+
+
+@app.command()
+def review(
+    batch: str = typer.Argument(..., help="Id de tanda"),
+    image_base: str = typer.Option("", help="URL base para las imágenes (cuerpo del PR)"),
+):
+    """Imprime el resumen markdown de una tanda (lo usa el workflow para el cuerpo del PR)."""
+    from .pipeline import load_batch, review_markdown
+
+    settings = Settings.load()
+    folder = settings.path("drafts", batch)
+    if not folder.exists():
+        folder = settings.path("output", "dry-run", batch)
+    typer.echo(review_markdown(load_batch(folder), image_base))
+
+
+@app.command()
+def approve(
+    batch: Optional[str] = typer.Option(None, help="Id de tanda (default: todas las de drafts/)"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+):
+    """Aprueba las piezas en borrador de tandas mergeadas y las agenda en data/queue.yaml."""
+    from .scheduling import approve_batches
+
+    settings = Settings.load()
+    dirs = [settings.path("drafts", batch)] if batch else None
+    created = approve_batches(settings, dirs, dry_run=dry_run)
+    if not created:
+        typer.echo("Nada nuevo para encolar.")
+    for entry in created:
+        typer.echo(f"{entry['publish_at']}  {entry['format']:<8} {entry['id']}  ({len(entry['files'])} img)")
+
+
+@app.command()
+def queue(due: bool = typer.Option(False, help="Solo lo que ya corresponde publicar")):
+    """Muestra la cola de publicación."""
+    from .scheduling import due_posts
+    from .store import Queue
+
+    settings = Settings.load()
+    entries = due_posts(settings) if due else Queue(settings.path("data", "queue.yaml")).load()
+    for e in entries:
+        typer.echo(f"{e['publish_at']}  {e['status']:<10} {e['format']:<8} {e['id']}  {e['caption'][:50]!r}")
+
+
+@app.command("plan")
+def plan_cmd(
+    fmt: Optional[str] = typer.Option(None, "--format", help="Forzar formato (dispatch manual)"),
+    count: int = typer.Option(4, "--count"),
+):
+    """JSON con las tandas a generar hoy (matrix del workflow generate.yml)."""
+    from .scheduling import plan_for_today
+
+    plan = [{"format": fmt, "count": count}] if fmt else plan_for_today(Settings.load())
+    typer.echo(json.dumps(plan))
+    _github_output(plan=json.dumps(plan), has_work=str(bool(plan)).lower())
 
 
 @app.command()

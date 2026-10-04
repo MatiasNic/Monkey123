@@ -17,6 +17,13 @@ Este repo automatiza contenido de Instagram con un **macaco fotorrealista** que 
 - **Estado en archivos:** `data/history.jsonl`, `data/queue.yaml` y `data/idea_bank.yaml`.
 - **Variedad:** `ideation/dedup.py` combina TF-IDF con reglas por ejes y compara contra el historial y contra la tanda.
 
+## Flujo
+- **Generación:** `generate.yml` abre un PR por corrida.
+- **Aprobación:** mergear el PR aprueba la tanda. Borrar un `.jpg` en el PR descarta esa pieza.
+- **Cola:** `approve.yml` corre `mono approve`, que agenda las piezas en `data/queue.yaml`.
+- **Modo manual:** subís `inbox/<id>.jpg` a la rama del PR y `ingest.yml` lo procesa.
+- **Estados de una pieza:** `draft`, `awaiting_manual`, `qc_failed`, `approved`, `queued`, `published` y `discarded`.
+
 ## Convenciones
 - Todo comando soporta `--dry-run`, que usa el LLM mock, no hace llamadas de red y no escribe en `data/`.
 - Nunca se commitean secretos. Viven en `.env` (local) o en GitHub Secrets, y la plantilla es `.env.example`.

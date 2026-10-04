@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 
 import yaml
 
+from .captions.writer import write_caption
 from .config import Settings
 from .ideation.ideas import generate_ideas
 from .llm import get_llm
@@ -146,8 +147,26 @@ def render_batch(settings: Settings, batch: dict, provider_name: str | None = No
     raw_dir = settings.path("output", "raw", batch["id"])
     for item in batch["items"]:
         render_item(settings, item, provider, llm, out_dir, raw_dir)
+    add_captions(settings, batch, llm)
     _persist(settings, batch, dry_run)
     return batch
+
+
+def add_captions(settings: Settings, batch: dict, llm: LLM) -> None:
+    """Feed/reel: un caption por pieza. Carrusel: uno para todo el posteo. Historias: sin caption."""
+    if batch["format"] == "story":
+        return
+    ready = [i for i in batch["items"] if i["status"] == "draft"]
+    if batch["format"] == "carousel":
+        pending = any(i["status"] == "awaiting_manual" for i in batch["items"])
+        if ready and not pending and not batch.get("caption"):
+            batch["caption"] = write_caption(settings, llm, ready)
+            for item in ready:
+                item["caption"] = batch["caption"]
+        return
+    for item in ready:
+        if not item.get("caption"):
+            item["caption"] = write_caption(settings, llm, [item])
 
 
 def ingest(settings: Settings, batch_dirs: list[Path] | None = None, force: bool = False,
@@ -184,6 +203,7 @@ def ingest(settings: Settings, batch_dirs: list[Path] | None = None, force: bool
             done.append(item)
             changed = True
         if changed:
+            add_captions(settings, batch, llm)
             _persist(settings, batch, dry_run)
     return done
 
@@ -205,6 +225,13 @@ def _persist(settings: Settings, batch: dict, dry_run: bool) -> None:
 
 def write_review(settings: Settings, batch: dict, folder: Path) -> Path:
     """batch.md: resumen legible para revisar la tanda en el PR."""
+    path = folder / "batch.md"
+    path.write_text(review_markdown(batch))
+    return path
+
+
+def review_markdown(batch: dict, image_base: str = "") -> str:
+    """Markdown de la tanda. `image_base` = URL base para que las imágenes se vean en el cuerpo del PR."""
     lines = [f"# Tanda {batch['id']}", "",
              f"Formato: **{batch['format']}** · Escena: {batch.get('scene') or '—'} · Tema: {batch.get('theme') or '—'}",
              ""]
@@ -212,7 +239,8 @@ def write_review(settings: Settings, batch: dict, folder: Path) -> Path:
         lines.append(f"## {item['id']} — {item['status']}")
         final = (item.get("files") or {}).get("final")
         if final:
-            lines.append(f"![{item['id']}]({Path(final).name})")
+            src = f"{image_base.rstrip('/')}/{final}" if image_base else Path(final).name
+            lines.append(f'<img src="{src}" width="320" alt="{item["id"]}">  ')
         lines.append(f"**Idea:** {item.get('concept_es') or item.get('concept')}  ")
         lines.append(f"**Look:** `{item['camera_look']}` · {item.get('location')} · {item.get('pose')} · "
                      f"{item.get('lighting')}  ")
@@ -228,6 +256,9 @@ def write_review(settings: Settings, batch: dict, folder: Path) -> Path:
         if item.get("discard_reason"):
             lines.append(f"**Descartada:** {item['discard_reason']}")
         lines.append("")
-    path = folder / "batch.md"
-    path.write_text("\n".join(lines))
-    return path
+    if batch.get("format") == "carousel" and batch.get("caption"):
+        lines[3:3] = [f"**Caption del carrusel:** {batch['caption']['caption']}  ",
+                      f"**Hashtags:** {' '.join(batch['caption'].get('hashtags', []))}", ""]
+    lines += ["---", "Para descartar una pieza: borrá su .jpg en este PR antes de mergear. "
+              "Mergear = aprobar; las piezas restantes entran a la cola de publicación."]
+    return "\n".join(lines)
