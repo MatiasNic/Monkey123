@@ -48,6 +48,18 @@ def build_story_payload(image_url: str, ai: bool = True) -> dict:
     return payload
 
 
+def build_reel_payload(video_url: str, caption: str = "", ai: bool = True, share_to_feed: bool = True,
+                       thumb_offset_ms: int | None = None) -> dict:
+    payload = {"video_url": video_url, "media_type": "REELS", "share_to_feed": _bool(share_to_feed)}
+    if caption:
+        payload["caption"] = caption
+    if thumb_offset_ms is not None:
+        payload["thumb_offset"] = str(thumb_offset_ms)
+    if ai:
+        payload["is_ai_generated"] = _bool(True)
+    return payload
+
+
 def build_carousel_item_payload(image_url: str, alt_text: str = "") -> dict:
     # Sin caption ni is_ai_generated: no están soportados en hijos de carrusel.
     payload = {"image_url": image_url, "is_carousel_item": _bool(True)}
@@ -108,7 +120,9 @@ class InstagramClient:
     def create_container(self, payload: dict) -> str:
         return self._post(f"{self.user_id}/media", payload)["id"]
 
-    def wait_ready(self, container_id: str) -> None:
+    def wait_ready(self, container_id: str, timeout: float | None = None, interval: float | None = None) -> None:
+        timeout = self.poll_timeout if timeout is None else timeout
+        interval = self.poll_seconds if interval is None else interval
         waited = 0.0
         while True:
             status = self._get(container_id, {"fields": "status_code,status"}).get("status_code")
@@ -116,10 +130,10 @@ class InstagramClient:
                 return
             if status in ("ERROR", "EXPIRED"):
                 raise InstagramError(f"contenedor {container_id} en estado {status}")
-            if waited >= self.poll_timeout:
+            if waited >= timeout:
                 raise InstagramError(f"timeout esperando el contenedor {container_id} (último estado: {status})")
-            self.sleep(self.poll_seconds)
-            waited += self.poll_seconds
+            self.sleep(interval)
+            waited += interval
 
     def publish(self, container_id: str) -> str:
         return self._post(f"{self.user_id}/media_publish", {"creation_id": container_id})["id"]
@@ -158,7 +172,7 @@ class DryRunInstagram(InstagramClient):
         self.calls.append(("POST /media", payload))
         return self._fake_id()
 
-    def wait_ready(self, container_id):
+    def wait_ready(self, container_id, timeout=None, interval=None):
         self.calls.append(("GET status_code", {"id": container_id}))
 
     def publish(self, container_id):

@@ -15,6 +15,7 @@ from .instagram import (
     build_carousel_item_payload,
     build_carousel_payload,
     build_image_payload,
+    build_reel_payload,
     build_story_payload,
 )
 from .media_host import MediaHost, get_media_host
@@ -40,14 +41,20 @@ def publish_entry(settings: Settings, entry: dict, client: InstagramClient, host
             for child in children:
                 client.wait_ready(child)
             container = client.create_container(build_carousel_payload(children, entry.get("caption", ""), ai))
+        elif fmt == "reel":
+            container = client.create_container(build_reel_payload(
+                urls[0], entry.get("caption", ""), ai, settings.get("instagram.share_reels_to_feed", True)))
+            client.wait_ready(container, timeout=settings.get("instagram.video_poll_timeout", 900),
+                              interval=settings.get("instagram.video_poll_seconds", 10))
         elif fmt == "story":
             container = client.create_container(build_story_payload(urls[0], ai))
         elif fmt == "feed":
             container = client.create_container(
                 build_image_payload(urls[0], entry.get("caption", ""), entry.get("alt_text", ""), ai))
         else:
-            raise ValueError(f"formato no soportado todavía: {fmt}")
-        client.wait_ready(container)
+            raise ValueError(f"formato no soportado: {fmt}")
+        if fmt != "reel":
+            client.wait_ready(container)
         media_id = client.publish(container)
         return {"media_id": media_id, "permalink": client.permalink(media_id)}
     finally:
