@@ -148,8 +148,33 @@ def render_batch(settings: Settings, batch: dict, provider_name: str | None = No
     for item in batch["items"]:
         render_item(settings, item, provider, llm, out_dir, raw_dir)
     add_captions(settings, batch, llm)
+    build_reel(settings, batch)
     _persist(settings, batch, dry_run)
     return batch
+
+
+SEQUENCE_FORMATS = ("carousel", "reel")
+
+
+def build_reel(settings: Settings, batch: dict, items: list[dict] | None = None, force: bool = False) -> Path | None:
+    """Arma el video del reel con las piezas listas (o `items`). No hace nada si faltan piezas manuales."""
+    if batch["format"] != "reel":
+        return None
+    if items is None:
+        if any(i["status"] == "awaiting_manual" for i in batch["items"]):
+            return None
+        items = [i for i in batch["items"] if i["status"] == "draft"]
+    ids = [i["id"] for i in items]
+    current = batch.get("video") or {}
+    if len(items) < 2 or (current.get("items") == ids and not force):
+        return None
+    from .providers.video_slideshow import get_video_provider
+
+    out = settings.path(batch["dir"], f"{batch['id']}.mp4")
+    get_video_provider(settings).generate([settings.path(i["files"]["final"]) for i in items], out, seed=batch["id"])
+    batch["video"] = {"file": _rel(settings, out), "items": ids}
+    log.info("reel %s: %d imágenes → %s", batch["id"], len(ids), out)
+    return out
 
 
 def add_captions(settings: Settings, batch: dict, llm: LLM) -> None:
@@ -157,7 +182,7 @@ def add_captions(settings: Settings, batch: dict, llm: LLM) -> None:
     if batch["format"] == "story":
         return
     ready = [i for i in batch["items"] if i["status"] == "draft"]
-    if batch["format"] == "carousel":
+    if batch["format"] in SEQUENCE_FORMATS:
         pending = any(i["status"] == "awaiting_manual" for i in batch["items"])
         if ready and not pending and not batch.get("caption"):
             batch["caption"] = write_caption(settings, llm, ready)
@@ -204,6 +229,7 @@ def ingest(settings: Settings, batch_dirs: list[Path] | None = None, force: bool
             changed = True
         if changed:
             add_captions(settings, batch, llm)
+            build_reel(settings, batch)
             _persist(settings, batch, dry_run)
     return done
 
@@ -256,8 +282,13 @@ def review_markdown(batch: dict, image_base: str = "") -> str:
         if item.get("discard_reason"):
             lines.append(f"**Descartada:** {item['discard_reason']}")
         lines.append("")
-    if batch.get("format") == "carousel" and batch.get("caption"):
-        lines[3:3] = [f"**Caption del carrusel:** {batch['caption']['caption']}  ",
+    if batch.get("video"):
+        video = batch["video"]["file"]
+        src = f"{image_base.rstrip('/')}/{video}" if image_base else Path(video).name
+        lines[3:3] = [f"**Video del reel:** [{Path(video).name}]({src}) ({len(batch['video']['items'])} imágenes)", ""]
+    if batch.get("format") in SEQUENCE_FORMATS and batch.get("caption"):
+        lines[3:3] = [f"**Caption del {'reel' if batch['format'] == 'reel' else 'carrusel'}:** "
+                      f"{batch['caption']['caption']}  ",
                       f"**Hashtags:** {' '.join(batch['caption'].get('hashtags', []))}", ""]
     lines += ["---", "Para descartar una pieza: borrá su .jpg en este PR antes de mergear. "
               "Mergear = aprobar; las piezas restantes entran a la cola de publicación."]

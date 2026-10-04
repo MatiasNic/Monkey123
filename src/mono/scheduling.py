@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 
 from .captions.writer import full_text
 from .config import Settings
-from .pipeline import load_batch, save_batch, write_review
+from .pipeline import build_reel, load_batch, save_batch, write_review
 from .store import History, Queue
 
 log = logging.getLogger(__name__)
@@ -52,9 +52,9 @@ def _posts_for_batch(batch: dict) -> list[tuple[str, list[dict]]]:
     approved = [i for i in batch["items"] if i["status"] == "approved"]
     if not approved:
         return []
-    if batch["format"] == "carousel":
+    if batch["format"] in ("carousel", "reel"):
         if len(approved) >= 2:
-            return [("carousel", approved[:10])]
+            return [(batch["format"], approved[:10])]
         return [("feed", approved)]  # si quedó una sola, sale como post simple
     return [(batch["format"], [item]) for item in approved]
 
@@ -86,12 +86,18 @@ def approve_batches(settings: Settings, folders: list[Path] | None = None, now: 
         for fmt, items in _posts_for_batch(batch):
             when = next_slot(settings, fmt, taken, now)
             taken.add((fmt, when.date()))
-            caption = batch.get("caption") if fmt == "carousel" else items[0].get("caption")
+            caption = batch.get("caption") if fmt in ("carousel", "reel") else items[0].get("caption")
+            if fmt == "reel":
+                # Si el revisor descartó fotos, el video se rearma solo con las aprobadas.
+                build_reel(settings, batch, items=items)
+                files = [batch["video"]["file"]]
+            else:
+                files = [i["files"]["final"] for i in items]
             entry = {
                 "id": f"post-{items[0]['id']}",
                 "format": fmt,
                 "items": [i["id"] for i in items],
-                "files": [i["files"]["final"] for i in items],
+                "files": files,
                 "caption": full_text(settings, caption) if fmt != "story" else "",
                 "alt_text": (caption or {}).get("alt_text", ""),
                 "publish_at": when.isoformat(),

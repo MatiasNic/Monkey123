@@ -62,7 +62,7 @@ def generate_ideas(settings: Settings, llm: LLM, count: int, fmt: str = "feed", 
     bank = IdeaBank(settings.path("data", "idea_bank.yaml"))
     recent = history.recent(settings.get("dedup.compare_last", 40))
     deduper = Deduper.from_settings(settings, recent)
-    carousel = fmt == "carousel"
+    carousel = fmt in ("carousel", "reel")  # secuencia: misma salida, momentos distintos
 
     accepted: list[dict] = []
     for round_no in range(1, max_rounds + 1):

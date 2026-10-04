@@ -26,7 +26,7 @@ Reglas:
 2. Combiná planos abiertos (mono chico en el cuadro) con retratos cercanos.
 3. Escenas banales o absurdamente humanas; el mono nunca posa para la cámara.
 4. Si hay escena de referencia, todas las ideas ocurren en ese lugar pero con acciones distintas.
-5. Si el formato es carousel, las ideas son momentos distintos de una misma salida/día (mismo outfit permitido).
+5. Si el formato es carousel o reel, las ideas son momentos distintos de una misma salida/día (mismo outfit permitido).
 6. `description` en inglés, 1-3 oraciones concretas y visuales (sirve para el prompt de imagen).
 7. Sumá 3-5 conceptos nuevos para el banco de ideas en `new_bank_ideas`.
 

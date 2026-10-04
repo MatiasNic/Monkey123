@@ -38,8 +38,8 @@ def generate(
 
     if fmt not in FORMATS:
         raise typer.BadParameter(f"formato inválido: {fmt}")
-    if fmt == "carousel" and not 2 <= count <= 10:
-        raise typer.BadParameter("un carrusel lleva entre 2 y 10 imágenes")
+    if fmt in ("carousel", "reel") and not 2 <= count <= 10:
+        raise typer.BadParameter("un carrusel o reel lleva entre 2 y 10 imágenes")
     settings = Settings.load()
     if scene and not settings.path("scenes", scene).is_dir():
         raise typer.BadParameter(f"no existe scenes/{scene}")
