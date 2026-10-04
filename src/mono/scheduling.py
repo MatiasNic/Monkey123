@@ -7,7 +7,7 @@ from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from .captions.writer import full_text
+from .captions.writer import full_text, write_caption
 from .config import Settings
 from .pipeline import build_reel, load_batch, save_batch, write_review
 from .store import History, Queue
@@ -59,8 +59,30 @@ def _posts_for_batch(batch: dict) -> list[tuple[str, list[dict]]]:
     return [(batch["format"], [item]) for item in approved]
 
 
+def _caption_for(settings: Settings, batch: dict, fmt: str, items: list[dict], get_llm_once) -> dict | None:
+    """Caption vigente para el posteo. En tandas de secuencia (carrusel/reel), si el revisor borró fotos
+    el caption compartido describe slides que ya no están: se regenera con las aprobadas."""
+    if batch["format"] not in ("carousel", "reel"):
+        return items[0].get("caption")
+    original = batch.get("caption")
+    covered = batch.get("caption_items") or [i["id"] for i in batch["items"] if i.get("caption") == original]
+    ids = [i["id"] for i in items]
+    if original and ids == covered and fmt in ("carousel", "reel"):
+        return original
+    try:
+        caption = write_caption(settings, get_llm_once(), items)
+    except Exception as exc:  # noqa: BLE001 — sin LLM se conserva el texto pero no un alt text que miente
+        log.warning("no pude regenerar el caption de %s (%s); se usa el original sin alt text", batch["id"], exc)
+        caption = {**(original or {}), "alt_text": ""}
+    if fmt in ("carousel", "reel"):
+        batch["caption"], batch["caption_items"] = caption, ids
+    for item in items:
+        item["caption"] = caption
+    return caption
+
+
 def approve_batches(settings: Settings, folders: list[Path] | None = None, now: datetime | None = None,
-                    dry_run: bool = False) -> list[dict]:
+                    dry_run: bool = False, llm=None) -> list[dict]:
     """Marca como aprobadas las piezas `draft` de las tandas (mergeadas) y las encola.
 
     Si el revisor borró el .jpg de una pieza en el PR, esa pieza queda `discarded`.
@@ -71,6 +93,15 @@ def approve_batches(settings: Settings, folders: list[Path] | None = None, now: 
     taken = taken_slots(entries)
     created = []
     folders = folders or sorted(p.parent for p in settings.path("drafts").glob("*/batch.yaml"))
+    llm_holder = [llm]
+
+    def get_llm_once():
+        if llm_holder[0] is None:
+            from .llm import get_llm
+
+            llm_holder[0] = get_llm(settings, dry_run=dry_run)
+        return llm_holder[0]
+
     for folder in folders:
         batch = load_batch(folder)
         changed = False
@@ -86,7 +117,7 @@ def approve_batches(settings: Settings, folders: list[Path] | None = None, now: 
         for fmt, items in _posts_for_batch(batch):
             when = next_slot(settings, fmt, taken, now)
             taken.add((fmt, when.date()))
-            caption = batch.get("caption") if fmt in ("carousel", "reel") else items[0].get("caption")
+            caption = _caption_for(settings, batch, fmt, items, get_llm_once) if fmt != "story" else None
             if fmt == "reel":
                 # Si el revisor descartó fotos, el video se rearma solo con las aprobadas.
                 build_reel(settings, batch, items=items)

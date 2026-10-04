@@ -25,8 +25,17 @@ jobs:
           cache: pip
       - name: ffmpeg
         run: which ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
-      - run: pip install -e .
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Instalar dependencias y Claude Code
+        run: |
+          pip install -e .
+          npm install -g @anthropic-ai/claude-code
+      # Claude solo se usa si el revisor borró slides de un carrusel/reel (hay que reescribir el caption).
       - run: mono approve
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       - name: Commit de la cola
         run: |
           git config user.name "github-actions[bot]"
