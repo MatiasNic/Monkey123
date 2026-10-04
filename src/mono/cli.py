@@ -115,13 +115,20 @@ def approve(
 
 
 @app.command()
-def queue(due: bool = typer.Option(False, help="Solo lo que ya corresponde publicar")):
+def queue(
+    due: bool = typer.Option(False, help="Solo lo que ya corresponde publicar"),
+    count: bool = typer.Option(False, "--count", help="Imprimir solo la cantidad (y exponerla a Actions)"),
+):
     """Muestra la cola de publicación."""
     from .scheduling import due_posts
     from .store import Queue
 
     settings = Settings.load()
     entries = due_posts(settings) if due else Queue(settings.path("data", "queue.yaml")).load()
+    if count:
+        typer.echo(len(entries))
+        _github_output(count=len(entries))
+        return
     for e in entries:
         typer.echo(f"{e['publish_at']}  {e['status']:<10} {e['format']:<8} {e['id']}  {e['caption'][:50]!r}")
 
@@ -176,8 +183,15 @@ def publish_test(
 
 
 @app.command("refresh-token")
-def refresh_token(dry_run: bool = typer.Option(False, "--dry-run")):
-    """Renueva el token de larga duración de Instagram (60 días). Imprime el nuevo token."""
+def refresh_token(
+    write_to: Optional[str] = typer.Option(None, help="Guardar el token nuevo en este archivo (permisos 600)"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+):
+    """Renueva el token de larga duración de Instagram (60 días) y registra su vencimiento."""
+    from pathlib import Path
+
+    from .maintenance import record_token_refresh
+    from .notify import notify
     from .publish.instagram import DryRunInstagram, InstagramClient
 
     settings = Settings.load()
@@ -186,9 +200,80 @@ def refresh_token(dry_run: bool = typer.Option(False, "--dry-run")):
     token = data["access_token"]
     if os.environ.get("GITHUB_ACTIONS"):
         typer.echo(f"::add-mask::{token}")
-    _github_output(token=token)
+    if write_to:
+        path = Path(write_to)
+        path.touch(mode=0o600, exist_ok=True)
+        path.chmod(0o600)
+        path.write_text(token)
     days = int(data.get("expires_in", 0)) // 86400
-    typer.echo(f"Token renovado ({token[:6]}…{token[-4:]}), vence en {days} días.")
+    if not dry_run:
+        record_token_refresh(settings, int(data.get("expires_in", 0)))
+        notify(settings, "token_refreshed", "Token de Instagram renovado", f"Vence en {days} días.")
+    typer.echo(f"Token renovado ({token[:4]}…{token[-4:]}), vence en {days} días.")
+
+
+@app.command()
+def notify(
+    event: str = typer.Option(..., help="failure | published | batch_ready | token_refreshed | token_expiring"),
+    title: str = typer.Option(..., help="Título del aviso"),
+    body: str = typer.Option("", help="Texto del aviso"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+):
+    """Manda un aviso por los canales configurados (GitHub Issue, email, Telegram)."""
+    from .notify import notify as send
+
+    for channel, result in send(Settings.load(), event, title, body, dry_run=dry_run).items():
+        typer.echo(f"{channel}: {result}")
+
+
+@app.command()
+def doctor(online: bool = typer.Option(False, help="Probar también las APIs (Instagram, R2)")):
+    """Chequea configuración, credenciales y estado general."""
+    from .doctor import run_checks, status_summary
+
+    settings = Settings.load()
+    checks = run_checks(settings, online=online)
+    for c in checks:
+        mark = "✅" if c.ok else ("❌" if c.required else "⚠️ ")
+        typer.echo(f"{mark} [{c.area}] {c.name}" + (f"  → {c.hint}" if c.hint and not c.ok else ""))
+    typer.echo("")
+    for line in status_summary(settings):
+        typer.echo(line)
+    if any(not c.ok and c.required for c in checks):
+        raise typer.Exit(1)
+
+
+@app.command()
+def prune(
+    days: int = typer.Option(60, help="Antigüedad mínima de la tanda"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+):
+    """Borra JPG/MP4 de tandas ya publicadas o descartadas (se conserva el historial)."""
+    from .maintenance import prune_media
+
+    settings = Settings.load()
+    removed = prune_media(settings, days=days, dry_run=dry_run)
+    for path in removed:
+        typer.echo(("[dry-run] " if dry_run else "") + str(path.relative_to(settings.root)))
+    typer.echo(f"{len(removed)} archivo(s)")
+
+
+@app.command("token-check")
+def token_check(warn_days: int = typer.Option(10, help="Avisar si quedan menos días")):
+    """Avisa (token_expiring) si el token de Instagram está por vencer o no hay registro."""
+    from .maintenance import token_days_left
+    from .notify import notify as send
+
+    settings = Settings.load()
+    days = token_days_left(settings)
+    if days is None or days < warn_days:
+        msg = ("No hay registro de vencimiento del token." if days is None
+               else f"El token de Instagram vence en {days:.0f} días.")
+        send(settings, "token_expiring", "Token de Instagram por vencer", msg +
+             " Corré token-refresh.yml (requiere el secret GH_PAT) o generá uno nuevo en Meta.")
+        typer.echo(msg)
+        raise typer.Exit(1)
+    typer.echo(f"Token OK: vence en {days:.0f} días.")
 
 
 @app.command("plan")

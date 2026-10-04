@@ -44,6 +44,12 @@ captions:
   # La etiqueta "Información de IA" se aplica por API (is_ai_generated=true). Texto extra opcional al final:
   ai_disclosure_text: ""
 
+notifications:
+  # Canales gratis: github_issue (el aviso te llega por mail de GitHub), email (SMTP), telegram (bot).
+  channels: [github_issue]
+  # Eventos: failure | published | batch_ready | token_refreshed | token_expiring
+  events: [failure, token_expiring]
+
 schedule:                  # días de publicación por formato (0 = lunes … 6 = domingo), hora local
   publish_time: "19:00"
   story_time: "13:00"

@@ -114,7 +114,21 @@ def publish_due(settings: Settings, now: datetime | None = None, dry_run: bool =
         done.append(entry)
     if not dry_run:
         queue.save(entries, Queue.HEADER)
+        _notify_results(settings, done)
     else:
         for name, payload in getattr(client, "calls", []):
             log.info("[dry-run] %s %s", name, payload)
     return done
+
+
+def _notify_results(settings: Settings, done: list[dict]) -> None:
+    from ..notify import notify
+
+    published = [e for e in done if e["status"] == "published"]
+    if published:
+        notify(settings, "published", f"Publicado: {len(published)} post(s)",
+               "\n".join(f"- {e['format']}: {e.get('permalink') or e['ig_media_id']}" for e in published))
+    for e in done:
+        if e["status"] == "failed":
+            notify(settings, "failure", f"Publicación fallida: {e['id']}",
+                   f"Falló {e.get('attempts')} veces. Último error: {e.get('last_error')}")
