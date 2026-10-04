@@ -22,6 +22,14 @@ dedup:
 qc:
   pass_score: 7.0          # 0-10
 
+media_host: r2              # hosting temporal de medios para la Graph API
+
+instagram:
+  api_version: v25.0       # Instagram API con Instagram Login (graph.instagram.com)
+  ai_label: true           # is_ai_generated=true → etiqueta "Información de IA"
+  poll_seconds: 3
+  poll_timeout: 300
+
 captions:
   hashtags_max: 5
   # La etiqueta "Información de IA" se aplica por API (is_ai_generated=true). Texto extra opcional al final:
