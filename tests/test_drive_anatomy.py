@@ -89,16 +89,53 @@ def test_drive_sync_dry_run_lists_paths(settings, repo, batch):
     assert f"[dry-run] Monkey/{batch_folder(batch['id'])}/aprobadas/" in result.output
 
 
-def test_publish_copy_to_drive_never_breaks(settings, repo, monkeypatch):
-    from mono.publish.publisher import _copy_to_drive
+def test_publish_due_does_not_touch_drive(settings, repo, monkeypatch):
+    """La copia a Drive corre después del commit del estado (workflow), nunca dentro de publish_due."""
+    import inspect
 
-    monkeypatch.setenv("DRIVE_WEBHOOK_URL", "https://script")
-    monkeypatch.setenv("DRIVE_WEBHOOK_SECRET", "s")
+    from mono.publish import publisher
 
-    def boom(*a, **k):
-        raise RuntimeError("drive caído")
-    monkeypatch.setattr("mono.storage.drive.sync_published", boom)
-    _copy_to_drive(settings, [{"id": "p", "status": "published", "files": []}])  # no lanza
+    assert "drive" not in inspect.getsource(publisher.publish_due).lower()
+
+
+def test_drive_sync_published_since(settings, repo, batch, monkeypatch):
+    import yaml
+
+    http = FakeHTTP()
+    monkeypatch.setattr("mono.storage.drive.DriveUploader.from_settings",
+                        classmethod(lambda cls, s, dry_run=False: cls("https://script", "s", http=http)))
+    final = batch["items"][0]["files"]["final"]
+    entries = [
+        {"id": "post-old", "status": "published", "format": "feed", "files": [final], "caption": "",
+         "published_at": "2026-10-01T22:07:00+00:00"},
+        {"id": "post-new", "status": "published", "format": "feed", "files": [final], "caption": "hola",
+         "published_at": "2026-10-06T22:07:00+00:00"},
+        {"id": "post-queued", "status": "queued", "format": "feed", "files": [final], "caption": ""},
+    ]
+    (repo / "data" / "queue.yaml").write_text(yaml.safe_dump({"items": entries}))
+    result = CliRunner().invoke(app, ["drive-sync", "--published-since", "2026-10-06T00:00:00"])
+    assert result.exit_code == 0, result.output
+    assert "post-new: 2 archivo(s)" in result.output and "post-old" not in result.output
+    assert "Publicados copiados: 1" in result.output
+
+
+def test_manual_qc_failure_lands_in_rejected(settings, repo, monkeypatch):
+    from PIL import Image
+
+    from mono.pipeline import ingest
+
+    class RejectLLM(MockLLM):
+        def _qc(self, ctx):
+            return {"score": 3, "species_ok": True, "limb_count_ok": True, "anatomy": 8, "reasons": ["no"]}
+
+    monkeypatch.setattr("mono.pipeline.get_llm", lambda s, dry_run=False: RejectLLM(s))
+    (repo / "inbox").mkdir()
+    b = render_batch(settings, plan_batch(settings, 1), provider_name="manual")
+    item_id = b["items"][0]["id"]
+    Image.open(settings.reference_images()[0]).save(repo / "inbox" / f"{item_id}.png")
+    done = ingest(settings)
+    assert done[0]["status"] == "qc_failed"
+    assert (repo / "output" / "rejected" / b["id"] / f"{item_id}_manual.png").exists()
 
 
 # --- anatomía ---------------------------------------------------------------

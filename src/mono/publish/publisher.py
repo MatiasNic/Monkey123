@@ -115,7 +115,6 @@ def publish_due(settings: Settings, now: datetime | None = None, dry_run: bool =
     if not dry_run:
         queue.save(entries, Queue.HEADER)
         _notify_results(settings, done)
-        _copy_to_drive(settings, done)
     else:
         for name, payload in getattr(client, "calls", []):
             log.info("[dry-run] %s %s", name, payload)
@@ -134,18 +133,3 @@ def _notify_results(settings: Settings, done: list[dict]) -> None:
             notify(settings, "failure", f"Publicación fallida: {e['id']}",
                    f"Falló {e.get('attempts')} veces. Último error: {e.get('last_error')}")
 
-
-def _copy_to_drive(settings: Settings, done: list[dict]) -> None:
-    from ..storage.drive import DriveUploader, sync_published
-
-    published = [e for e in done if e["status"] == "published"]
-    if not published:
-        return
-    uploader = DriveUploader.from_settings(settings)
-    if uploader is None:
-        return
-    for entry in published:
-        try:
-            sync_published(settings, uploader, entry)
-        except Exception as exc:  # noqa: BLE001 — la copia a Drive nunca rompe la publicación
-            log.warning("no pude copiar %s a Drive: %s", entry["id"], exc)

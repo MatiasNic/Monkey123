@@ -55,7 +55,7 @@ class DriveUploader:
         last_error = ""
         for attempt in range(3):
             try:
-                resp = self.http.post(self.url, json=payload, timeout=120)
+                resp = self.http.post(self.url, json=payload, timeout=60)
                 data = resp.json()
                 if data.get("ok"):
                     self.uploaded.append(target)

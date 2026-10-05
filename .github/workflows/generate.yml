@@ -124,6 +124,7 @@ jobs:
           echo "batches=${ids[*]}" >> "$GITHUB_OUTPUT"
 
       - name: Copiar a Google Drive
+        timeout-minutes: 15
         if: always() && steps.gen.outputs.batches != ''
         continue-on-error: true
         env:
