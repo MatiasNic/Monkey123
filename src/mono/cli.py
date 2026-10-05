@@ -47,6 +47,11 @@ def generate(
     if not ideas_only:
         batch = render_batch(settings, batch, provider_name=provider, dry_run=dry_run)
     _github_output(batch_id=batch["id"], batch_dir=batch["dir"], count=len(batch["items"]))
+    if batch.get("quota_exhausted") and not any(i["status"] == "draft" for i in batch["items"]):
+        msg = ("Se agotó la cuota diaria gratis de Cloudflare (10.000 neuronas) y no se generó ninguna foto. "
+               "Se renueva a las 00:00 UTC (21:00 Buenos Aires); volvé a correr generate después.")
+        typer.echo(f"::error title=Cuota de Cloudflare agotada::{msg}" if os.environ.get("GITHUB_ACTIONS") else msg)
+        raise typer.Exit(3)
     if settings.get("approval_mode") == "auto" and not dry_run and not ideas_only:
         from .scheduling import approve_batches
 

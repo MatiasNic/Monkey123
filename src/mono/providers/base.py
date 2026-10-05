@@ -12,6 +12,13 @@ from ..config import Settings
 GEN_SIZES = {"feed": (1024, 1280), "carousel": (1024, 1280), "story": (864, 1536), "reel": (864, 1536)}
 
 
+class QuotaExhausted(RuntimeError):
+    """El proveedor no acepta más pedidos por hoy (p. ej. cuota diaria gratis de Cloudflare agotada)."""
+
+
+QUOTA_REASON = "cuota diaria de Cloudflare agotada (se renueva 00:00 UTC / 21:00 Buenos Aires)"
+
+
 @dataclass
 class GenerationRequest:
     item_id: str
