@@ -1,0 +1,338 @@
+id: 20261004-2213-c25d
+format: feed
+scene: null
+theme: null
+dry_run: false
+llm: claude_cli
+items:
+- id: 20261004-2213-c25d-01
+  batch: 20261004-2213-c25d
+  created_at: '2026-10-05T01:13:57+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires café
+  activity: working on a laptop
+  pose: sitting
+  camera_distance: wide establishing (subject small in frame)
+  expression: focused
+  gaze: at a screen
+  outfit: knitted sweater
+  lighting: soft window light
+  accessories:
+  - wired earphones
+  camera_look: 35mm_kodak_portra
+  concept: Macaque working on a MacBook in a Buenos Aires café, half-finished cortado beside him, wide shot through the window
+    glass
+  concept_es: Macaco trabajando en una MacBook en un café porteño, con un cortado a medio tomar al lado, plano abierto
+  description: A small macaque in a knitted sweater sits at a wooden café table by the window, typing on a silver laptop with
+    a half-finished cortado and a glass of water beside it. Other customers blur in the background; the frame is wide so he
+    looks tiny among the tables and chairs. Soft window light, candid and unposed.
+  prompt: 'Candid real photograph. A small macaque in a knitted sweater sits at a wooden café table by the window, typing
+    on a silver laptop with a half-finished cortado and a glass of water beside it. Other customers blur in the background;
+    the frame is wide so he looks tiny among the tables and chairs. Soft window light, candid and unposed.
+
+
+    Subject: The same small young macaque in every image: light brown/olive-brown fur, paler pinkish-beige bare face with
+    fine wrinkles, short muzzle, round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark
+    skin on hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference
+    images. He is small, about the size of a young macaque, with human posture: sitting. Expression: focused, looking at a
+    screen. Wearing knitted sweater, with wired earphones.
+
+
+    Setting: Buenos Aires café.
+
+    Lighting: soft window light.
+
+    Framing: wide establishing (subject small in frame), vertical 4:5 composition, natural imperfect framing.
+
+    Camera: shot on 35mm film, Kodak Portra 400, soft natural colors, fine grain, gentle highlight rolloff.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Avoid: cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated
+    colors, text, watermark, collage, grid, split image. Must be a real macaque, never a chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: &id001
+  - 1080
+  - 1350
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco creíble, con pelaje oliva-marrón, cara rosada y arrugas finas, hocico corto, ojos ámbar y orejas pequeñas.
+      La cara es algo más lisa y más rosada que la de las referencias, que tienen más arrugas y tono más oscuro y marrón.
+      Parece un macaco joven parecido, pero no claramente el mismo individuo.
+    - Las manos son oscuras, con dedos largos, y tipean sobre el teclado de forma coherente. No hay miembros extra ni fusionados.
+      El brazo derecho queda un poco corto, pero es aceptable.
+    - Es un primer plano o plano medio y no un plano abierto establishing. El mono ocupa gran parte del encuadre y no se ve
+      pequeño entre las mesas, así que falla el encuadre pedido.
+    - Sí coinciden el café de Buenos Aires, el suéster tejido, la laptop plateada, la mesa de madera, el vaso de agua, el
+      cortado y los clientes desenfocados. Falta la luz de ventana suave, que se ve algo plana. El mono lleva auriculares,
+      que no se pidieron, pero son coherentes con las referencias.
+  - attempt: 2
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco creíble con cara rosada y arrugas finas, hocico corto y ojos ámbar. Cuadra con la especie, pero no es un
+      calco de las referencias.
+    - El pelaje es más claro, grisáceo y beige que el marrón oliva más oscuro de las referencias. Las orejas son rosadas y
+      algo más grandes y salidas.
+    - Las manos son oscuras, de dedos largos, y teclean de forma coherente. No hay miembros extra ni fusionados. Los dedos
+      están algo apretados sobre el teclado.
+    - El encuadre no es el pedido. Es un plano medio cercano y el mono ocupa gran parte del cuadro. La idea pedía un plano
+      general en el que se viera diminuto entre mesas y sillas.
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco creíble, con pelaje verde oliva claro, ojos ámbar y manos oscuras de dedos finos. Coincide en general con
+      la identidad esperada.
+    - La cara es más rosada y rojiza que en las referencias, que la tienen beige-marrón. El pelaje es más claro y verdoso,
+      y las orejas son rosadas y algo más salientes. Los ojos se ven un poco grandes y la expresión es más 'tierna' que en
+      las referencias. Parece un pariente cercano más que el mismo individuo.
+    - 'Anatomía correcta: las manos están sobre el teclado, con dedos coherentes y sin miembros extra. El auricular es un
+      detalle menor que no figura en la idea.'
+    - El encuadre NO es un plano general. El mono ocupa gran parte del cuadro y es un plano medio, no un 'wide establishing'
+      en el que se vea diminuto entre las mesas.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261004-2213-c25d-02
+  batch: 20261004-2213-c25d
+  created_at: '2026-10-05T01:13:57+00:00'
+  format: feed
+  scene: null
+  location: bookstore
+  activity: reading the newspaper
+  pose: sitting on the floor
+  camera_distance: medium close-up
+  expression: absorbed
+  gaze: at object in hands
+  outfit: oversized hoodie
+  lighting: fluorescent interior
+  accessories:
+  - tote bag
+  camera_look: point_and_shoot_flash
+  concept: Macaque sitting on the floor of a bookstore aisle, deep into a paperback, close portrait from a low angle
+  concept_es: Macaco sentado en el piso de un pasillo de librería, absorto en un libro de bolsillo, retrato cercano
+  description: A young macaque in a grey oversized hoodie sits cross-legged on the floor between tall bookshelves, a worn
+    paperback held close in his slim dark fingers. A canvas tote bag leans against his hip. Flat fluorescent light with a
+    slight flash glow, he is completely absorbed and does not notice the camera.
+  prompt: 'Candid real photograph. A young macaque in a grey oversized hoodie sits cross-legged on the floor between tall
+    bookshelves, a worn paperback held close in his slim dark fingers. A canvas tote bag leans against his hip. Flat fluorescent
+    light with a slight flash glow, he is completely absorbed and does not notice the camera.
+
+
+    Subject: The same small young macaque in every image: light brown/olive-brown fur, paler pinkish-beige bare face with
+    fine wrinkles, short muzzle, round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark
+    skin on hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference
+    images. He is small, about the size of a young macaque, with human posture: sitting on the floor. Expression: absorbed,
+    looking at object in hands. Wearing oversized hoodie, with tote bag.
+
+
+    Setting: bookstore.
+
+    Lighting: fluorescent interior.
+
+    Framing: medium close-up, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: shot on a cheap 35mm point-and-shoot with direct on-camera flash, slightly hard shadows behind subject, no red-eye,
+    film snapshot.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Avoid: cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated
+    colors, text, watermark, collage, grid, split image. Must be a real macaque, never a chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files:
+    raw: output/raw/20261004-2213-c25d/20261004-2213-c25d-02.png
+    final: drafts/20261004-2213-c25d/20261004-2213-c25d-02.jpg
+  qc:
+    passed: true
+    score: 8.0
+    reasons:
+    - 'Parece el mismo macaco joven: pelaje marrón oliva, hocico corto, ojos ámbar redondos y orejas pequeñas pegadas a la
+      cabeza.'
+    - La cara es algo más rosada y lisa que en las referencias, con menos arrugas finas. Es una diferencia leve de identidad.
+    - Las manos son oscuras y de dedos largos, y las piernas están cruzadas con coherencia. Los pies son oscuros y están bien
+      formados. No hay miembros extra ni fusionados.
+    - 'La escala es creíble: un mono pequeño sentado en el suelo del pasillo de la librería, con la bolsa de tela apoyada
+      en la cadera.'
+    - Parece una foto real de cámara compacta con flash y luz fluorescente plana, con grano de película y sin look HDR ni
+      plástico.
+    - 'Coincide con la idea: librería, sudadera gris oversize, sentado con las piernas cruzadas entre estantes, concentrado
+      y sin mirar a cámara, plano medio cercano.'
+    - Lo que sostiene parece un cuaderno o folleto grande abierto, no un libro de bolsillo gastado. La idea también menciona
+      leer el diario, así que es ambiguo. Además lleva pantalón de jogging gris a juego, que no se pidió.
+    - No hay collage ni texto superpuesto.
+    details:
+      identity_match: 7
+      species_ok: true
+      anatomy: 8
+      scale_ok: true
+      is_collage: false
+      has_text: false
+      ai_look: 2
+      matches_idea: 8
+      score: 8
+  caption:
+    caption: Pasillo C, sección usados. Ya no estoy en la librería, estoy en el capítulo 12.
+    alt_text: Un macaco joven con buzo gris grande está sentado en el piso entre estantes altos de una librería, con las piernas
+      cruzadas y un libro de bolsillo gastado entre las manos. Una bolsa de tela está apoyada contra su cadera.
+    hashtags:
+    - '#buenosaires'
+    - '#librerias'
+    - '#35mm'
+    - '#streetphotography'
+  status: draft
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco creíble, con pelaje marrón oliva, ojos ámbar redondos y orejas pequeñas pegadas a la cabeza, pero la cara
+      es más rosada y lisa, con ojos más grandes y separados que en las referencias. Las referencias tienen una cara más beige,
+      con arrugas finas y un hocico más corto, así que la identidad no es clara.
+    - Mira de frente, casi a cámara, con los ojos muy abiertos. La idea pedía que estuviera absorto y no notara la cámara.
+    - Lo que sostiene parece un diario viejo y no un libro de bolsillo. Eso coincide con la actividad 'leer el diario' pero
+      no con la descripción. Sí coinciden el buzo gris, la posición con las piernas cruzadas, el tote de lona, las estanterías
+      y la luz fluorescente plana.
+    - Lleva buzo y pantalón gris del mismo tono. Es un conjunto coherente, pero la idea solo pedía el buzo.
+  - attempt: 2
+    score: 8.0
+    passed: true
+    reasons:
+    - 'Parece el mismo macaco joven: pelaje marrón oliva, hocico corto, ojos ámbar redondos y orejas pequeñas pegadas a la
+      cabeza.'
+    - La cara es algo más rosada y lisa que en las referencias, con menos arrugas finas. Es una diferencia leve de identidad.
+    - Las manos son oscuras y de dedos largos, y las piernas están cruzadas con coherencia. Los pies son oscuros y están bien
+      formados. No hay miembros extra ni fusionados.
+    - 'La escala es creíble: un mono pequeño sentado en el suelo del pasillo de la librería, con la bolsa de tela apoyada
+      en la cadera.'
+- id: 20261004-2213-c25d-03
+  batch: 20261004-2213-c25d
+  created_at: '2026-10-05T01:13:57+00:00'
+  format: feed
+  scene: null
+  location: Tokyo konbini
+  activity: waiting
+  pose: seen from behind
+  camera_distance: medium wide
+  expression: sleepy
+  gaze: out of frame right
+  outfit: raincoat
+  lighting: neon night
+  accessories:
+  - iced coffee
+  - backpack
+  camera_look: 35mm_cinestill_800t
+  concept: Macaque waiting at a Tokyo konbini counter at night holding an iced coffee, seen from behind and slightly off-center
+  concept_es: Macaco esperando en un konbini de Tokio de noche con un café helado, visto de espaldas
+  description: Seen from behind, a small macaque in a yellow raincoat with a small backpack stands at a konbini counter holding
+    a plastic cup of iced coffee, head turned slightly toward the door. Glowing shelves of snacks and neon signage reflect
+    off the wet floor. Cinematic night grain with halation around the lights, a quiet ordinary late-night errand.
+  prompt: 'Candid real photograph. Seen from behind, a small macaque in a yellow raincoat with a small backpack stands at
+    a konbini counter holding a plastic cup of iced coffee, head turned slightly toward the door. Glowing shelves of snacks
+    and neon signage reflect off the wet floor. Cinematic night grain with halation around the lights, a quiet ordinary late-night
+    errand.
+
+
+    Subject: The same small young macaque in every image: light brown/olive-brown fur, paler pinkish-beige bare face with
+    fine wrinkles, short muzzle, round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark
+    skin on hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference
+    images. He is small, about the size of a young macaque, with human posture: seen from behind. Expression: sleepy, looking
+    out of frame right. Wearing raincoat, with iced coffee, backpack.
+
+
+    Setting: Tokyo konbini.
+
+    Lighting: neon night.
+
+    Framing: medium wide, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: shot on CineStill 800T film at night, tungsten balanced, red halation around highlights, visible grain.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Avoid: cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated
+    colors, text, watermark, collage, grid, split image. Must be a real macaque, never a chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - Parece un macaco real, con pelaje oliva-marrón y orejas pequeñas y redondeadas pegadas a la cabeza. Se ve casi de perfil
+      y de espaldas, así que la cara casi no se ve y la identidad no se puede confirmar del todo. El pelaje se ve más verdoso
+      y más corto que en las referencias, y el cuerpo es algo más grande y robusto.
+    - 'Anatomía aceptable. Se ve una sola mano sosteniendo dos vasos, lo cual es raro: hay dos vasos con pajita y la idea
+      pedía uno. La cola parece cortada o pegada abajo del encuadre.'
+    - El impermeable amarillo, la mochila, el suelo mojado, las estanterías con snacks y los carteles de neón coinciden con
+      la idea. Pero el mono está de pie en un pasillo, no en un mostrador, y casi de perfil en lugar de mirar hacia la puerta.
+      No hay un mostrador de konbini claro.
+    - El grano de película y la halación son creíbles, y el look es de foto analógica real y poco IA. Los carteles japoneses
+      se leen como parte de la escena, no como texto superpuesto.
+  - attempt: 2
+    score: 5.0
+    passed: false
+    reasons:
+    - Es un macaco creíble, con pelaje real y escala pequeña, pero no parece del todo el mismo individuo. El pelaje es gris
+      verdoso y más largo, tipo macaco japonés. Las referencias lo tienen marrón oliva y más corto.
+    - La cara es rosada-rojiza y el hocico es más marcado. En las referencias la cara es beige pálido, con arrugas finas y
+      ojos ámbar redondos.
+    - 'La anatomía es aceptable: las patas traseras y la cola son coherentes y no hay miembros extra. Casi no se ven las manos,
+      y el vaso asoma por detrás del hocico sin una mano clara que lo sostenga.'
+    - No coincide bien con la idea. Está afuera, en la vereda mojada junto a la vitrina de snacks, y no adentro frente a un
+      mostrador de konbini. Se ve de perfil o tres cuartos, no de espaldas con la cabeza girada hacia la puerta.
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco real, no un simio grande ni un peluche. Tiene pelaje marrón oliváceo, cara beige rosada con arrugas, hocico
+      corto, oreja pequeña y redondeada y manos oscuras. Es coherente con las referencias, aunque se lo ve solo de perfil
+      y el tono del pelaje es algo más verdoso, así que no puedo confirmar la identidad del todo.
+    - La anatomía es creíble. Se ve una mano oscura sosteniendo el vaso y el resto del cuerpo queda cubierto por el impermeable
+      y la mochila. No hay miembros extra ni fusionados.
+    - No cumple la pose pedida. La idea pide verlo de espaldas y acá aparece de perfil o tres cuartos, con el rostro bien
+      visible y mirando hacia adelante, no girando la cabeza hacia la puerta.
+    - No cumple el lugar pedido. Debía estar dentro del konbini, en un mostrador, y está en la vereda frente a la tienda,
+      con estantes y carteles a los lados. Sí aparecen el impermeable amarillo, la mochila, el café helado en vaso de plástico,
+      la noche de neón y el piso mojado con reflejos.
+  discard_reason: no pasó el QC en 3 intento(s)
+dir: drafts/20261004-2213-c25d
