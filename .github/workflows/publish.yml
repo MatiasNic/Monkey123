@@ -34,6 +34,9 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -e .
+      - name: Marcar inicio
+        id: start
+        run: echo "at=$(date -u +%Y-%m-%dT%H:%M:%S)" >> "$GITHUB_OUTPUT"
       - name: ¿Hay algo vencido?
         id: due
         env:
@@ -76,6 +79,16 @@ jobs:
           git commit -m "Registrar publicaciones"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
+      # Después del commit del estado: si Drive se cuelga, la cola ya quedó guardada y no se republica nada.
+      - name: Copiar publicados a Google Drive
+        if: always() && steps.due.outputs.count != '0'
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          DRIVE_WEBHOOK_URL: ${{ secrets.DRIVE_WEBHOOK_URL }}
+          DRIVE_WEBHOOK_SECRET: ${{ secrets.DRIVE_WEBHOOK_SECRET }}
+          SINCE: ${{ steps.start.outputs.at }}
+        run: mono drive-sync --published-since "$SINCE"
       - name: Avisar si falló
         if: failure()
         env:

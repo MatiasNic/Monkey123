@@ -46,6 +46,34 @@ Seguí los pasos en orden. Corré `mono doctor` (local) o el workflow **doctor**
 
 ---
 
+## Google Drive (carpeta Monkey)
+Todo lo que se genera se copia automáticamente a la carpeta **Monkey** de tu Google Drive:
+```
+Monkey/
+  tandas/AAAA-MM-DD_<tanda>/
+    aprobadas/     fotos finales y video del reel
+    descartadas/   intentos que el control de calidad rechazó
+    manual/        paquetes para generar a mano (si usaste el modo manual)
+    resumen.md     ideas, captions, hashtags y notas de calidad
+  publicadas/AAAA-MM/   copia de cada post publicado + .txt con caption y link de Instagram
+```
+Es gratis y no necesita Google Cloud: un pequeño script corre con tu cuenta y recibe los archivos.
+
+**Instalación (una sola vez, unos 5 minutos):**
+1. Entrá a https://script.google.com y tocá **Nuevo proyecto**.
+2. Borrá todo el código que aparece y pegá el contenido de [`integrations/drive_apps_script.gs`](integrations/drive_apps_script.gs).
+3. En la línea `const SECRET = '...'`, reemplazá el texto por una clave inventada, de 20 o más letras y números.
+4. Guardá (💾). Después tocá **Implementar → Nueva implementación**, en el engranaje elegí **Aplicación web** y configurá:
+   - Ejecutar como: **Yo**.
+   - Quién tiene acceso: **Cualquier usuario**.
+   
+   Tocá **Implementar**.
+5. Google te pide autorizar. Si aparece *"Google no verificó esta app"*, tocá **Configuración avanzada → Ir a … (no seguro)**: la app es tuya.
+6. Copiá la **URL de la aplicación web**, la que termina en `/exec`.
+7. En GitHub, en *Settings → Secrets → Actions*, cargá `DRIVE_WEBHOOK_URL` con esa URL y `DRIVE_WEBHOOK_SECRET` con la misma clave del paso 3.
+
+Si esos secrets no están cargados, el sistema sigue funcionando igual y simplemente no copia nada a Drive. Para subir a mano: `mono drive-sync` (o `--batch <id>`, o `--dry-run` para ver qué subiría).
+
 ## Operación semanal
 | Cuándo (Buenos Aires) | Workflow | Qué pasa |
 |---|---|---|
@@ -111,6 +139,7 @@ mono prune --days 60 [--dry-run]          # borra JPG/MP4 de tandas ya publicada
 
 **QC:**
 1. Primero corren heurísticas locales: detectan collages, grillas y dípticos, imágenes vacías y resolución baja.
+1b. Claude cuenta brazos, manos, piernas y pies. Si encuentra uno de más o duplicado (por ejemplo, 3 pies), o la anatomía saca menos de `qc.min_anatomy`, la imagen se rechaza directo, aunque el resto esté perfecto.
 2. Después Claude, con visión, compara la imagen contra las referencias. Cuenta como falla dura si no es un macaco, si es un collage o si tiene texto superpuesto.
 3. Si no pasa, se regenera hasta 3 veces.
 

@@ -123,6 +123,19 @@ jobs:
           } > "$RUNNER_TEMP/pr_body.md"
           echo "batches=${ids[*]}" >> "$GITHUB_OUTPUT"
 
+      - name: Copiar a Google Drive
+        timeout-minutes: 15
+        if: always() && steps.gen.outputs.batches != ''
+        continue-on-error: true
+        env:
+          DRIVE_WEBHOOK_URL: ${{ secrets.DRIVE_WEBHOOK_URL }}
+          DRIVE_WEBHOOK_SECRET: ${{ secrets.DRIVE_WEBHOOK_SECRET }}
+          BATCHES: ${{ steps.gen.outputs.batches }}
+        run: |
+          args=()
+          for id in $BATCHES; do args+=(--batch "$id"); done
+          mono drive-sync "${args[@]}"
+
       - name: Modo de aprobación
         id: mode
         run: mono config approval_mode

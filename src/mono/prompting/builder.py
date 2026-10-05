@@ -50,6 +50,7 @@ def build_image_prompt(settings: Settings, idea: dict) -> dict:
         ratio=fmt["ratio"],
         look_prompt=look["prompt"],
         always=bible["photography"]["always"],
+        anatomy=bible["photography"].get("anatomy", "anatomically correct, no extra limbs"),
         avoid=bible["photography"]["avoid"],
     )
     prompt = "\n".join(line.rstrip() for line in prompt.splitlines()).replace("\n\n\n", "\n\n").strip()

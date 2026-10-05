@@ -276,6 +276,49 @@ def token_check(warn_days: int = typer.Option(10, help="Avisar si quedan menos d
     typer.echo(f"Token OK: vence en {days:.0f} días.")
 
 
+@app.command("drive-sync")
+def drive_sync(
+    batch: Optional[list[str]] = typer.Option(None, "--batch", help="Id(s) de tanda; default: todas las de drafts/"),
+    published_since: Optional[str] = typer.Option(
+        None, "--published-since", help="Copiar los posts publicados desde esta fecha ISO (en vez de tandas)"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Solo listar lo que se subiría"),
+):
+    """Copia tandas (aprobadas, descartadas y resumen) o posts publicados a la carpeta Monkey de Drive."""
+    from .storage.drive import DriveUploader, sync_batch, sync_published
+
+    settings = Settings.load()
+    uploader = DriveUploader.from_settings(settings, dry_run=dry_run)
+    if uploader is None:
+        typer.echo("Drive no configurado (DRIVE_WEBHOOK_URL / DRIVE_WEBHOOK_SECRET): no se sube nada.")
+        return
+    if published_since:
+        from .store import Queue
+
+        entries = [e for e in Queue(settings.path("data", "queue.yaml")).load()
+                   if e.get("status") == "published" and (e.get("published_at") or "") >= published_since]
+        for entry in entries:
+            try:
+                files = sync_published(settings, uploader, entry)
+                typer.echo(f"{entry['id']}: {len(files)} archivo(s)")
+            except Exception as exc:  # noqa: BLE001 — seguir con el resto
+                typer.echo(f"{entry['id']}: no se pudo copiar ({exc})")
+        typer.echo(f"Publicados copiados: {len(entries)}")
+        return
+    dirs = ([settings.path("drafts", b) for b in batch] if batch
+            else sorted(p.parent for p in settings.path("drafts").glob("*/batch.yaml")))
+    total = 0
+    for folder in dirs:
+        if not (folder / "batch.yaml").exists():
+            typer.echo(f"no existe la tanda {folder.name}")
+            continue
+        files = sync_batch(settings, uploader, folder)
+        total += len(files)
+        typer.echo(f"{folder.name}: {len(files)} archivo(s)")
+    for path in uploader.uploaded if dry_run else []:
+        typer.echo(f"[dry-run] Monkey/{path}")
+    typer.echo(f"Total: {total}")
+
+
 @app.command("config")
 def config_get(key: str = typer.Argument(..., help="Clave con puntos, p. ej. approval_mode o image.provider")):
     """Imprime un valor de config.yaml (y lo expone a GitHub Actions como `value`)."""

@@ -132,3 +132,4 @@ def _notify_results(settings: Settings, done: list[dict]) -> None:
         if e["status"] == "failed":
             notify(settings, "failure", f"Publicación fallida: {e['id']}",
                    f"Falló {e.get('attempts')} veces. Último error: {e.get('last_error')}")
+

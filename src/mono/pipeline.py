@@ -227,6 +227,10 @@ def ingest(settings: Settings, batch_dirs: list[Path] | None = None, force: bool
                     src.unlink()
             else:
                 item["status"] = "qc_failed"
+                # Igual que los intentos automáticos: queda en rejected/ para revisarlo (y copiarlo a Drive).
+                rejected = settings.path("output", "rejected", batch["id"])
+                rejected.mkdir(parents=True, exist_ok=True)
+                shutil.copy(raw, rejected / f"{item['id']}_manual{raw.suffix}")
             log.info("ingest %s: QC %.1f → %s", item["id"], qc.score, item["status"])
             done.append(item)
             changed = True

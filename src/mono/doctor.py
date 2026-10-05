@@ -55,6 +55,10 @@ def run_checks(settings: Settings, online: bool = False) -> list[Check]:
                              "token fine-grained con 'Secrets: read & write' (solo en GitHub Actions)",
                              required=False))
 
+    if settings.get("storage.drive.enabled", True):
+        checks.append(_env_check(settings, "Drive", ["DRIVE_WEBHOOK_URL", "DRIVE_WEBHOOK_SECRET"],
+                                 "publicá integrations/drive_apps_script.gs (ver README)", required=False))
+
     channel_keys = {"email": ["SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD", "NOTIFY_EMAIL_TO"],
                     "telegram": ["TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"]}
     for channel in settings.get("notifications.channels", ["github_issue"]):

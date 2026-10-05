@@ -8,4 +8,5 @@ Framing: $camera_distance, vertical $ratio composition, natural imperfect framin
 Camera: $look_prompt.
 
 $always
+Anatomy: $anatomy.
 Avoid: $avoid. Must be a real macaque, never a chimpanzee, gorilla or cartoon. Single photograph, not a collage.
