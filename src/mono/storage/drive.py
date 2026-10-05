@@ -21,6 +21,8 @@ from ..config import Settings
 
 log = logging.getLogger(__name__)
 MEDIA_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".mp4"}
+# Carpeta de Drive por formato dentro de la carpeta del día.
+FORMAT_FOLDERS = {"feed": "feed", "story": "story", "carousel": "carrusel", "reel": "reel"}
 
 
 @dataclass
@@ -76,26 +78,27 @@ class DriveUploader:
 
 
 def batch_folder(batch_id: str) -> str:
+    """Carpeta del día de la tanda (AAAA-MM-DD); todas las tandas de un mismo día comparten carpeta."""
     try:
-        day = datetime.strptime(batch_id[:8], "%Y%m%d").strftime("%Y-%m-%d")
+        return datetime.strptime(batch_id[:8], "%Y%m%d").strftime("%Y-%m-%d")
     except ValueError:
-        day = "sin-fecha"
-    return f"tandas/{day}_{batch_id}"
+        return "sin-fecha"
 
 
 def sync_batch(settings: Settings, uploader: DriveUploader, batch_dir: Path) -> list[str]:
-    """Sube aprobables (+ video), descartadas (intentos rechazados) y el resumen de una tanda."""
+    """Sube a la carpeta del día: aprobables (+ video) por formato, descartadas, packs manuales y resumen."""
     batch = yaml.safe_load((batch_dir / "batch.yaml").read_text())
     base = batch_folder(batch["id"])
+    fmt = batch.get("format") or "feed"
     done = []
     for media in sorted(p for p in batch_dir.iterdir() if p.suffix.lower() in MEDIA_EXTS):
-        done.append(uploader.upload(media, f"{base}/aprobadas"))
+        done.append(uploader.upload(media, f"{base}/{FORMAT_FOLDERS.get(fmt, fmt)}"))
     rejected = settings.path("output", "rejected", batch["id"])
     if rejected.is_dir():
         for media in sorted(p for p in rejected.iterdir() if p.suffix.lower() in MEDIA_EXTS):
             done.append(uploader.upload(media, f"{base}/descartadas"))
     if (batch_dir / "batch.md").exists():
-        done.append(uploader.upload(batch_dir / "batch.md", base, "resumen.md"))
+        done.append(uploader.upload(batch_dir / "batch.md", base, f"resumen_{batch['id']}.md"))
     manual = batch_dir / "manual"
     if manual.is_dir():
         for pack in sorted(manual.glob("*.md")):
@@ -105,8 +108,8 @@ def sync_batch(settings: Settings, uploader: DriveUploader, batch_dir: Path) -> 
 
 def sync_published(settings: Settings, uploader: DriveUploader, entry: dict) -> list[str]:
     """Copia de un post publicado: sus archivos + un .txt con caption y link de Instagram."""
-    month = (entry.get("published_at") or entry.get("publish_at") or "")[:7] or "sin-fecha"
-    folder = f"publicadas/{month}"
+    day = (entry.get("published_at") or entry.get("publish_at") or "")[:10] or "sin-fecha"
+    folder = f"publicadas/{day}"
     done = []
     for n, file in enumerate(entry.get("files") or [], start=1):
         local = settings.path(file)
