@@ -39,6 +39,8 @@ jobs:
           R2_BUCKET: ${{ secrets.R2_BUCKET }}
           R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
           GH_PAT: ${{ secrets.GH_PAT }}
+          DRIVE_WEBHOOK_URL: ${{ secrets.DRIVE_WEBHOOK_URL }}
+          DRIVE_WEBHOOK_SECRET: ${{ secrets.DRIVE_WEBHOOK_SECRET }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}

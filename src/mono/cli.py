@@ -276,6 +276,34 @@ def token_check(warn_days: int = typer.Option(10, help="Avisar si quedan menos d
     typer.echo(f"Token OK: vence en {days:.0f} días.")
 
 
+@app.command("drive-sync")
+def drive_sync(
+    batch: Optional[list[str]] = typer.Option(None, "--batch", help="Id(s) de tanda; default: todas las de drafts/"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Solo listar lo que se subiría"),
+):
+    """Copia las tandas (aprobadas, descartadas y resumen) a la carpeta Monkey de Google Drive."""
+    from .storage.drive import DriveUploader, sync_batch
+
+    settings = Settings.load()
+    uploader = DriveUploader.from_settings(settings, dry_run=dry_run)
+    if uploader is None:
+        typer.echo("Drive no configurado (DRIVE_WEBHOOK_URL / DRIVE_WEBHOOK_SECRET): no se sube nada.")
+        return
+    dirs = ([settings.path("drafts", b) for b in batch] if batch
+            else sorted(p.parent for p in settings.path("drafts").glob("*/batch.yaml")))
+    total = 0
+    for folder in dirs:
+        if not (folder / "batch.yaml").exists():
+            typer.echo(f"no existe la tanda {folder.name}")
+            continue
+        files = sync_batch(settings, uploader, folder)
+        total += len(files)
+        typer.echo(f"{folder.name}: {len(files)} archivo(s)")
+    for path in uploader.uploaded if dry_run else []:
+        typer.echo(f"[dry-run] Monkey/{path}")
+    typer.echo(f"Total: {total}")
+
+
 @app.command("config")
 def config_get(key: str = typer.Argument(..., help="Clave con puntos, p. ej. approval_mode o image.provider")):
     """Imprime un valor de config.yaml (y lo expone a GitHub Actions como `value`)."""
