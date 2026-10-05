@@ -56,6 +56,12 @@ def evaluate(settings: Settings, llm: LLM, image: Path, item: dict) -> QCResult:
     hard_fail = [k for k in ("is_collage", "has_text") if data.get(k)]
     if data.get("species_ok") is False:
         hard_fail.append("species")
+    # Anatomía: un pie o una mano de más arruina la foto aunque el resto esté perfecto.
+    if data.get("limb_count_ok") is False:
+        hard_fail.append("miembros de más/duplicados: " + "; ".join(map(str, data.get("anatomy_issues") or [])))
+    min_anatomy = settings.get("qc.min_anatomy", 6)
+    if data.get("anatomy") is not None and float(data["anatomy"]) < min_anatomy:
+        hard_fail.append(f"anatomía {data['anatomy']} < {min_anatomy}")
     reasons = list(data.get("reasons") or [])
     if hard_fail:
         reasons.insert(0, f"falla dura: {hard_fail}")

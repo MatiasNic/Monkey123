@@ -21,12 +21,18 @@ dedup:
 
 qc:
   pass_score: 7.0          # 0-10
+  min_anatomy: 6           # por debajo, rechazo directo (aunque el puntaje global sea alto)
 
 video:
   provider: slideshow      # slideshow (ffmpeg, gratis) | futuro: proveedor de video IA
   fade: 0.4                # segundos de fundido entre fotos
   zoom: 0.08               # intensidad del Ken Burns
   audio_dir: audio         # pistas libres de derechos (opcional); vacío = audio silencioso
+
+storage:
+  drive:
+    enabled: true          # copia todo a Google Drive → carpeta Monkey (vía Apps Script, gratis)
+    root: Monkey
 
 media_host: r2              # hosting temporal de medios para la Graph API
 

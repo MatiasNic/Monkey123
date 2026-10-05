@@ -25,7 +25,7 @@ identity:
 axes:
   # Ejes que el motor de variedad rota. La ideación debe variar todos a la vez.
   activity: [reading the newspaper, working on a laptop, scrolling the phone, video call, eating, drinking coffee, waiting, watching TV, shopping, trying on clothes, browsing records, taking a photo, napping, commuting, doing laundry, cooking, writing notes, people watching]
-  pose: [sitting, reclining, lying down, legs crossed, leaning against something, seen from behind, profile, seen through a mirror, sitting on the floor, sitting on a suitcase, on an armchair, on a stool, looking out a window, standing in line, crouching, walking]
+  pose: [sitting, reclining, lying down, sitting with lower body partly hidden, leaning against something, seen from behind, profile, seen through a mirror, sitting on the floor with legs out of frame, sitting on a suitcase, on an armchair, on a stool, looking out a window, standing in line, crouching, walking]
   camera_distance: [wide establishing (subject small in frame), medium wide, medium, medium close-up, close portrait]
   expression: [absorbed, bored, mildly surprised, content, sleepy, skeptical, focused, amused, distracted, serene]
   gaze: [at object in hands, out of frame left, out of frame right, down, out the window, at a screen, at another person, eyes closed, toward camera but unaware]
@@ -52,7 +52,8 @@ situations_seed:
 
 photography:
   always: "candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical light, slight optical imperfection"
-  avoid: "cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
+  anatomy: "anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot; no extra, duplicated or merged limbs"
+  avoid: "extra limbs, extra feet, extra hands, duplicated body parts, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
 
 # Catálogo de cámaras/looks: parámetros de prompt + parámetros de post-proceso.
 camera_looks:
