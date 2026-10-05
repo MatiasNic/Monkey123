@@ -14,11 +14,16 @@ from pathlib import Path
 import requests
 from PIL import Image
 
-from .base import GenerationRequest, GenerationResult, ImageProvider
+from .base import GenerationRequest, GenerationResult, ImageProvider, QuotaExhausted
 
 API = "https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/{model}"
 MAX_INPUTS = 4
 MAX_INPUT_SIDE = 511
+
+
+def is_quota_exhausted(status: int, text: str) -> bool:
+    """429 con código 4006: se terminó la asignación diaria gratis (10.000 neuronas)."""
+    return status == 429 and ("4006" in text or "daily free allocation" in text)
 
 
 def shrink_for_input(path: Path) -> bytes:
@@ -72,6 +77,8 @@ class CloudflareProvider(ImageProvider):
         for attempt in range(3):
             resp = requests.post(url, headers={"Authorization": f"Bearer {self.token}"}, data=data, files=files,
                                  timeout=300)
+            if is_quota_exhausted(resp.status_code, resp.text):
+                raise QuotaExhausted(f"Cloudflare: cuota diaria agotada ({resp.text[:200]})")
             if resp.status_code in (429, 500, 502, 503, 504) and attempt < 2:
                 time.sleep(5 * (attempt + 1))
                 continue

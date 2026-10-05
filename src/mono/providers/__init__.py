@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from ..config import Settings
-from .base import GenerationRequest, GenerationResult, ImageProvider
+from .base import QUOTA_REASON, GenerationRequest, GenerationResult, ImageProvider, QuotaExhausted
 
-__all__ = ["GenerationRequest", "GenerationResult", "ImageProvider", "get_image_provider"]
+__all__ = ["QUOTA_REASON", "GenerationRequest", "GenerationResult", "ImageProvider", "QuotaExhausted",
+           "get_image_provider"]
 
 
 def get_image_provider(settings: Settings, name: str | None = None, dry_run: bool = False) -> ImageProvider:

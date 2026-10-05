@@ -19,7 +19,7 @@ from .llm import get_llm
 from .llm.base import LLM
 from .postprocess.looks import process
 from .prompting.builder import build_image_prompt
-from .providers import GenerationRequest, ImageProvider, get_image_provider
+from .providers import QUOTA_REASON, GenerationRequest, ImageProvider, QuotaExhausted, get_image_provider
 from .providers.image_manual import find_in_inbox
 from .qc.vision_qc import evaluate
 from .store import History, now_iso
@@ -111,6 +111,10 @@ def render_item(settings: Settings, item: dict, provider: ImageProvider, llm: LL
     for attempt in range(1, max_attempts + 1):
         try:
             result = provider.generate(_request(settings, item, attempt), target_dir)
+        except QuotaExhausted:
+            # Reintentar no sirve hasta que se renueve la cuota: se corta y se avisa a render_batch.
+            item.update(status="discarded", qc_attempts=attempts, discard_reason=QUOTA_REASON)
+            raise
         except Exception as exc:  # noqa: BLE001 — se registra y se reintenta
             log.warning("%s intento %d: error del proveedor: %s", item["id"], attempt, exc)
             attempts.append({"attempt": attempt, "error": str(exc)[:300]})
@@ -147,8 +151,15 @@ def render_batch(settings: Settings, batch: dict, provider_name: str | None = No
     llm = get_llm(settings, dry_run=dry_run)
     out_dir = settings.path(batch["dir"])
     raw_dir = settings.path("output", "raw", batch["id"])
-    for item in batch["items"]:
-        render_item(settings, item, provider, llm, out_dir, raw_dir)
+    for n, item in enumerate(batch["items"]):
+        try:
+            render_item(settings, item, provider, llm, out_dir, raw_dir)
+        except QuotaExhausted as exc:
+            log.error("se agotó la cuota del proveedor de imágenes: %s", exc)
+            for pending in batch["items"][n + 1:]:
+                pending.update(status="discarded", discard_reason=QUOTA_REASON)
+            batch["quota_exhausted"] = True
+            break
     add_captions(settings, batch, llm)
     build_reel(settings, batch)
     _persist(settings, batch, dry_run)

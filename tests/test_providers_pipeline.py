@@ -82,3 +82,80 @@ def test_manual_flow_pack_then_ingest(settings, repo, monkeypatch):
 
 def test_result_dataclass():
     assert GenerationResult(None, "manual").path is None
+
+
+# --- cuota agotada ------------------------------------------------------------
+
+class FakeResp:
+    def __init__(self, status, text):
+        self.status_code, self.text = status, text
+
+    def json(self):
+        return {}
+
+
+def test_cloudflare_quota_raises_without_retry(settings, monkeypatch):
+    from mono.providers import QuotaExhausted
+
+    monkeypatch.setenv("CLOUDFLARE_ACCOUNT_ID", "acc")
+    monkeypatch.setenv("CLOUDFLARE_API_TOKEN", "tok")
+    calls = []
+
+    def fake_post(*a, **k):
+        calls.append(1)
+        return FakeResp(429, '{"errors":[{"message":"you have used up your daily free allocation","code":4006}]}')
+
+    monkeypatch.setattr("mono.providers.image_cloudflare.requests.post", fake_post)
+    monkeypatch.setattr("mono.providers.image_cloudflare.time.sleep", lambda s: None)
+    req = GenerationRequest("x-01", "p", "feed", settings.reference_images())
+    import pytest
+
+    with pytest.raises(QuotaExhausted):
+        CloudflareProvider(settings).generate(req, settings.path("output"))
+    assert len(calls) == 1
+
+
+class QuotaAfterOne(MockImageProvider):
+    name = "quota"
+
+    def __init__(self, settings):
+        super().__init__(settings)
+        self.calls = 0
+
+    def generate(self, req, out_dir):
+        from mono.providers import QuotaExhausted
+
+        self.calls += 1
+        if self.calls > 1:
+            raise QuotaExhausted("4006")
+        return super().generate(req, out_dir)
+
+
+def test_render_batch_stops_at_quota(settings, repo, monkeypatch):
+    from mono.providers import QUOTA_REASON
+
+    provider = QuotaAfterOne(settings)
+    monkeypatch.setattr("mono.pipeline.get_llm", lambda s, dry_run=False: MockLLM(s))
+    monkeypatch.setattr("mono.pipeline.get_image_provider", lambda s, name=None, dry_run=False: provider)
+    batch = render_batch(settings, plan_batch(settings, 3))
+    assert [i["status"] for i in batch["items"]] == ["draft", "discarded", "discarded"]
+    assert all(i["discard_reason"] == QUOTA_REASON for i in batch["items"][1:])
+    assert provider.calls == 2 and batch["quota_exhausted"]
+
+
+def test_generate_cli_exits_3_when_quota_leaves_nothing(settings, repo, monkeypatch):
+    from typer.testing import CliRunner
+
+    from mono.cli import app
+    from mono.providers import QuotaExhausted
+
+    class AlwaysQuota(MockImageProvider):
+        def generate(self, req, out_dir):
+            raise QuotaExhausted("4006")
+
+    monkeypatch.setattr("mono.pipeline.get_llm", lambda s, dry_run=False: MockLLM(s))
+    monkeypatch.setattr("mono.pipeline.get_image_provider",
+                        lambda s, name=None, dry_run=False: AlwaysQuota(s))
+    result = CliRunner().invoke(app, ["generate", "-n", "2"])
+    assert result.exit_code == 3
+    assert "cuota diaria gratis de Cloudflare" in result.output

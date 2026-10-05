@@ -110,7 +110,9 @@ jobs:
           ids=()
           for row in $(echo "$PLAN" | jq -c '.[]'); do
             fmt=$(echo "$row" | jq -r .format); n=$(echo "$row" | jq -r .count)
-            mono generate -n "$n" -f "$fmt" "${extra[@]}"
+            rc=0; mono generate -n "$n" -f "$fmt" "${extra[@]}" || rc=$?
+            if [ "$rc" = "3" ]; then echo "quota=true" >> "$GITHUB_OUTPUT"; exit 3; fi
+            [ "$rc" = "0" ] || exit "$rc"
             ids+=("$(grep '^batch_id=' "$GITHUB_OUTPUT" | tail -1 | cut -d= -f2)")
           done
           {
@@ -213,7 +215,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          mono notify --event failure --title "generate.yml falló" \
-            --body "Revisá el run para ver el detalle." \
+          if [ "${{ steps.gen.outputs.quota }}" = "true" ]; then
+            body="Se agotó la cuota diaria gratis de Cloudflare. Se renueva a las 21:00 (Buenos Aires); volvé a correr generate después."
+          else
+            body="Revisá el run para ver el detalle."
+          fi
+          mono notify --event failure --title "generate.yml falló" --body "$body" \
           || gh issue create --title "generate.yml falló" --body "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
           || true
