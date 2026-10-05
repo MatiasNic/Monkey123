@@ -111,10 +111,19 @@ jobs:
           for row in $(echo "$PLAN" | jq -c '.[]'); do
             fmt=$(echo "$row" | jq -r .format); n=$(echo "$row" | jq -r .count)
             rc=0; mono generate -n "$n" -f "$fmt" "${extra[@]}" || rc=$?
-            if [ "$rc" = "3" ]; then echo "quota=true" >> "$GITHUB_OUTPUT"; exit 3; fi
+            if [ "$rc" = "3" ]; then
+              # Cuota agotada: no se sigue, pero las tandas que ya salieron se conservan y van al PR.
+              echo "quota=true" >> "$GITHUB_OUTPUT"
+              echo "::warning title=Cuota de Cloudflare agotada::Se renueva a las 21:00 (Buenos Aires)."
+              break
+            fi
             [ "$rc" = "0" ] || exit "$rc"
             ids+=("$(grep '^batch_id=' "$GITHUB_OUTPUT" | tail -1 | cut -d= -f2)")
           done
+          if [ ${#ids[@]} -eq 0 ]; then
+            echo "::error::No se generó ninguna tanda (cuota de Cloudflare agotada)."
+            exit 3
+          fi
           {
             echo "Tandas generadas por \`generate.yml\` (run ${{ github.run_id }})."
             echo
