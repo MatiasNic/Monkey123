@@ -133,7 +133,7 @@ mono prune --days 60 [--dry-run]          # borra JPG/MP4 de tandas ya publicada
 ### Imagen, QC y retoque
 | Proveedor | Cuándo | Cómo |
 |---|---|---|
-| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). `flux-2-klein-9b` mantiene mejor el parecido (unas 5–7 imágenes por día gratis); `flux-2-klein-4b` es más barato. Se elige en `config.yaml → image.cloudflare_model`. |
+| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-4b` (unas 50 imágenes por día gratis). `flux-2-klein-9b` mantiene mejor el parecido, pero alcanza solo para 5 o 6 por día. Se elige en `config.yaml → image.cloudflare_model`. |
 | `manual` | Mejor consistencia, también gratis | `drafts/<tanda>/manual/<id>.md` trae el prompt y las referencias. Generás en Gemini, subís `inbox/<id>.jpg` y corrés `mono ingest`. |
 | `mock` | Tests y `--dry-run` | Imagen sintética, sin red. |
 
@@ -175,7 +175,9 @@ Usa la Instagram API con Instagram Login (`graph.instagram.com`), que **no** req
 ---
 
 ## Costos y límites
-- **Cloudflare Workers AI:** 10.000 neuronas por día gratis (se reinician a las 00:00 UTC). Con `flux-2-klein-9b` a 1024×1280 alcanzan unas 5–7 imágenes por día. Con QC estricto y reintentos, las tandas grandes conviene hacerlas en modo `manual` o repartirlas en varios días.
+- **Cloudflare Workers AI:** 10.000 neuronas por día gratis, que se reinician a las 00:00 UTC (21:00 en Buenos Aires).
+  - Con `flux-2-klein-4b` (default), cada foto de 1024×1280 gasta unas 180 neuronas: alcanzan para unas 50 por día, contando reintentos. Con `flux-2-klein-9b` gasta unas 1.700 y alcanzan para 5 o 6.
+  - Si la cuota se agota en medio de una tanda, el sistema deja de pedir fotos y las que faltan quedan marcadas "cuota agotada". Si no salió ninguna, `generate` falla con ese mensaje y no abre un PR vacío.
 - **Claude (`claude -p`):** usa el crédito mensual del Agent SDK de tu plan (USD 20 en Pro). Cada tanda gasta ideación + 1 QC por imagen (con reintentos) + captions. Si se agota, se frena hasta el próximo ciclo; con los créditos pagos desactivados, nunca se cobra.
 - **Instagram:** 100 posts por API cada 24 h. El token dura 60 días.
 - **R2:** 10 GB gratis. Los medios se borran después de publicar.
@@ -186,8 +188,8 @@ Usa la Instagram API con Instagram Login (`graph.instagram.com`), que **no** req
 |---|---|
 | Los crons no corren | La rama por defecto no es `main`, o el repo tuvo 60 días sin actividad (GitHub pausa los crons; reactivalos desde Actions). |
 | `generate` no abre el PR | Falta el permiso "Allow GitHub Actions to create and approve pull requests". |
-| Muchas piezas `discarded` por QC | Bajá `qc.pass_score` (default 7), probá `flux-2-klein-9b` o usá el modo `manual`. Mirá los motivos en `batch.md` y en `output/rejected/`. |
-| `Cloudflare 429` / sin imágenes | Se agotaron las neuronas diarias. Esperá al reinicio de las 00:00 UTC o usá el modo `manual`. |
+| Muchas piezas `discarded` por QC | Bajá `qc.pass_score` (default 7), probá `flux-2-klein-9b` (mejor parecido, menos fotos por día) o usá el modo `manual`. Mirá los motivos en `batch.md` y en `output/rejected/`. |
+| "Cuota de Cloudflare agotada" | Se gastaron las 10.000 neuronas del día. Volvé a correr `generate` después de las 21:00 (Buenos Aires) o usá el modo `manual`. |
 | `publish` falla con error de token | El token venció. Generá uno nuevo en Meta, actualizá `IG_ACCESS_TOKEN` y cargá `GH_PAT` para que se renueve solo. |
 | `publish` falla con un error de `image_url` | R2 no es público. Activá la Public Development URL y revisá `R2_PUBLIC_BASE_URL`. |
 | `claude -p` falla en Actions | `CLAUDE_CODE_OAUTH_TOKEN` vencido o crédito agotado. Volvé a correr `claude setup-token`. |

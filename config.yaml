@@ -10,7 +10,9 @@ llm:
 
 image:
   provider: cloudflare     # cloudflare | manual | mock
-  cloudflare_model: "@cf/black-forest-labs/flux-2-klein-9b"
+  # klein-4b: ~180 neuronas por foto → unas 50 fotos/día gratis.
+  # klein-9b: mejor parecido pero ~1.700 neuronas por foto → 5-6 fotos/día.
+  cloudflare_model: "@cf/black-forest-labs/flux-2-klein-4b"
   max_attempts: 3          # regeneraciones si falla el QC
 
 dedup:
