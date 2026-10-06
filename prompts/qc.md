@@ -17,9 +17,10 @@ Evaluá la candidata con criterio estricto:
 6. has_text (bool): true si tiene texto superpuesto, marca de agua o firma (el texto propio de la escena, como un diario o un cartel, está permitido).
 7. ai_look (0-10, más alto = peor): look IA/HDR/publicitario/plástico/cinematográfico excesivo.
 8. matches_idea (0-10): coincide con la idea pedida (lugar, actividad, pose, ropa, luz, encuadre).
-9. score (0-10): nota global como foto publicable de la cuenta.
+9. brand_safe (bool): false si la foto se puede leer como drogas, alcohol, cigarrillo, suciedad, enfermedad, tristeza o algo sórdido (por ejemplo un objeto blanco ambiguo cerca de la cara, el mono agachado o escondido en un rincón). Tono esperado: $content
+10. score (0-10): nota global como foto publicable de la cuenta. Un desvío menor de la idea (encuadre más cerrado, perfil en vez de tres cuartos, otro objeto parecido) NO es motivo para bajar de 7 si la foto es buena, el macaco es el de las referencias y la escena es clara y cotidiana. Una diferencia leve de tono del pelaje tampoco.
 
 Respondé SOLO con JSON:
 {"identity_match": 0, "species_ok": true, "anatomy": 0, "limb_count_ok": true, "anatomy_issues": [],
  "scale_ok": true, "is_collage": false,
- "has_text": false, "ai_look": 0, "matches_idea": 0, "score": 0, "reasons": ["motivos breves en español"]}
+ "has_text": false, "ai_look": 0, "matches_idea": 0, "brand_safe": true, "score": 0, "reasons": ["motivos breves en español"]}

@@ -31,6 +31,7 @@ def build_ideation_prompt(settings: Settings, recent: list[dict], bank: list[str
         scene_text = scene_file.read_text() if scene_file.exists() else scene
     return Template(settings.prompt_template("ideation")).safe_substitute(
         identity=yaml.safe_dump(bible["identity"], allow_unicode=True, sort_keys=False),
+        content=yaml.safe_dump(bible.get("content") or {}, allow_unicode=True, sort_keys=False, width=200),
         axes=yaml.safe_dump(bible["axes"], allow_unicode=True, sort_keys=False, width=200),
         looks=", ".join(bible["camera_looks"]),
         recent="\n".join(f"- {summarize(r)}" for r in recent) or "(sin historial todavía)",

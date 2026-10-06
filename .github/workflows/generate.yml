@@ -8,7 +8,7 @@ on:
     inputs:
       cantidad:
         description: "Cantidad de piezas"
-        default: "4"
+        default: "8"
       formato:
         description: "Formato"
         type: choice

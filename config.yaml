@@ -69,5 +69,6 @@ schedule:                  # días de publicación por formato (0 = lunes … 6 
 
 # Qué genera el cron de generate.yml según el día (UTC). Cada entrada = una tanda = un PR.
 generate_plan:
-  sun: [{format: feed, count: 3}, {format: story, count: 4}]
-  wed: [{format: carousel, count: 5}, {format: reel, count: 4}]
+  # Se piden más de las que se publican: el QC descarta algunas y en el PR elegís las mejores.
+  sun: [{format: feed, count: 6}, {format: story, count: 6}]
+  wed: [{format: carousel, count: 6}, {format: reel, count: 5}]
