@@ -1,0 +1,772 @@
+id: 20261006-1737-77cc
+format: feed
+scene: null
+theme: null
+dry_run: false
+llm: claude_cli
+items:
+- id: 20261006-1737-77cc-01
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires balcony
+  activity: watering plants
+  pose: standing
+  camera_distance: medium wide
+  expression: content
+  gaze: down
+  outfit: linen shirt and shorts
+  lighting: bright morning sun
+  accessories:
+  - none
+  camera_look: iphone_daylight
+  concept: Watering balcony plants in the morning sun
+  concept_es: Regando las plantas del balcón por la mañana
+  description: An adult macaque stands on a tidy Buenos Aires balcony full of green plants, tipping a metal watering can over
+    a pot. Bright morning sun, relaxed human posture, eyes on the plants.
+  prompt: 'Candid real photograph. An adult macaque stands on a tidy Buenos Aires balcony full of green plants, tipping a
+    metal watering can over a pot. Bright morning sun, relaxed human posture, eyes on the plants.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: standing. Expression:
+    content, looking down. Wearing linen shirt and shorts.
+
+
+    Setting: Buenos Aires balcony.
+
+    Lighting: bright morning sun.
+
+    Framing: medium wide, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: modern iPhone photo in daylight, sharp, natural colors, slightly casual framing.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: &id001
+  - 1080
+  - 1350
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - Es un macaco adulto con ropa que le queda bien, pero la cara es más clara y dorada, con menos arrugas y piel menos oscura
+      alrededor de los ojos que en las referencias. Las orejas son más grandes y rosadas, y los ojos no son los ámbar entrecerrados
+      de las referencias.
+    - La escena del balcón y la ropa de lino coinciden con la idea, pero la regadera no se inclina sobre ninguna maceta. Hay
+      macetas tiradas en el suelo y la mirada no está puesta en las plantas.
+    - 'La imagen es blanda y de baja resolución, con una estética algo IA y detalles incoherentes: el vaso con pajita en el
+      suelo, la postura de una pierna y la regadera flotando.'
+    - 'Luz de mañana, encuadre medio amplio y tono cotidiano y prolijo: no hay problemas de marca ni texto superpuesto.'
+  - attempt: 2
+    error: 'Cloudflare 408: {"errors":[{"message":"AiError: AiError: Request timeout (d4c7dcce-0a0e-45b5-a104-1ccfbeea8719)","code":3046}],"success":false,"result":{},"messages":[]}'
+  - attempt: 3
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 6'']'
+    - El escenario copia bien el balcón de las referencias, con la luz de sol, la baranda azul y el estante con plantas, y
+      la ropa de lino y short coincide con lo pedido
+    - 'La cara no es la de las referencias: está más rosada y clara, con menos arrugas y ojos abiertos y alertas, y las referencias
+      tienen la cara marrón oscura y los ojos entrecerrados'
+    - Mira a la cámara y no a las plantas, así que no cumple la idea de ojos en las plantas
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-02
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires café
+  activity: working on a laptop
+  pose: at a table
+  camera_distance: medium
+  expression: focused
+  gaze: at a screen
+  outfit: knitted sweater
+  lighting: soft window light
+  accessories:
+  - wireless earbuds
+  camera_look: window_light_interior
+  concept: Laptop work at a café window table
+  concept_es: Trabajando con la laptop en un café junto a la ventana
+  description: An adult macaque sits at a wooden café table by a big window, typing on a silver laptop with a ceramic cup
+    of coffee beside it. Soft daylight on his face, calm focused look.
+  prompt: 'Candid real photograph. An adult macaque sits at a wooden café table by a big window, typing on a silver laptop
+    with a ceramic cup of coffee beside it. Soft daylight on his face, calm focused look.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: at a table.
+    Expression: focused, looking at a screen. Wearing knitted sweater, with wireless earbuds.
+
+
+    Setting: Buenos Aires café.
+
+    Lighting: soft window light.
+
+    Framing: medium, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: indoor photo with soft natural window light, clean and bright, sharp, true-to-life colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 4 < 6'']'
+    - La cara es más lisa y rosada que la de las referencias. No tiene el tono marrón claro ni las arrugas profundas. Los
+      ojos son ámbar muy abiertos y brillantes, no entrecerrados, y el rostro parece más joven.
+    - El pelaje es dorado verdoso y el pecho es blanco, distinto del marrón cálido y tupido de las referencias. Esto baja
+      la coincidencia de identidad.
+    - No lleva el suéter tejido pedido ni ropa visible. Se ve como un mono con postura de animal, no sentado como una persona
+      adulta con ropa que le queda bien, como en las referencias.
+  - attempt: 2
+    score: 4.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 4 < 6'']'
+    - La cara es rosada y más clara, sin la piel marrón tostado con el contorno de ojos oscuro de las referencias, y el hocico
+      es más largo.
+    - El pelaje es dorado verdoso y más largo y liso que el marrón cálido de las referencias.
+    - No lleva ropa. La idea pedía un suéter tejido y las referencias lo muestran siempre con ropa adulta que le queda bien.
+      Parece un macaco salvaje sentado en una silla, no un adulto de postura humana.
+  - attempt: 3
+    score: 4.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 3 < 6'']'
+    - No es el macaco de las referencias. La cara es rosada y lisa, con pocas arrugas, y los ojos son ámbar muy abiertos y
+      atentos. Las referencias tienen cara marrón tostado, piel oscura alrededor de los ojos, arrugas finas y mirada serena
+      entrecerrada. Se ve más joven.
+    - El pelaje es verde oliva y dorado, lavado. Las referencias tienen marrón cálido, y acá el tono tira claramente a verde.
+    - No lleva ropa. La idea pedía un suéter tejido y las referencias lo muestran vestido. Parece un animal real sentado ante
+      una notebook, no un adulto con postura humana.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-03
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: neighborhood verdulería
+  activity: buying fruit at a verdulería
+  pose: standing
+  camera_distance: medium
+  expression: skeptical
+  gaze: at object in hands
+  outfit: quilted jacket and grey jeans
+  lighting: overcast daylight
+  accessories:
+  - paper bag of groceries
+  camera_look: street_overcast
+  concept: Choosing tomatoes at the verdulería
+  concept_es: Eligiendo tomates en la verdulería
+  description: An adult macaque stands at a tidy fruit stand holding a ripe tomato up to inspect it, a brown paper grocery
+    bag in his other arm. Crates of fresh produce behind him, soft overcast light.
+  prompt: 'Candid real photograph. An adult macaque stands at a tidy fruit stand holding a ripe tomato up to inspect it, a
+    brown paper grocery bag in his other arm. Crates of fresh produce behind him, soft overcast light.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: standing. Expression:
+    skeptical, looking at object in hands. Wearing quilted jacket and grey jeans, with paper bag of groceries.
+
+
+    Setting: neighborhood verdulería.
+
+    Lighting: overcast daylight.
+
+    Framing: medium, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: candid street photo on an overcast day, even soft light, sharp, muted natural colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 2.0
+    passed: false
+    reasons:
+    - 'falla dura: [''miembros de más/duplicados: Se ven tres pies: uno con la suela marrón en el aire, junto al vaso, y dos
+      zapatillas blancas en el piso; La pierna doblada y las otras dos piernas no se pueden seguir hasta la cadera; Una mano
+      sostiene el tomate junto a la cara y otra sostiene a la vez el diario y el asa de la bolsa. La otra mano o antebrazo
+      que toca el hocico es confusa; La postura, con una rodilla levantada, es imposible y poco natural'', ''identidad 5 <
+      6'', ''anatomía 3 < 6'']'
+    - La escena es el balcón de las referencias (macetas, baranda azul, vaso de Starbucks), no una verdulería con cajones
+      de producto
+    - Aparece un diario que no se pidió y falta el puesto de fruta
+    - 'Hay un miembro de más: tres pies visibles, y la pose es contorsionada'
+  - attempt: 2
+    score: 3.0
+    passed: false
+    reasons:
+    - 'falla dura: [''miembros de más/duplicados: Hay un antebrazo peludo cerca del mentón y otra mano que sostiene el tomate,
+      y el brazo que carga la bolsa no se ve con claridad. Parece haber un brazo de más o fusionado.; Los pies descalzos son
+      de simio y no encajan con la ropa humana. Las referencias usan zapatillas.'', ''identidad 5 < 6'', ''anatomía 5 < 6'']'
+    - El pelaje de la cabeza es gris verdoso y la cara es más oscura y gris que en las referencias. La identidad es dudosa.
+    - La escena es el balcón de las referencias, con un vaso de Starbucks, y no una verdulería con cajones de productos. No
+      coincide con el lugar pedido.
+    - La luz es nublada, pero la escena está copiada de las referencias.
+  - attempt: 3
+    error: 'Cloudflare 408: {"errors":[{"message":"AiError: AiError: Request timeout (c0b996f7-3fa2-4289-82f8-ae0d445c46fe)","code":3046}],"success":false,"result":{},"messages":[]}'
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-04
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: plaza bench
+  activity: drinking mate
+  pose: sitting on a bench
+  camera_distance: medium wide
+  expression: serene
+  gaze: out of frame left
+  outfit: bucket hat and tee
+  lighting: late afternoon sun
+  accessories:
+  - bucket hat
+  camera_look: iphone_golden_hour
+  concept: Mate on a plaza bench in late sun
+  concept_es: Tomando mate en un banco de plaza al atardecer
+  description: An adult macaque sits relaxed on a plaza bench under trees, holding a mate gourd with a metal straw and a thermos
+    beside him. Warm late sun, gazing off to the side.
+  prompt: 'Candid real photograph. An adult macaque sits relaxed on a plaza bench under trees, holding a mate gourd with a
+    metal straw and a thermos beside him. Warm late sun, gazing off to the side.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: sitting on
+    a bench. Expression: serene, looking out of frame left. Wearing bucket hat and tee, with bucket hat.
+
+
+    Setting: plaza bench.
+
+    Lighting: late afternoon sun.
+
+    Framing: medium wide, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: modern iPhone photo at golden hour, warm low sun, long soft shadows, sharp, natural colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    error: 'Cloudflare 400: {"errors":[{"message":"AiError: AiError: Your output has been flagged. Please choose another prompt
+      / input image combination (628a1866-d0a6-4432-aea0-37ae1973afb7)","code":3030}],"success":false,"result":{},"messages":[]}'
+  - attempt: 2
+    error: 'Cloudflare 400: {"errors":[{"message":"AiError: AiError: Your output has been flagged. Please choose another prompt
+      / input image combination (954e7a51-5d02-48c9-9342-ef30b2968af4)","code":3030}],"success":false,"result":{},"messages":[]}'
+  - attempt: 3
+    error: 'Cloudflare 400: {"errors":[{"message":"AiError: AiError: Your output has been flagged. Please choose another prompt
+      / input image combination (734bb90c-cd0e-4c11-8c03-0b5dba82aa0a)","code":3030}],"success":false,"result":{},"messages":[]}'
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-05
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: record store
+  activity: browsing records
+  pose: leaning against something
+  camera_distance: medium close-up
+  expression: absorbed
+  gaze: down
+  outfit: varsity jacket and cargo pants
+  lighting: warm interior daylight
+  accessories:
+  - headphones
+  camera_look: mirrorless_35mm
+  concept: Browsing vinyl in a sunlit record store
+  concept_es: Mirando discos de vinilo en una disquería luminosa
+  description: An adult macaque leans on a wooden record bin, flipping through vinyl sleeves with his long dark fingers. Headphones
+    around his neck, bright tidy shop behind him.
+  prompt: 'Candid real photograph. An adult macaque leans on a wooden record bin, flipping through vinyl sleeves with his
+    long dark fingers. Headphones around his neck, bright tidy shop behind him.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: leaning against
+    something. Expression: absorbed, looking down. Wearing varsity jacket and cargo pants, with headphones.
+
+
+    Setting: record store.
+
+    Lighting: warm interior daylight.
+
+    Framing: medium close-up, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: photo on a mirrorless camera with a 35mm lens, natural light, crisp detail, gentle background blur.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - 'Parece el mismo macaco adulto: cara tostada, ojos entrecerrados, pelaje marrón dorado. El pelaje de la cabeza es algo
+      más claro y pálido que en las referencias.'
+    - 'No coincide con la idea: la escena es el balcón de las referencias con una mesa baja y cartas. No hay tienda de discos,
+      ni cajón de madera, ni vinilos.'
+    - No está apoyado contra nada. Está sentado e inclinado sobre la mesa, así que la pose pedida ('leaning against something')
+      no se cumple.
+    - Sí cumple los auriculares al cuello, la campera varsity oscura y el pantalón cargo.
+  - attempt: 2
+    error: 'Cloudflare 400: {"errors":[{"message":"AiError: AiError: Your output has been flagged. Please choose another prompt
+      / input image combination (2fe1ff44-42df-4afb-b35f-1435fee2e7ea)","code":3030}],"success":false,"result":{},"messages":[]}'
+  - attempt: 3
+    score: 4.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 4 < 6'']'
+    - El pelaje de la cabeza y los hombros es verde oliva/gris verdoso, no el marrón cálido de las referencias.
+    - La cara es más rosada/anaranjada y clara, con poca piel oscura alrededor de los ojos y pocas arrugas. Parece otro macaco,
+      más joven y más 'rhesus', y no el de las referencias.
+    - 'Sigue siendo un macaco adulto con postura humana y la ropa le queda bien: campera varsity y pantalón cargo. Las manos
+      oscuras y largas son coherentes y no se ven miembros de más.'
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-06
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: colectivo seat
+  activity: commuting
+  pose: sitting
+  camera_distance: medium
+  expression: sleepy
+  gaze: out the window
+  outfit: oversized hoodie
+  lighting: overcast daylight
+  accessories:
+  - wired earphones
+  camera_look: iphone_daylight
+  concept: Sleepy colectivo ride
+  concept_es: Viaje en colectivo con sueño
+  description: An adult macaque sits on a bus seat by the window, wired earphones in, watching the city pass with heavy half-closed
+    eyes. Clean bus interior, soft grey daylight.
+  prompt: 'Candid real photograph. An adult macaque sits on a bus seat by the window, wired earphones in, watching the city
+    pass with heavy half-closed eyes. Clean bus interior, soft grey daylight.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: sitting. Expression:
+    sleepy, looking out the window. Wearing oversized hoodie, with wired earphones.
+
+
+    Setting: colectivo seat.
+
+    Lighting: overcast daylight.
+
+    Framing: medium, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: modern iPhone photo in daylight, sharp, natural colors, slightly casual framing.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 4 < 6'']'
+    - El pelaje de la cabeza es claramente verde oliva/amarillento y tiene una barba blanca. Las referencias son marrón cálido,
+      así que no es el mismo macaco. Parece más un cercopiteco verde que el macaco de las referencias.
+    - La cara es rosada y más lisa, con pocas arrugas y poca piel oscura alrededor de los ojos. Las orejas son más grandes
+      y sobresalen más que las de las referencias.
+    - 'La escena coincide bien con la idea: colectivo, asiento junto a la ventana, auriculares con cable, buzo oversize, ojos
+      entrecerrados y luz gris de día nublado. Está limpia y es cotidiana.'
+  - attempt: 2
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 6'']'
+    - El pelaje se ve verdoso/oliva y grisáceo, y tiene barba clara. Las referencias son marrón cálido, así que baja la identidad.
+    - La cara es más oscura y verdosa que la de las referencias, que tiene un tono canela más claro con arrugas marcadas.
+    - Tiene los ojos completamente cerrados, como dormido. La idea pedía ojos entrecerrados mirando la ciudad pasar.
+  - attempt: 3
+    score: 2.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 6'']'
+    - 'No coincide con la idea: es el balcón de la referencia (macetas, baranda azul, diario, café), no un asiento de colectivo
+      junto a la ventana.'
+    - 'Ropa incorrecta: lleva remera blanca y jeans, no un hoodie oversized. Además lee un diario en vez de ir con auriculares
+      mirando la ciudad, y la luz es de sol directo, no de día nublado.'
+    - El pelaje de la cabeza y los brazos tiene un tono oliva/verdoso, distinto del marrón cálido de las referencias.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-07
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: bookstore
+  activity: reading a book
+  pose: standing
+  camera_distance: medium
+  expression: amused
+  gaze: down
+  outfit: wool overcoat and scarf
+  lighting: warm interior daylight
+  accessories:
+  - tote bag
+  camera_look: mirrorless_35mm
+  concept: Reading a paperback in a bookstore aisle
+  concept_es: Leyendo un libro en el pasillo de una librería
+  description: An adult macaque stands between tall bookshelves holding an open paperback, a canvas tote on his shoulder,
+    a faint amused look. Bright, tidy bookstore.
+  prompt: 'Candid real photograph. An adult macaque stands between tall bookshelves holding an open paperback, a canvas tote
+    on his shoulder, a faint amused look. Bright, tidy bookstore.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: standing. Expression:
+    amused, looking down. Wearing wool overcoat and scarf, with tote bag.
+
+
+    Setting: bookstore.
+
+    Lighting: warm interior daylight.
+
+    Framing: medium, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: photo on a mirrorless camera with a 35mm lens, natural light, crisp detail, gentle background blur.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 4.0
+    passed: false
+    reasons:
+    - La escena es el balcón de las referencias (estantería con plantas, baranda azul, vaso de café), no una librería. Faltan
+      las estanterías altas y el interior cálido, así que no cumple el lugar pedido.
+    - El pelaje de la cabeza y las piernas se ve verdoso u oliva, no marrón cálido como en las referencias.
+    - La cara es más clara y rosada que en las referencias, y no tiene la piel oscura alrededor de los ojos ni las arrugas
+      profundas. La identidad es parecida pero no convincente.
+    - Está de pie con piernas peladas y sin pantalón ni zapatos, y se ve un cuerpo de mono. En las referencias lleva ropa
+      adulta completa y adopta una postura humana.
+  - attempt: 2
+    score: 3.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 6'']'
+    - 'La escena no es una librería. Es una mezcla de los fondos de las referencias: plantas del balcón, la reja azul, camisetas
+      enmarcadas, sofás y una mesa ratona con una taza Starbucks. No hay estantes altos de libros.'
+    - El macaco es parecido, pero tiene pelo claro casi blanco y grisáceo en mejillas y barba, y el rostro es más viejo y
+      menos tostado que en las referencias. Identidad dudosa.
+    - La ropa sí coincide con lo pedido (sobretodo de lana, bufanda, libro abierto y tote), pero la bufanda tiene un tono
+      verdoso.
+  - attempt: 3
+    score: 2.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 3 < 6'', ''anatomía 5 < 6'']'
+    - 'No coincide con la idea: la escena es el balcón de las referencias y no una librería con estantes. No lleva sobretodo
+      ni bufanda. Lee un diario, no un libro de bolsillo.'
+    - 'El macaco no tiene la postura humana de las referencias: está en cuclillas, sin ropa y con pies de animal.'
+    - El pelaje es verde oliva, no marrón cálido, y la cara es más clara y rosada, con menos arrugas que en las referencias.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1737-77cc-08
+  batch: 20261006-1737-77cc
+  created_at: '2026-10-06T20:37:10+00:00'
+  format: feed
+  scene: null
+  location: apartment living room
+  activity: watching TV
+  pose: reclining on a sofa
+  camera_distance: medium wide
+  expression: bored
+  gaze: at a screen
+  outfit: pajamas and slippers
+  lighting: soft window light
+  accessories:
+  - none
+  camera_look: window_light_interior
+  concept: Afternoon TV on the sofa
+  concept_es: Tele en el sillón a la tarde
+  description: An adult macaque lounges on a sofa in a bright living room, remote in hand, watching a TV just out of frame
+    with a bored look. Soft window light, cushions, a plant.
+  prompt: 'Candid real photograph. An adult macaque lounges on a sofa in a bright living room, remote in hand, watching a
+    TV just out of frame with a bored look. Soft window light, cushions, a plant.
+
+
+    Subject: The same ADULT macaque in every image, exactly as in the reference photos: mature face with a tan-brown bare
+    face, darker skin around the eyes, deep fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears close
+    to the head; warm brown fur (natural brown, never green, olive or grey-green), dense and slightly tousled; adult body
+    with human posture, sitting and standing like a grown man, wearing normal adult clothes that fit (as in the references).
+    Dark leathery hands with long fingers. Keep his face, age, fur and proportions exactly as in the reference images: an
+    adult macaque with human posture, the same body size relative to the furniture as in the references. Pose: reclining on
+    a sofa. Expression: bored, looking at a screen. Wearing pajamas and slippers.
+
+
+    Setting: apartment living room.
+
+    Lighting: soft window light.
+
+    Framing: medium wide, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: indoor photo with soft natural window light, clean and bright, sharp, true-to-life colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect
+    symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split
+    image. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files:
+    raw: output/raw/20261006-1737-77cc/20261006-1737-77cc-08.png
+    final: drafts/20261006-1737-77cc/20261006-1737-77cc-08.jpg
+  qc:
+    passed: true
+    score: 7.0
+    reasons:
+    - 'Es un macaco adulto, no un chimpancé ni un peluche. La escena es clara y cotidiana: reclinado en un sillón, con control
+      remoto, ventana, plantas y almohadones.'
+    - La identidad coincide solo en parte. El pelaje de la cabeza es amarillo dorado, más claro que el marrón de las referencias.
+      Las orejas son más rosadas y prominentes, y la cara es algo más rosada y lisa que la de las referencias, con menos arrugas.
+    - 'Coincide bien con la idea: living luminoso, luz suave de ventana, pose reclinada, encuadre medio amplio y pantuflas.
+      La TV queda fuera de cuadro, solo se ve su borde. La ropa es un pijama celeste y un pantalón que parece jean, un desvío
+      menor.'
+    - La luz natural y el color son limpios, sin grano, flash ni blanco y negro. La imagen es algo pulida y 'de revista',
+      con un leve look IA.
+    - 'Es apta para la marca: ambiente limpio, cálido y tranquilo, sin elementos dudosos.'
+    details:
+      identity_match: 6
+      species_ok: true
+      anatomy: 7
+      limb_count_ok: true
+      anatomy_issues:
+      - Se ven 2 brazos, 2 manos, 2 piernas y 2 pantuflas, sin miembros de más.
+      - La mano izquierda sostiene un objeto fino, como un lápiz o unos anteojos, y los dedos quedan algo ambiguos.
+      - El control remoto se apoya en una postura un poco rígida.
+      scale_ok: true
+      is_collage: false
+      has_text: false
+      ai_look: 4
+      matches_idea: 8
+      brand_safe: true
+      score: 7
+  caption:
+    caption: Tarde de sillón. Control en mano, cero planes.
+    alt_text: Un macaco adulto en pijama y pantuflas está recostado en un sillón de un living luminoso, con el control remoto
+      en la mano y gesto de aburrimiento. Hay almohadones, una planta y luz suave de ventana.
+    hashtags:
+    - '#buenosaires'
+    - '#livingroom'
+    - '#windowlight'
+    - '#35mm'
+  status: draft
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 7.0
+    passed: true
+    reasons:
+    - 'Es un macaco adulto, no un chimpancé ni un peluche. La escena es clara y cotidiana: reclinado en un sillón, con control
+      remoto, ventana, plantas y almohadones.'
+    - La identidad coincide solo en parte. El pelaje de la cabeza es amarillo dorado, más claro que el marrón de las referencias.
+      Las orejas son más rosadas y prominentes, y la cara es algo más rosada y lisa que la de las referencias, con menos arrugas.
+    - 'Coincide bien con la idea: living luminoso, luz suave de ventana, pose reclinada, encuadre medio amplio y pantuflas.
+      La TV queda fuera de cuadro, solo se ve su borde. La ropa es un pijama celeste y un pantalón que parece jean, un desvío
+      menor.'
+    - La luz natural y el color son limpios, sin grano, flash ni blanco y negro. La imagen es algo pulida y 'de revista',
+      con un leve look IA.
+dir: drafts/20261006-1737-77cc
