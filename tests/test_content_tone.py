@@ -59,3 +59,13 @@ def test_bible_describes_an_adult_with_a_clean_look(settings):
     for look in bible["camera_looks"].values():
         assert look["post"]["grain"] <= 0.01 and look["post"]["flash"] == 0
     assert not any("mirror" in p for p in bible["axes"]["pose"])
+
+
+def test_publish_test_default_look_exists(settings, repo):
+    from typer.testing import CliRunner
+
+    from mono.cli import app
+
+    image = settings.reference_images()[0]
+    result = CliRunner().invoke(app, ["publish-test", str(image), "--dry-run"])
+    assert result.exit_code == 0, result.output

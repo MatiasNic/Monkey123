@@ -162,7 +162,7 @@ def publish_test(
     image: str = typer.Argument(..., help="Imagen a publicar (cualquier formato)"),
     caption: str = typer.Option("prueba.", help="Caption del post"),
     story: bool = typer.Option(False, "--story", help="Publicar como historia"),
-    look: str = typer.Option("35mm_kodak_portra", help="Look de post-proceso a aplicar"),
+    look: str = typer.Option("iphone_daylight", help="Look de post-proceso a aplicar"),
     dry_run: bool = typer.Option(False, "--dry-run"),
 ):
     """Primer post de prueba: procesa una imagen y la publica directo (sin cola)."""
