@@ -10,9 +10,9 @@ llm:
 
 image:
   provider: cloudflare     # cloudflare | manual | mock
-  # klein-4b: ~180 neuronas por foto → unas 50 fotos/día gratis.
-  # klein-9b: mejor parecido pero ~1.700 neuronas por foto → 5-6 fotos/día.
-  cloudflare_model: "@cf/black-forest-labs/flux-2-klein-4b"
+  # klein-9b: mantiene mucho mejor la cara del personaje; ~1.700 neuronas por foto → 5-6 fotos/día gratis.
+  # klein-4b: ~180 neuronas por foto → unas 50 fotos/día, pero el parecido falla seguido.
+  cloudflare_model: "@cf/black-forest-labs/flux-2-klein-9b"
   max_attempts: 3          # regeneraciones si falla el QC
 
 dedup:
@@ -24,6 +24,7 @@ dedup:
 qc:
   pass_score: 7.0          # 0-10
   min_anatomy: 6           # por debajo, rechazo directo (aunque el puntaje global sea alto)
+  min_identity: 6          # idem para el parecido con las referencias (edad, cara, pelaje)
 
 video:
   provider: slideshow      # slideshow (ffmpeg, gratis) | futuro: proveedor de video IA
@@ -69,6 +70,11 @@ schedule:                  # días de publicación por formato (0 = lunes … 6 
 
 # Qué genera el cron de generate.yml según el día (UTC). Cada entrada = una tanda = un PR.
 generate_plan:
-  # Se piden más de las que se publican: el QC descarta algunas y en el PR elegís las mejores.
-  sun: [{format: feed, count: 6}, {format: story, count: 6}]
-  wed: [{format: carousel, count: 6}, {format: reel, count: 5}]
+  # Con klein-9b la cuota gratis da para 5-6 fotos por día: se genera todos los días en tandas chicas.
+  mon: [{format: feed, count: 3}]
+  tue: [{format: story, count: 3}]
+  wed: [{format: carousel, count: 3}]
+  thu: [{format: feed, count: 3}]
+  fri: [{format: story, count: 3}]
+  sat: [{format: reel, count: 3}]
+  sun: [{format: feed, count: 3}]

@@ -26,7 +26,7 @@ $bank
 
 Reglas:
 1. Cada idea debe variar SIMULTÁNEAMENTE lugar, actividad, pose, distancia de cámara, expresión, mirada, ropa, iluminación, accesorios y look de cámara respecto de las demás y del historial.
-2. Combiná planos medios con retratos cercanos.
+2. Encuadres como las referencias: plano medio o de cuerpo entero, el macaco adulto sentado o parado como una persona en un lugar real, luminoso y prolijo (balcón con plantas, panadería, café, local, living). Luz natural de día.
 3. Escenas cotidianas, urbanas y tranquilas que cualquiera reconoce (viajar, un café, caminar, hacer mandados, trabajar, un rato en casa). Tienen que poder subirse tal cual a Instagram y leerse a primera vista: nada ambiguo, nada sórdido, nada de lo que figura en "never". El mono nunca posa para la cámara.
 3b. Los objetos que sostiene tienen que ser obvios e inconfundibles (una taza, un diario, un celular, una bolsa de verdulería), nunca algo blanco o chico que pueda confundirse.
 4. Si hay escena de referencia, todas las ideas ocurren en ese lugar pero con acciones distintas.

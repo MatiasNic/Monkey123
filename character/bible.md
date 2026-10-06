@@ -6,7 +6,7 @@ Esta es la regla madre del proyecto. La versión que lee el código es [`bible.y
 - Es **el mismo macaco en todas las imágenes**. Hay que conservar los rasgos faciales, las proporciones, el color y la textura del pelaje (marrón claro cálido, **nunca verdoso ni oliva**; cara rosada-beige sin pelo), el tamaño, las orejas, el hocico corto y los ojos ámbar.
 - **Nunca** puede aparecer como chimpancé, gorila, otro simio grande, caricatura, render 3D ni peluche.
 - Tiene postura y comportamiento humanos, pero tiene que verse claramente como un mono real.
-- La escala es chica y creíble dentro del ambiente.
+- Es un macaco **adulto** (nunca cría ni bebé), con el tamaño y la postura de las referencias: se sienta y se para como una persona y usa ropa de adulto que le queda bien.
 - Personalidad visual: tranquilo, canchero, despreocupado, urbano y un poco irónico. Nunca posa como en una campaña.
 
 ### Referencias
@@ -29,10 +29,10 @@ Escenas banales o absurdamente humanas (ver `situations_seed`). El humor sale de
 Cada foto tiene que poder subirse tal cual a Instagram: vida urbana tranquila y reconocible (viajar, un café, caminar, hacer mandados, trabajar, un rato en casa). Nada que se pueda leer como drogas, alcohol o cigarrillo; nada de objetos blancos ambiguos cerca de la cara, ni de un mono escondido, sucio, triste o perdido. El QC rechaza estas fotos aunque estén bien hechas.
 
 ## Estética fotográfica
-- **Buscar:** textura de negativo, grano real, contraste moderado, colores levemente imperfectos, luces prácticas, leve imperfección óptica, profundidad de campo creíble, sensación de foto espontánea. Ocasionalmente, motion blur, aberración cromática sutil o flash frontal discreto.
-- **Evitar:** look cinematográfico, HDR, estética publicitaria, imagen perfecta o con cara de "generado por IA".
+- **Buscar:** lo mismo que las fotos de referencia. Foto real, limpia y nítida de celular moderno o cámara mirrorless, luz natural de día, colores reales, lugares luminosos y prolijos (balcón con plantas, panadería, café, local), momento cotidiano.
+- **Evitar:** grano fuerte, flash directo, blanco y negro, viñeta, colores lavados o amarillentos, look cinematográfico, HDR, estética publicitaria y espejos (duplican manos).
 
-Cada pieza usa un **look de cámara** del catálogo `camera_looks`. Cada look tiene su fragmento de prompt y sus parámetros de post-proceso.
+Cada pieza usa un **look de cámara** del catálogo `camera_looks`. Todos son limpios; el post-proceso es mínimo.
 
 ## Entrega
 Cuando se piden N imágenes, se entregan **N archivos independientes**. Nunca collage, grilla, contact sheet ni imagen dividida.

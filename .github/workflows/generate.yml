@@ -3,12 +3,12 @@ name: generate
 # Mergear el PR = aprobar (ver approve.yml). Borrar un .jpg en el PR = descartar esa pieza.
 on:
   schedule:
-    - cron: "0 12 * * 0,3"   # dom y mié 12:00 UTC (09:00 Buenos Aires); qué se genera: config.yaml → generate_plan
+    - cron: "0 12 * * *"     # todos los días 12:00 UTC (09:00 Buenos Aires); qué se genera: config.yaml → generate_plan
   workflow_dispatch:
     inputs:
       cantidad:
         description: "Cantidad de piezas"
-        default: "8"
+        default: "3"
       formato:
         description: "Formato"
         type: choice

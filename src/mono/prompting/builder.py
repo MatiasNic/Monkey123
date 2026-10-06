@@ -56,7 +56,7 @@ def build_image_prompt(settings: Settings, idea: dict) -> dict:
     prompt = "\n".join(line.rstrip() for line in prompt.splitlines()).replace("\n\n\n", "\n\n").strip()
     return {
         "prompt": prompt,
-        "references": [str(p.relative_to(settings.root)) for p in settings.reference_images()],
+        "references": [str(p.relative_to(settings.root)) for p in settings.generator_references()],
         "scene_photos": [str(p.relative_to(settings.root)) for p in photos],
         "size": fmt["size"],
     }

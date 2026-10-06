@@ -35,7 +35,7 @@ def test_crop_keeps_target_ratio():
 
 
 def test_look_changes_pixels_and_is_deterministic(settings, photo, tmp_path):
-    look = settings.bible["camera_looks"]["35mm_kodak_portra"]["post"]
+    look = settings.bible["camera_looks"]["iphone_daylight"]["post"]
     a = process(photo, tmp_path / "a.jpg", (1080, 1350), look, seed=1)
     b = process(photo, tmp_path / "b.jpg", (1080, 1350), look, seed=1)
     assert a.read_bytes() == b.read_bytes()
