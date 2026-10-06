@@ -24,6 +24,9 @@ identity:
     - visible text overlays, watermarks, logos added on top of the image
   personality: "calm, cool, laid-back, urban, slightly ironic; never posing"
   reference_dir: character/reference
+  # Recortes de las referencias (solo el mono, sin el balcón): son las que recibe el generador,
+  # así ve la cara grande y no copia el fondo. El QC sigue comparando contra reference_dir.
+  generator_refs_dir: character/reference_crops
   style_refs_dir: character/style_refs   # solo encuadre/estilo, NUNCA identidad
 
 # Tono del contenido: cada foto tiene que poder subirse tal cual a Instagram.
@@ -66,7 +69,7 @@ situations_seed:
 photography:
   always: "real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight, true-to-life colors, bright and airy, believable depth of field, everyday candid moment"
   anatomy: "anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot; no extra, duplicated or merged limbs"
-  avoid: "baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
+  avoid: "baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
 
 # Catálogo de cámaras/looks: parámetros de prompt + parámetros de post-proceso.
 camera_looks:

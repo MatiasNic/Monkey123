@@ -69,3 +69,12 @@ def test_publish_test_default_look_exists(settings, repo):
     image = settings.reference_images()[0]
     result = CliRunner().invoke(app, ["publish-test", str(image), "--dry-run"])
     assert result.exit_code == 0, result.output
+
+
+def test_generator_gets_cropped_references(settings):
+    from mono.ideation.ideas import generate_ideas as gen
+
+    idea = gen(settings, MockLLM(settings), 1, update_bank=False)[0]
+    refs = build_image_prompt(settings, idea)["references"]
+    assert refs and all(r.startswith("character/reference_crops/") for r in refs)
+    assert all("reference_crops" not in str(p) for p in settings.reference_images())

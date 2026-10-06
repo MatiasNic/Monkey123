@@ -65,6 +65,16 @@ class Settings:
         ref = self.root / self.bible["identity"]["reference_dir"]
         return sorted(p for p in ref.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"})
 
+    def generator_references(self) -> list[Path]:
+        """Referencias que recibe el generador: los recortes si existen, si no las referencias completas."""
+        crops = self.bible["identity"].get("generator_refs_dir")
+        folder = self.root / crops if crops else None
+        if folder and folder.is_dir():
+            found = sorted(p for p in folder.iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"})
+            if found:
+                return found
+        return self.reference_images()
+
     def prompt_template(self, name: str) -> str:
         return (self.root / "prompts" / f"{name}.md").read_text()
 

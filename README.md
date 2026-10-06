@@ -77,7 +77,7 @@ Si esos secrets no están cargados, el sistema sigue funcionando igual y simplem
 ## Operación semanal
 | Cuándo (Buenos Aires) | Workflow | Qué pasa |
 |---|---|---|
-| Dom y mié 09:00 | `generate` | Genera las tandas de `config.yaml → generate_plan` y abre **un PR** con fotos, captions, QC y el video del reel. Te avisa `batch_ready` si lo activás. |
+| Todos los días 09:00 | `generate` | Genera las tandas chicas de `config.yaml → generate_plan` y abre **un PR** con fotos, captions, QC y el video del reel. Te avisa `batch_ready` si lo activás. |
 | Cuando revisás | — | Para descartar una pieza, **borrá su .jpg** en el PR. **Mergear = aprobar.** |
 | Al mergear | `approve` | Agenda las piezas aprobadas en `data/queue.yaml` según `schedule.slots` (feed lun/mié/vie 19:00, carrusel sábado, historias mar/jue/sáb/dom 13:00, reel domingo). |
 | Todos los días 13:07 y 19:07 | `publish` | Publica lo vencido: R2 → contenedores → publish → historial → limpieza de R2. Si no hay nada vencido, termina sin usar credenciales. |
@@ -133,7 +133,7 @@ mono prune --days 60 [--dry-run]          # borra JPG/MP4 de tandas ya publicada
 ### Imagen, QC y retoque
 | Proveedor | Cuándo | Cómo |
 |---|---|---|
-| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-4b` (unas 50 imágenes por día gratis). `flux-2-klein-9b` mantiene mejor el parecido, pero alcanza solo para 5 o 6 por día. Se elige en `config.yaml → image.cloudflare_model`. |
+| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-9b`, que mantiene bien el parecido y alcanza para 5 o 6 imágenes por día gratis; por eso se genera a diario en tandas de 3. `flux-2-klein-4b` da unas 50 por día, pero el parecido falla seguido. Como referencias recibe los recortes de `character/reference_crops/` (solo el mono, sin fondo). Se elige en `config.yaml → image.cloudflare_model`. |
 | `manual` | Mejor consistencia, también gratis | `drafts/<tanda>/manual/<id>.md` trae el prompt y las referencias. Generás en Gemini, subís `inbox/<id>.jpg` y corrés `mono ingest`. |
 | `mock` | Tests y `--dry-run` | Imagen sintética, sin red. |
 
@@ -176,7 +176,7 @@ Usa la Instagram API con Instagram Login (`graph.instagram.com`), que **no** req
 
 ## Costos y límites
 - **Cloudflare Workers AI:** 10.000 neuronas por día gratis, que se reinician a las 00:00 UTC (21:00 en Buenos Aires).
-  - Con `flux-2-klein-4b` (default), cada foto de 1024×1280 gasta unas 180 neuronas: alcanzan para unas 50 por día, contando reintentos. Con `flux-2-klein-9b` gasta unas 1.700 y alcanzan para 5 o 6.
+  - Con `flux-2-klein-9b` (default), cada foto de 1024×1280 gasta unas 1.700 neuronas: alcanzan para 5 o 6 por día, contando reintentos. Con `flux-2-klein-4b` gasta unas 180 y alcanzan para unas 50.
   - Si la cuota se agota en medio de una tanda, el sistema deja de pedir fotos y las que faltan quedan marcadas "cuota agotada". Si no salió ninguna, `generate` falla con ese mensaje y no abre un PR vacío.
 - **Claude (`claude -p`):** usa el crédito mensual del Agent SDK de tu plan (USD 20 en Pro). Cada tanda gasta ideación + 1 QC por imagen (con reintentos) + captions. Si se agota, se frena hasta el próximo ciclo; con los créditos pagos desactivados, nunca se cobra.
 - **Instagram:** 100 posts por API cada 24 h. El token dura 60 días.
