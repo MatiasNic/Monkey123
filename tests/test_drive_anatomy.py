@@ -41,7 +41,8 @@ def batch(settings, repo, monkeypatch):
 
 
 def test_batch_folder_name():
-    assert batch_folder("20261004-2213-c25d") == "tandas/2026-10-04_20261004-2213-c25d"
+    assert batch_folder("20261004-2213-c25d") == "2026-10-04"
+    assert batch_folder("raro") == "sin-fecha"
 
 
 def test_sync_batch_uploads_approved_rejected_and_summary(settings, repo, batch):
@@ -50,9 +51,10 @@ def test_sync_batch_uploads_approved_rejected_and_summary(settings, repo, batch)
     sync_batch(settings, up, repo / batch["dir"])
     base = batch_folder(batch["id"])
     paths = {(c["path"], c["filename"]) for c in http.calls}
-    assert (f"{base}/aprobadas", f"{batch['items'][0]['id']}.jpg") in paths
+    assert base == f"{batch['id'][:4]}-{batch['id'][4:6]}-{batch['id'][6:8]}"
+    assert (f"{base}/feed", f"{batch['items'][0]['id']}.jpg") in paths
     assert (f"{base}/descartadas", f"{batch['items'][0]['id']}_a1.png") in paths
-    assert (base, "resumen.md") in paths
+    assert (base, f"resumen_{batch['id']}.md") in paths
     call = http.calls[0]
     assert call["secret"] == "s3cret" and base64.b64decode(call["base64"])
 
@@ -73,7 +75,7 @@ def test_sync_published_writes_caption_txt(settings, repo, batch):
              "caption": "otro martes.", "permalink": "https://instagram.com/p/x", "published_at": "2026-10-06T22:07:00"}
     sync_published(settings, up, entry)
     names = [(c["path"], c["filename"]) for c in http.calls]
-    assert names == [("publicadas/2026-10", "post-1_01.jpg"), ("publicadas/2026-10", "post-1.txt")]
+    assert names == [("publicadas/2026-10-06", "post-1_01.jpg"), ("publicadas/2026-10-06", "post-1.txt")]
     assert "otro martes." in base64.b64decode(http.calls[1]["base64"]).decode()
 
 
@@ -86,7 +88,7 @@ def test_unconfigured_drive_is_skipped(settings, repo):
 def test_drive_sync_dry_run_lists_paths(settings, repo, batch):
     result = CliRunner().invoke(app, ["drive-sync", "--batch", batch["id"], "--dry-run"])
     assert result.exit_code == 0, result.output
-    assert f"[dry-run] Monkey/{batch_folder(batch['id'])}/aprobadas/" in result.output
+    assert f"[dry-run] Monkey/{batch_folder(batch['id'])}/feed/" in result.output
 
 
 def test_publish_due_does_not_touch_drive(settings, repo, monkeypatch):
@@ -166,3 +168,13 @@ def test_image_prompt_demands_correct_anatomy(settings):
     prompt = build_image_prompt(settings, idea)["prompt"]
     assert "exactly two arms, two hands, two legs and two feet" in prompt
     assert "extra feet" in prompt
+
+
+def test_carousel_goes_to_carrusel_folder(settings, repo, monkeypatch):
+    monkeypatch.setattr("mono.pipeline.get_llm", lambda s, dry_run=False: MockLLM(s))
+    monkeypatch.setattr("mono.pipeline.get_image_provider", lambda s, name=None, dry_run=False: MockImageProvider(s))
+    b = render_batch(settings, plan_batch(settings, 2, fmt="carousel"))
+    http = FakeHTTP()
+    sync_batch(settings, DriveUploader("https://script", "s", http=http), repo / b["dir"])
+    media = {c["path"] for c in http.calls if c["filename"].endswith(".jpg")}
+    assert media == {f"{batch_folder(b['id'])}/carrusel"}

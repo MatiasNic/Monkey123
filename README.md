@@ -50,12 +50,12 @@ Seguí los pasos en orden. Corré `mono doctor` (local) o el workflow **doctor**
 Todo lo que se genera se copia automáticamente a la carpeta **Monkey** de tu Google Drive:
 ```
 Monkey/
-  tandas/AAAA-MM-DD_<tanda>/
-    aprobadas/     fotos finales y video del reel
-    descartadas/   intentos que el control de calidad rechazó
-    manual/        paquetes para generar a mano (si usaste el modo manual)
-    resumen.md     ideas, captions, hashtags y notas de calidad
-  publicadas/AAAA-MM/   copia de cada post publicado + .txt con caption y link de Instagram
+  AAAA-MM-DD/              una carpeta por día (juntás todas las tandas de ese día)
+    feed/  story/  carrusel/  reel/   fotos finales (y el video del reel) por formato
+    descartadas/           intentos que el control de calidad rechazó
+    manual/                paquetes para generar a mano (si usaste el modo manual)
+    resumen_<tanda>.md     ideas, captions, hashtags y notas de calidad de cada tanda
+  publicadas/AAAA-MM-DD/   copia de cada post publicado + .txt con caption y link de Instagram
 ```
 Es gratis y no necesita Google Cloud: un pequeño script corre con tu cuenta y recibe los archivos.
 
