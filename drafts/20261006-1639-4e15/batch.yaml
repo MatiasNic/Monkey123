@@ -1,0 +1,829 @@
+id: 20261006-1639-4e15
+format: feed
+scene: null
+theme: null
+dry_run: false
+llm: claude_cli
+items:
+- id: 20261006-1639-4e15-01
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires café
+  activity: working on a laptop
+  pose: at a table
+  camera_distance: medium
+  expression: focused
+  gaze: at a screen
+  outfit: knitted sweater
+  lighting: soft window light
+  accessories:
+  - wireless earbuds
+  camera_look: 35mm_kodak_portra
+  concept: Working on a MacBook in a café with a half-finished cortado
+  concept_es: Trabajando en una MacBook en un café, con un cortado a medio tomar
+  description: The macaque sits at a small wooden café table typing on a silver laptop, a half-finished cortado in a glass
+    beside it. Soft window light falls on his light brown fur and knitted sweater while he stares at the screen, completely
+    absorbed.
+  prompt: 'Candid real photograph. The macaque sits at a small wooden café table typing on a silver laptop, a half-finished
+    cortado in a glass beside it. Soft window light falls on his light brown fur and knitted sweater while he stares at the
+    screen, completely absorbed.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: at a table. Expression: focused, looking at a screen.
+    Wearing knitted sweater, with wireless earbuds.
+
+
+    Setting: Buenos Aires café.
+
+    Lighting: soft window light.
+
+    Framing: medium, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: shot on 35mm film, Kodak Portra 400, soft natural colors, fine grain, gentle highlight rolloff.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: &id001
+  - 1080
+  - 1350
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco joven y creíble, con hocico corto y ojos ámbar, y con auriculares como en las referencias.
+    - El pelaje se ve dorado-oliváceo, con un tinte verdoso. La consigna pide marrón cálido, nunca verde u oliva. Las referencias
+      son marrón más oscuro.
+    - La cara es más rosada y lisa que en las referencias, que tienen piel más oscura y arrugas finas. La oreja es naranja
+      intenso, poco natural. Por eso la identidad queda en 6.
+    - Las manos son más claras y peludas que las de las referencias, que son oscuras y de dedos largos.
+  - attempt: 2
+    score: 5.0
+    passed: false
+    reasons:
+    - El pelaje es amarillo-verdoso, casi oliva, con mechas erizadas. Las referencias tienen un marrón cálido más oscuro y
+      de textura más natural.
+    - Las manos son rosadas y claras, con pelo dorado en las muñecas. En las referencias son oscuras.
+    - La cara y las orejas son rosadas, con las orejas casi rojizas. Las referencias muestran una piel beige-marrón más apagada.
+    - Sigue siendo un macaco de hocico corto y ojos ámbar, así que no se confunde con un chimpancé.
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - El pelaje de la cabeza y los antebrazos es amarillo-verdoso/oliva, y las referencias piden marrón cálido, nunca verdoso.
+    - La cara es más rosada, lisa y limpia que la de las referencias, que es más marrón y arrugada. Parece un macaco joven
+      parecido, pero no claramente el mismo.
+    - La especie es correcta, un macaco de hocico corto, sin rasgos de chimpancé.
+    - 'La escena es cotidiana y coincide con la idea: café de Buenos Aires, mesa de madera, laptop plateada, cortado en vaso,
+      suéter tejido, luz de ventana y plano medio.'
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1639-4e15-02
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: Manhattan street corner
+  activity: reading the newspaper
+  pose: on a stool
+  camera_distance: medium wide
+  expression: skeptical
+  gaze: at object in hands
+  outfit: quilted jacket and grey jeans
+  lighting: hard midday sun
+  accessories:
+  - none
+  camera_look: compacta_digital_2005
+  concept: Reading the newspaper on a milk crate on a Manhattan corner
+  concept_es: Leyendo el diario sentado en un cajón de leche en una esquina de Manhattan
+  description: A macaque sits on an upturned plastic milk crate on a busy Manhattan corner, holding a large open newspaper
+    with both hands. He reads with a skeptical look while pedestrians pass blurred behind him in harsh midday sun.
+  prompt: 'Candid real photograph. A macaque sits on an upturned plastic milk crate on a busy Manhattan corner, holding a
+    large open newspaper with both hands. He reads with a skeptical look while pedestrians pass blurred behind him in harsh
+    midday sun.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: on a stool. Expression: skeptical, looking at object
+    in hands. Wearing quilted jacket and grey jeans.
+
+
+    Setting: Manhattan street corner.
+
+    Lighting: hard midday sun.
+
+    Framing: medium wide, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: photo from a 2005 compact digital camera, 6 megapixel, slightly blown highlights, cool white balance, small sensor
+    noise, timestamp-free.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - El pelaje es dorado-amarillento brillante en cabeza y cuello. Las referencias lo tienen marrón cálido más oscuro, así
+      que se desvía bastante de la identidad.
+    - La cara es más rosada, lisa y redondeada, con rasgos algo más humanos que el macaco de las referencias (más arrugado,
+      hocico más marcado). Parece un macaco parecido pero no idéntico.
+    - Sigue siendo claramente un macaco, no un chimpancé. Las manos son oscuras y de dedos largos, como en las referencias,
+      y las orejas son pequeñas.
+    - 'La escena coincide bien con la idea: esquina urbana concurrida, caja plástica como banco, diario abierto con las dos
+      manos, campera acolchada y jeans grises, peatones desenfocados y sol fuerte de mediodía.'
+  - attempt: 2
+    error: '(''Connection broken: IncompleteRead(3553 bytes read, 6687 more expected)'', IncompleteRead(3553 bytes read, 6687
+      more expected))'
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco creíble, con cara rosada y arrugada, hocico corto y manos oscuras. Pero el pelaje de la cabeza es amarillo-dorado
+      con un matiz oliva/verdoso, más claro que el marrón cálido de las referencias.
+    - Las orejas son más grandes y salidas que en las referencias, y la cara es algo más pálida y plana. La identidad coincide
+      solo en parte.
+    - 'Coincide casi toda la idea: caja de plástico, esquina de Manhattan, diario abierto con ambas manos, mirada escéptica,
+      campera matelaseada, jean gris y peatones desenfocados con sol duro.'
+    - El texto del diario es ilegible, pero es propio de la escena y está permitido. No hay marcas de agua.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1639-4e15-03
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: apartment living room
+  activity: video call
+  pose: reclining on a sofa
+  camera_distance: medium close-up
+  expression: bored
+  gaze: at a screen
+  outfit: oversized hoodie
+  lighting: tungsten practicals
+  accessories:
+  - wired earphones
+  camera_look: iphone_night
+  concept: Lying on the living room floor on a video call with the laptop on his belly
+  concept_es: Tirado en el piso del living en una videollamada, con la laptop sobre la panza
+  description: The macaque lies back on a rug in a cozy apartment living room with an open laptop resting on his belly, wired
+    earphones in. He watches the screen with a bored, patient look under warm lamp light.
+  prompt: 'Candid real photograph. The macaque lies back on a rug in a cozy apartment living room with an open laptop resting
+    on his belly, wired earphones in. He watches the screen with a bored, patient look under warm lamp light.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: reclining on a sofa. Expression: bored, looking at
+    a screen. Wearing oversized hoodie, with wired earphones.
+
+
+    Setting: apartment living room.
+
+    Lighting: tungsten practicals.
+
+    Framing: medium close-up, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: casual iPhone photo at night, slight motion blur, noisy shadows, mixed street light, unedited camera roll look.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    error: 'Cloudflare 408: {"errors":[{"message":"AiError: AiError: Request timeout (8f1edbbe-9d72-4142-9736-b2143bc7a358)","code":3046}],"success":false,"result":{},"messages":[]}'
+  - attempt: 2
+    score: 5.0
+    passed: false
+    reasons:
+    - Es un macaco creíble, con auriculares con cable y una sala cálida con lámpara y alfombra, y el tono es cotidiano y limpio.
+    - 'Se parece a las referencias pero no es claramente el mismo: es más cría, con la cara más rosada, un pelaje más dorado
+      y menos pardo, y manos con garras oscuras.'
+    - 'No cumple la idea en varios puntos: no lleva buzo oversized, la laptop está apoyada en la alfombra y no sobre la panza,
+      y no está recostado de espaldas. Está boca abajo y con la expresión curiosa, no aburrida ni paciente.'
+    - 'Tiene un look HDR y sobreprocesado: contraste y nitidez exagerados, lente gran angular y colores muy saturados. Se
+      aleja de la foto espontánea de iPhone nocturna que se pedía.'
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco bebé de cara más rosada y orejas más grandes que las referencias, y el pelaje tira a oliva verdoso. Es
+      de la misma especie, pero la identidad coincide solo a medias.
+    - 'No lleva hoodie oversized: se ve el pecho blanco al descubierto. Falta la ropa pedida.'
+    - 'La laptop está apoyada en la alfombra frente al mono, no abierta sobre su barriga. Tampoco está recostado de espaldas:
+      está boca abajo tecleando.'
+    - Sí cumplen los auriculares con cable, la luz cálida de lámpara, la alfombra y el living, y el encuadre es medium close-up.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1639-4e15-04
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: barbershop
+  activity: trying on clothes
+  pose: seen through a mirror
+  camera_distance: medium
+  expression: mildly surprised
+  gaze: toward camera but unaware
+  outfit: cheap suit too big
+  lighting: fluorescent interior
+  accessories:
+  - none
+  camera_look: point_and_shoot_flash
+  concept: Trying on a suit two sizes too big in front of a shop mirror
+  concept_es: Probándose un traje dos talles más grande frente al espejo de un local
+  description: Seen in a wall mirror, the macaque stands in a suit with sleeves hanging past his fingers, inspecting his reflection
+    with mild surprise. The room is lit by plain fluorescent tubes and he is clearly absorbed in the fit, not posing.
+  prompt: 'Candid real photograph. Seen in a wall mirror, the macaque stands in a suit with sleeves hanging past his fingers,
+    inspecting his reflection with mild surprise. The room is lit by plain fluorescent tubes and he is clearly absorbed in
+    the fit, not posing.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: seen through a mirror. Expression: mildly surprised,
+    looking toward camera but unaware. Wearing cheap suit too big.
+
+
+    Setting: barbershop.
+
+    Lighting: fluorescent interior.
+
+    Framing: medium, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: shot on a cheap 35mm point-and-shoot with direct on-camera flash, slightly hard shadows behind subject, no red-eye,
+    film snapshot.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 4.0
+    passed: false
+    reasons:
+    - 'falla dura: [''tono no apto para la cuenta'', ''miembros de más/duplicados: El reflejo no es coherente con el mono
+      real: está en otra pose y le da la mano, como si fuera un segundo mono.; En el reflejo, la manga cuelga como una tira
+      oscura que se parece a una corbata y sale del borde del espejo de forma imposible.; Los pies del mono real son desproporcionados,
+      con dedos largos y abiertos, y parecen humanos o de simio grande.; Las manos se funden en el apretón con el reflejo,
+      así que es difícil contar bien las extremidades.'', ''anatomía 4 < 6'']'
+    - 'La física del espejo es imposible: el reflejo interactúa con el mono real en vez de imitarlo, y es el defecto principal.'
+    - Es un macaco pequeño, pero la cara es más infantil, con ojos muy grandes y redondos y el rostro rosado muy claro. Las
+      referencias muestran una cara más madura y de pelaje más oscuro. La identidad es parcial.
+    - No es una barbería sino un pasillo sucio con paredes manchadas y piso mugriento, lo que va contra el tono limpio y cuidado
+      de la cuenta.
+  - attempt: 2
+    score: 3.0
+    passed: false
+    reasons:
+    - 'falla dura: [''miembros de más/duplicados: Se ven tres manos: una apoyada en el borde del espejo, una colgando a la
+      altura de la cadera y otra, con un hilo, cerca de la cintura. Esa tercera mano parece de más o fusionada.; El reflejo
+      no es el macaco. Muestra una figura de rostro casi humano y pelo largo rubio, con otra anatomía y otras proporciones.;
+      Las mangas no cubren los dedos; se ven las manos y los puños de la camisa.'', ''anatomía 4 < 6'']'
+    - 'Es un macaco joven con pelaje dorado y cara rosada, pero parece más bebé que las referencias: ojos más grandes y cara
+      más rosada y lisa. La identidad es parcialmente coincidente.'
+    - 'El reflejo en el espejo es incoherente: no muestra al mono sino algo humanoide con pelo largo. Eso rompe la credibilidad
+      de la foto.'
+    - Hay una posible tercera mano y un hilo colgando, así que falla el conteo de miembros.
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - 'Es un macaco real y creíble, pero parece más cría que el de las referencias: cara muy pálida y lisa, sin arrugas finas,
+      ojos grandes y muy redondos, orejas rosadas más prominentes.'
+    - El pelaje tiene un tinte dorado-verdoso/oliva, y las referencias son marrón cálido. Es una diferencia de color apreciable.
+    - 'Anatomía coherente: una mano apoyada en el borde del espejo y la otra colgando abajo. No hay miembros de más. El reflejo
+      es consistente.'
+    - Escena de peluquería con espejo, tubos fluorescentes y traje oscuro grande. Coincide bien con la idea. Las mangas no
+      cubren los dedos, que se ven completos.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1639-4e15-05
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: record store
+  activity: browsing records
+  pose: standing in line
+  camera_distance: medium close-up
+  expression: amused
+  gaze: at object in hands
+  outfit: varsity jacket and cargo pants
+  lighting: mixed light
+  accessories:
+  - headphones
+  camera_look: 35mm_cinestill_800t
+  concept: Browsing vinyl records in a crowded record store
+  concept_es: Hojeando discos de vinilo en una disquería llena
+  description: The macaque flips through a bin of vinyl records, holding one sleeve up to read the back with a faint amused
+    look. Headphones hang around his neck and other shoppers are blurred in the busy shop behind him.
+  prompt: 'Candid real photograph. The macaque flips through a bin of vinyl records, holding one sleeve up to read the back
+    with a faint amused look. Headphones hang around his neck and other shoppers are blurred in the busy shop behind him.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: standing in line. Expression: amused, looking at object
+    in hands. Wearing varsity jacket and cargo pants, with headphones.
+
+
+    Setting: record store.
+
+    Lighting: mixed light.
+
+    Framing: medium close-up, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: shot on CineStill 800T film at night, tungsten balanced, red halation around highlights, visible grain.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - El pelaje de la cabeza y la cara tiene un tinte verdoso/oliva marcado, y las referencias piden marrón cálido a dorado
+      sin verde
+    - La cara es más plana y de rasgos más humanos, con la frente y las cejas distintas de las referencias; la identidad es
+      dudosa
+    - Parece un macaco joven y no un simio grande ni una caricatura, pero el aspecto general es más 'IA' que el de las referencias
+    - Sostiene lo que parece un diario o folleto y no la funda de un disco de vinilo, así que no cumple bien la actividad
+      pedida
+  - attempt: 2
+    score: 3.0
+    passed: false
+    reasons:
+    - 'falla dura: [''species'']'
+    - 'La cara es casi humana: hocico muy corto y plano, ojos redondos y expresivos, cejas y piel tipo máscara. No se lee
+      como macaco y se acerca al ''humano disfrazado de mono''.'
+    - El pelaje de la cabeza es rubio, liso y peinado como pelo humano. No es el marrón dorado con textura de pelaje animal
+      de las referencias.
+    - 'La identidad no coincide con las referencias: las orejas, el hocico y las proporciones de la cara son distintos.'
+  - attempt: 3
+    score: 4.0
+    passed: false
+    reasons:
+    - 'falla dura: [''miembros de más/duplicados: Se ven tres manos: una sostiene el disco a la izquierda, otra está sobre
+      la panza y una tercera asoma a la derecha del torso, cerca de (580,680). Esa tercera mano no tiene un brazo claro del
+      que salga.; Los pies casi no se ven, así que no se pueden contar.'', ''anatomía 4 < 6'']'
+    - 'La mano extra a la derecha es un defecto anatómico serio: hay un miembro de más o duplicado, y eso la hace no publicable.'
+    - El pelaje tira a oliva o verdoso y la cara es más rosada o anaranjada que el beige pálido de las referencias. La identidad
+      se parece, pero no es del todo la misma.
+    - Sigue siendo un macaco de hocico corto, ojos redondos y orejas pequeñas, sin look de chimpancé, caricatura ni 3D.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1639-4e15-06
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: bookstore
+  activity: reading a book
+  pose: sitting with lower body partly hidden
+  camera_distance: close portrait
+  expression: absorbed
+  gaze: at object in hands
+  outfit: wool overcoat and scarf
+  lighting: tungsten practicals
+  accessories:
+  - tote bag
+  camera_look: medio_formato_luz_ventana
+  concept: Deep into a paperback on a bookstore aisle floor
+  concept_es: Sentado en el piso de un pasillo de librería, metido en un libro
+  description: Close portrait of a macaque in a wool overcoat and scarf sitting between tall bookshelves, holding an open
+    paperback close to his face. A canvas tote bag sits beside him and warm shop lights glow on his fur.
+  prompt: 'Candid real photograph. Close portrait of a macaque in a wool overcoat and scarf sitting between tall bookshelves,
+    holding an open paperback close to his face. A canvas tote bag sits beside him and warm shop lights glow on his fur.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: sitting with lower body partly hidden. Expression:
+    absorbed, looking at object in hands. Wearing wool overcoat and scarf, with tote bag.
+
+
+    Setting: bookstore.
+
+    Lighting: tungsten practicals.
+
+    Framing: close portrait, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: medium format film photo, Kodak Portra 160, soft window light, shallow depth of field, calm composition.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco creíble con cara rosada y arrugada, hocico corto, ojos ámbar y orejas pequeñas, pero la cabeza tiene un
+      pelaje verdoso/oliva amarillento con raya oscura. Eso se aleja del marrón cálido de las referencias.
+    - El abrigo de lana y la bufanda coinciden con la idea. La librería con estanterías altas y luces cálidas también, y el
+      encuadre es de retrato cercano.
+    - 'No hay libro abierto cerca de la cara: sostiene un objeto pequeño y ambiguo con las dos manos y mira a cámara. Falta
+      la actividad de leer, lo que baja bastante la coincidencia con la idea.'
+    - La bolsa de tela está debajo o detrás del mono y no al lado. La parte baja del cuerpo queda oculta, lo cual es aceptable.
+  - attempt: 2
+    score: 4.0
+    passed: false
+    reasons:
+    - 'falla dura: [''miembros de más/duplicados: En la zona del pie hay una zapatilla blanca, un zapato oscuro detrás y una
+      pequeña forma marrón a la derecha que parece un pie o mano extra, así que se ven más pies de los posibles; La postura
+      de las piernas cruzadas es confusa y no queda claro de dónde sale cada pierna'', ''anatomía 5 < 6'']'
+    - El pelaje de la cabeza tiene un tinte verde oliva amarillento muy marcado, y las referencias piden marrón cálido, nunca
+      verde. Eso rompe la identidad.
+    - La cara rosada y el hocico corto son de macaco, pero el pelaje del cuerpo no se ve y el abrigo cubre casi todo, así
+      que es difícil confirmar que sea el mismo individuo.
+    - 'Hay posible miembro extra o duplicado cerca de la zapatilla: zapatilla blanca, zapato oscuro y una forma marrón.'
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - Es un macaco y no un chimpancé. Tiene hocico corto, cara rosada y ojos redondos color ámbar, pero el pelaje de la cabeza
+      es dorado con tinte verde oliva, más claro y amarillento que el marrón cálido de las referencias.
+    - La cara se ve más rosada y lisa que la de las referencias, que es más oscura y arrugada. La identidad se parece pero
+      no es idéntica.
+    - 'La escena coincide con la idea: librería, estantes altos, abrigo de lana y bufanda, libro abierto cerca de la cara,
+      bolsa de tela y retrato cerrado.'
+    - El texto del libro es propio de la escena y está permitido. No hay marcas de agua ni firmas.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261006-1639-4e15-07
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: colectivo seat
+  activity: commuting
+  pose: looking out a window
+  camera_distance: medium close-up
+  expression: serene
+  gaze: out the window
+  outfit: bucket hat and tee
+  lighting: golden hour
+  accessories:
+  - wired earphones
+  camera_look: disposable_camera
+  concept: Riding the colectivo by the window with earphones in
+  concept_es: Viajando en colectivo junto a la ventanilla, con auriculares
+  description: A macaque in a bucket hat and tee sits by a colectivo window, wired earphones in, watching the city slide by.
+    Golden hour light warms his face and the seat's worn upholstery.
+  prompt: 'Candid real photograph. A macaque in a bucket hat and tee sits by a colectivo window, wired earphones in, watching
+    the city slide by. Golden hour light warms his face and the seat''s worn upholstery.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: looking out a window. Expression: serene, looking
+    out the window. Wearing bucket hat and tee, with wired earphones.
+
+
+    Setting: colectivo seat.
+
+    Lighting: golden hour.
+
+    Framing: medium close-up, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: disposable camera photo, Fujifilm QuickSnap, flash, slightly soft lens, colour shift toward green in shadows.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files:
+    raw: output/raw/20261006-1639-4e15/20261006-1639-4e15-07.png
+    final: drafts/20261006-1639-4e15/20261006-1639-4e15-07.jpg
+  qc:
+    passed: true
+    score: 7.0
+    reasons:
+    - Es un macaco joven con la cara rosada y arrugada, el hocico corto, los ojos redondos ámbar y las orejas pequeñas, coherente
+      con las referencias.
+    - El pelaje es más dorado y anaranjado que el marrón cálido de las referencias. Es una diferencia leve de tono.
+    - Lleva sombrero de pescador, remera y auriculares con cable, y mira por la ventana con luz de hora dorada. Coincide bien
+      con la idea.
+    - El asiento parece un sillón tapizado y desgastado, no un asiento claro de colectivo. El interior y la vista de la calle
+      sí son creíbles como transporte urbano.
+    - El encuadre es más abierto que un primer plano medio. El look es más pulido y cálido que el de una cámara descartable,
+      con algo de acabado IA.
+    - Escena cotidiana, limpia y tranquila, sin texto ni elementos problemáticos. Es publicable.
+    details:
+      identity_match: 7
+      species_ok: true
+      anatomy: 7
+      limb_count_ok: true
+      anatomy_issues:
+      - A la derecha, junto al pie visible, hay una forma oscura que sigue hasta el borde del asiento. Probablemente es la
+        cola o el otro pie, pero no se distingue con claridad.
+      - Las manos apoyadas sobre la rodilla están algo borrosas, aunque se cuentan solo dos.
+      scale_ok: true
+      is_collage: false
+      has_text: false
+      ai_look: 4
+      matches_idea: 7
+      brand_safe: true
+      score: 7
+  caption:
+    caption: Línea 60, ventanilla, auriculares. La ciudad pasa y yo no me bajo.
+    alt_text: Un macaco con sombrero de pescador y remera va sentado junto a la ventanilla de un colectivo, con auriculares
+      con cable puestos. La luz dorada del atardecer le ilumina la cara y el tapizado gastado del asiento.
+    hashtags:
+    - '#buenosaires'
+    - '#colectivo'
+    - '#35mm'
+    - '#streetphotography'
+  status: draft
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''miembros de más/duplicados: Se ven tres extremidades tipo mano en el lado derecho del encuadre: una
+      apoyada sobre la rodilla (~530,800), otra debajo cerca del cable (~530,905) y la del brazo delantero abajo (~450,930).
+      Sobra una o hay dos fusionadas.; La mano del brazo delantero es grande y poco definida, con los dedos apelmazados.;
+      La pierna y el pie casi no se ven, así que no se puede comprobar que la postura sentada sea coherente.'', ''anatomía
+      5 < 6'']'
+    - Es un macaco joven creíble, con ojos ámbar, hocico corto y orejas pequeñas, y se parece a las referencias. El pelaje
+      está más dorado y con un tinte verdoso, y la cara es más rosada y lisa que en las referencias.
+    - 'Coincide muy bien con la idea: sombrero bucket, remera, auriculares con cable, asiento de colectivo gastado, ventana
+      con la ciudad, luz de hora dorada y plano medio cercano.'
+    - El grano y los colores tipo cámara descartable dan un aspecto de foto real, con poco look IA.
+  - attempt: 2
+    score: 7.0
+    passed: true
+    reasons:
+    - Es un macaco joven con la cara rosada y arrugada, el hocico corto, los ojos redondos ámbar y las orejas pequeñas, coherente
+      con las referencias.
+    - El pelaje es más dorado y anaranjado que el marrón cálido de las referencias. Es una diferencia leve de tono.
+    - Lleva sombrero de pescador, remera y auriculares con cable, y mira por la ventana con luz de hora dorada. Coincide bien
+      con la idea.
+    - El asiento parece un sillón tapizado y desgastado, no un asiento claro de colectivo. El interior y la vista de la calle
+      sí son creíbles como transporte urbano.
+- id: 20261006-1639-4e15-08
+  batch: 20261006-1639-4e15
+  created_at: '2026-10-06T19:39:28+00:00'
+  format: feed
+  scene: null
+  location: kiosco
+  activity: grocery shopping
+  pose: leaning against something
+  camera_distance: medium
+  expression: content
+  gaze: out of frame right
+  outfit: raincoat
+  lighting: neon night
+  accessories:
+  - paper bag of groceries
+  camera_look: bw_tri_x
+  concept: Buying an alfajor at a kiosco at night
+  concept_es: Comprando un alfajor en un kiosco de noche
+  description: At a kiosco window at night, the macaque in a raincoat leans on the counter with a brown paper bag of groceries
+    in one arm. He looks content, gazing off to the side under glowing neon signs.
+  prompt: 'Candid real photograph. At a kiosco window at night, the macaque in a raincoat leans on the counter with a brown
+    paper bag of groceries in one arm. He looks content, gazing off to the side under glowing neon signs.
+
+
+    Subject: The same small young macaque in every image: warm light brown to golden-brown fur (natural brown, never green,
+    olive or grey-green), pale pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face, never a chimpanzee
+    or human-like face), round amber-brown eyes, small rounded ears close to the head, slim long fingers with dark skin on
+    hands. Real animal fur texture, small body scale. Keep his face, fur and proportions exactly as in the reference images.
+    He is small, about the size of a young macaque, with human posture: leaning against something. Expression: content, looking
+    out of frame right. Wearing raincoat, with paper bag of groceries.
+
+
+    Setting: kiosco.
+
+    Lighting: neon night.
+
+    Framing: medium, vertical 4:5 composition, natural imperfect framing.
+
+    Camera: black and white 35mm photo, Kodak Tri-X 400, street photography, contrasty but natural.
+
+
+    candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical
+    light, slight optical imperfection
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human
+    face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render,
+    AI-generated look, oversaturated colors, text, watermark, collage, grid, split image. Must be a real macaque, never a
+    chimpanzee, gorilla or cartoon. Single photograph, not a collage.'
+  references:
+  - character/reference/ref_01_balcon_diario.jpg
+  - character/reference/ref_02_balcon_diario_b.jpg
+  - character/reference/ref_03_tienda_camisetas.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files:
+    raw: output/raw/20261006-1639-4e15/20261006-1639-4e15-08.png
+    final: drafts/20261006-1639-4e15/20261006-1639-4e15-08.jpg
+  qc:
+    passed: true
+    score: 7.0
+    reasons:
+    - Es un macaco de cara rosada pálida, hocico corto, ojos ámbar redondos y orejas pequeñas. Coincide bastante con las referencias,
+      aunque la cara es algo más lisa y juvenil, con menos arrugas.
+    - Al ser blanco y negro (Tri-X, como pide la idea) no se puede juzgar el color del pelaje. Se ve gris claro, pero eso
+      es esperable en B&W.
+    - Hay campera tipo impermeable con capucha, bolsa de papel marrón, apoyo contra el mostrador/estante y carteles de neón
+      desenfocados. Coincide con el kiosco nocturno.
+    - Sostiene la bolsa con ambas manos en vez de en un brazo, y la mirada es más seria que contenta. Son desvíos menores.
+    - El grano de película y el contraste dan un aspecto de foto real y espontánea, con poco aire de IA.
+    - Los textos son de carteles de neón de la propia escena, así que están permitidos. La escena es limpia y cotidiana.
+    details:
+      identity_match: 7
+      species_ok: true
+      anatomy: 8
+      limb_count_ok: true
+      anatomy_issues:
+      - Se ven 2 manos y 2 pies descalzos, sin miembros extra. La mano derecha se funde un poco con la bolsa, pero es plausible.
+      scale_ok: true
+      is_collage: false
+      has_text: false
+      ai_look: 3
+      matches_idea: 7
+      brand_safe: true
+      score: 7
+  caption:
+    caption: 'Después de las once el kiosco es el único lugar abierto que me entiende.
+
+      Alfajor triple y a casa.'
+    alt_text: Un macaco con piloto impermeable se apoya en la ventanilla de un kiosco de noche, con una bolsa de papel marrón
+      con compras en un brazo. Mira hacia un costado bajo carteles de neón, en una foto en blanco y negro.
+    hashtags:
+    - '#buenosaires'
+    - '#kiosco'
+    - '#streetphotography'
+    - '#trix400'
+  status: draft
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 7.0
+    passed: true
+    reasons:
+    - Es un macaco de cara rosada pálida, hocico corto, ojos ámbar redondos y orejas pequeñas. Coincide bastante con las referencias,
+      aunque la cara es algo más lisa y juvenil, con menos arrugas.
+    - Al ser blanco y negro (Tri-X, como pide la idea) no se puede juzgar el color del pelaje. Se ve gris claro, pero eso
+      es esperable en B&W.
+    - Hay campera tipo impermeable con capucha, bolsa de papel marrón, apoyo contra el mostrador/estante y carteles de neón
+      desenfocados. Coincide con el kiosco nocturno.
+    - Sostiene la bolsa con ambas manos en vez de en un brazo, y la mirada es más seria que contenta. Son desvíos menores.
+dir: drafts/20261006-1639-4e15

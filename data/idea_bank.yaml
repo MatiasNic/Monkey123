@@ -1,18 +1,44 @@
 # Banco de ideas. Claude lo amplía en cada tanda y va consumiendo conceptos (used: true).
 ideas:
-  - {concept: "working on a MacBook in a café, half-finished cortado next to him", used: false}
-  - {concept: "lying on the living room floor during a video call, laptop on his belly", used: false}
-  - {concept: "trying on a suit two sizes too big in front of a shop mirror", used: false}
-  - {concept: "reading the newspaper sitting on a milk crate on a Manhattan corner", used: false}
-  - {concept: "waiting at an airport gate with the laptop open and a neck pillow", used: false}
-  - {concept: "folding laundry at a laundromat while the dryer spins", used: false}
-  - {concept: "browsing vinyl records in a crowded record store", used: false}
-  - {concept: "sitting on the floor of a bookstore aisle, deep into a paperback", used: false}
-  - {concept: "eating pancakes alone in a diner booth with a laptop", used: false}
-  - {concept: "riding the colectivo by the window, earphones in", used: false}
-  - {concept: "sitting alone on a plaza bench feeding nobody", used: false}
-  - {concept: "inspecting a used film camera at a second-hand shop counter", used: false}
-  - {concept: "having breakfast from a room-service tray in a hotel corridor", used: false}
-  - {concept: "improvised rooftop cinema with folding chairs and a bedsheet screen", used: false}
-  - {concept: "waiting for his turn at a barbershop reading an old magazine", used: false}
-  - {concept: "buying an alfajor at a kiosco at night", used: false}
+- concept: working on a MacBook in a café, half-finished cortado next to him
+  used: false
+- concept: lying on the living room floor during a video call, laptop on his belly
+  used: false
+- concept: trying on a suit two sizes too big in front of a shop mirror
+  used: false
+- concept: reading the newspaper sitting on a milk crate on a Manhattan corner
+  used: false
+- concept: waiting at an airport gate with the laptop open and a neck pillow
+  used: false
+- concept: folding laundry at a laundromat while the dryer spins
+  used: false
+- concept: browsing vinyl records in a crowded record store
+  used: false
+- concept: sitting on the floor of a bookstore aisle, deep into a paperback
+  used: false
+- concept: eating pancakes alone in a diner booth with a laptop
+  used: false
+- concept: riding the colectivo by the window, earphones in
+  used: false
+- concept: sitting alone on a plaza bench feeding nobody
+  used: false
+- concept: inspecting a used film camera at a second-hand shop counter
+  used: false
+- concept: having breakfast from a room-service tray in a hotel corridor
+  used: false
+- concept: improvised rooftop cinema with folding chairs and a bedsheet screen
+  used: false
+- concept: waiting for his turn at a barbershop reading an old magazine
+  used: false
+- concept: buying an alfajor at a kiosco at night
+  used: false
+- concept: choosing tomatoes at a verdulería stall with a mesh bag
+  used: false
+- concept: sitting on a rooftop terrace with a bike helmet beside him after a ride
+  used: false
+- concept: reading a menu at a Tokyo konbini hot-food counter
+  used: false
+- concept: standing on the Madrid metro holding the rail while scrolling his phone
+  used: false
+- concept: cooking pasta in a small apartment kitchen, tasting from a wooden spoon
+  used: false
