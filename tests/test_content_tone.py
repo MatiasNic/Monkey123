@@ -39,3 +39,23 @@ def test_qc_prompt_has_no_unfilled_placeholders(settings):
 
     evaluate(settings, Spy(settings), settings.reference_images()[0], {"description": "x"})
     assert "brand_safe" in seen["prompt"] and "$content" not in seen["prompt"]
+
+
+class BabyLLM(MockLLM):
+    def _qc(self, ctx):
+        return {"score": 8, "species_ok": True, "anatomy": 8, "limb_count_ok": True, "brand_safe": True,
+                "identity_match": 4, "reasons": ["parece una cría"]}
+
+
+def test_low_identity_is_a_hard_fail(settings):
+    result = evaluate(settings, BabyLLM(settings), settings.reference_images()[0], {"description": "x"})
+    assert not result.passed and "identidad" in result.reasons[0]
+
+
+def test_bible_describes_an_adult_with_a_clean_look(settings):
+    bible = settings.bible
+    assert "ADULT" in bible["identity"]["description"]
+    assert "young" not in bible["identity"]["description"]
+    for look in bible["camera_looks"].values():
+        assert look["post"]["grain"] <= 0.01 and look["post"]["flash"] == 0
+    assert not any("mirror" in p for p in bible["axes"]["pose"])

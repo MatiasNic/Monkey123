@@ -8,7 +8,7 @@ Este repo automatiza contenido de Instagram con un **macaco fotorrealista** que 
 - Siempre es el **mismo macaco** de `character/reference/`. Nunca chimpancé, gorila, caricatura ni render 3D.
 - `character/style_refs/` sirve solo para encuadre y estilo; **nunca** se usa como referencia de identidad.
 - Pide N imágenes → entrega N archivos independientes. Nunca collage ni grilla.
-- Estética de foto real y espontánea. Nada de HDR, look publicitario ni look "IA".
+- Es un macaco **adulto**, como las referencias. Estética de foto real, limpia y nítida con luz natural (como `character/reference/`). Nada de grano fuerte, flash, blanco y negro, HDR, look publicitario ni look "IA".
 
 ## Arquitectura
 `ideation → dedup → prompting → providers → qc → postprocess → captions → PR → publish → history`

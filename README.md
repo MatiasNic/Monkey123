@@ -143,7 +143,7 @@ mono prune --days 60 [--dry-run]          # borra JPG/MP4 de tandas ya publicada
 2. Después Claude, con visión, compara la imagen contra las referencias. Cuenta como falla dura si no es un macaco, si es un collage o si tiene texto superpuesto.
 3. Si no pasa, se regenera hasta 3 veces.
 
-**Retoque:** cada look aplica grano según la luminancia, curva S, color, viñeta, aberración cromática, halation y flash. Después recorta a 1080×1350 o 1080×1920 y guarda un JPEG sRGB sin EXIF, de hasta 8 MB.
+**Retoque:** los looks son limpios, como las fotos de referencia: el post-proceso es mínimo (un grano casi invisible y un leve ajuste de color para sacar el brillo "IA"). Después recorta a 1080×1350 o 1080×1920 y guarda un JPEG sRGB sin EXIF, de hasta 8 MB.
 
 ### Captions
 En español rioplatense, con voz canchera y seca y sin explicar el chiste, más alt text y entre 2 y 5 hashtags. Claude ve los captions recientes para no repetirse. Un carrusel o un reel lleva un solo caption; las historias no llevan.

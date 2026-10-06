@@ -63,6 +63,10 @@ def evaluate(settings: Settings, llm: LLM, image: Path, item: dict) -> QCResult:
     # Anatomía: un pie o una mano de más arruina la foto aunque el resto esté perfecto.
     if data.get("limb_count_ok") is False:
         hard_fail.append("miembros de más/duplicados: " + "; ".join(map(str, data.get("anatomy_issues") or [])))
+    # Parecido: si no es el mismo macaco adulto de las referencias, no sirve aunque la foto sea linda.
+    min_identity = settings.get("qc.min_identity", 6)
+    if data.get("identity_match") is not None and float(data["identity_match"]) < min_identity:
+        hard_fail.append(f"identidad {data['identity_match']} < {min_identity}")
     min_anatomy = settings.get("qc.min_anatomy", 6)
     if data.get("anatomy") is not None and float(data["anatomy"]) < min_anatomy:
         hard_fail.append(f"anatomía {data['anatomy']} < {min_anatomy}")
