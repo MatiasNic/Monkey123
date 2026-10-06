@@ -4,13 +4,15 @@
 identity:
   species: "real macaque monkey (small Old World monkey)"
   description: >-
-    The same small young macaque in every image: light brown/olive-brown fur,
-    paler pinkish-beige bare face with fine wrinkles, short muzzle, round
-    amber-brown eyes, small rounded ears close to the head, slim long fingers
-    with dark skin on hands. Real animal fur texture, small body scale.
+    The same small young macaque in every image: warm light brown to
+    golden-brown fur (natural brown, never green, olive or grey-green), pale
+    pinkish-beige bare face with fine wrinkles, short muzzle (a macaque face,
+    never a chimpanzee or human-like face), round amber-brown eyes, small
+    rounded ears close to the head, slim long fingers with dark skin on hands.
+    Real animal fur texture, small body scale.
   must_keep:
     - facial features, muzzle shape and eye color identical to the reference images
-    - fur color and texture (light brown, soft, slightly tousled)
+    - fur color and texture (warm light brown, soft, slightly tousled; never greenish)
     - small, believable size relative to furniture and people
     - human posture and behaviour while still clearly a real monkey
   never:
@@ -22,11 +24,24 @@ identity:
   reference_dir: character/reference
   style_refs_dir: character/style_refs   # solo encuadre/estilo, NUNCA identidad
 
+# Tono del contenido: cada foto tiene que poder subirse tal cual a Instagram.
+content:
+  tone: >-
+    Calm, everyday urban life that anyone recognises: commuting, a coffee, a walk,
+    errands, work, a quiet moment at home or in the city. Relaxed, warm, a little
+    ironic. Clean and well kept, never sordid.
+  never:
+    - drugs, smoking, vaping, alcohol or anything that could be read as such
+    - ambiguous white objects, powders, cloths or bags held near the face
+    - crouching or hiding in corners, looking sick, dirty, sad, lost or neglected
+    - violence, danger, sexual content, politics, religion, real brands as the focus
+
 axes:
   # Ejes que el motor de variedad rota. La ideación debe variar todos a la vez.
-  activity: [reading the newspaper, working on a laptop, scrolling the phone, video call, eating, drinking coffee, waiting, watching TV, shopping, trying on clothes, browsing records, taking a photo, napping, commuting, doing laundry, cooking, writing notes, people watching]
-  pose: [sitting, reclining, lying down, sitting with lower body partly hidden, leaning against something, seen from behind, profile, seen through a mirror, sitting on the floor with legs out of frame, sitting on a suitcase, on an armchair, on a stool, looking out a window, standing in line, crouching, walking]
-  camera_distance: [wide establishing (subject small in frame), medium wide, medium, medium close-up, close portrait]
+  activity: [reading the newspaper, working on a laptop, scrolling the phone, video call, eating breakfast, drinking coffee, drinking mate, waiting for the bus, watching TV, grocery shopping, trying on clothes, browsing records, taking a photo, commuting, walking the street, buying fruit at a verdulería, cooking, writing notes, people watching, riding a bike, watering plants, reading a book]
+  pose: [sitting, reclining on a sofa, sitting with lower body partly hidden, leaning against something, seen from behind, profile, seen through a mirror, sitting on a bench, on an armchair, on a stool, at a table, looking out a window, standing in line, walking]
+  # Sin "wide establishing": el modelo liviano casi nunca deja al mono chico en el cuadro.
+  camera_distance: [medium wide, medium, medium close-up, close portrait]
   expression: [absorbed, bored, mildly surprised, content, sleepy, skeptical, focused, amused, distracted, serene]
   gaze: [at object in hands, out of frame left, out of frame right, down, out the window, at a screen, at another person, eyes closed, toward camera but unaware]
   lighting: [soft window light, hard midday sun, golden hour, overcast flat light, fluorescent interior, tungsten practicals, neon night, on-camera flash, blue hour, mixed light]
@@ -53,7 +68,7 @@ situations_seed:
 photography:
   always: "candid real photograph, as if someone found him actually living his day; believable depth of field, natural practical light, slight optical imperfection"
   anatomy: "anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot; no extra, duplicated or merged limbs"
-  avoid: "extra limbs, extra feet, extra hands, duplicated body parts, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
+  avoid: "extra limbs, extra feet, extra hands, duplicated body parts, green or olive tinted fur, chimpanzee face, human face, cigarettes, drugs, alcohol, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI, 3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image"
 
 # Catálogo de cámaras/looks: parámetros de prompt + parámetros de post-proceso.
 camera_looks:

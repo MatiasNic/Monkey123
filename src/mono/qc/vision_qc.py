@@ -49,6 +49,7 @@ def evaluate(settings: Settings, llm: LLM, image: Path, item: dict) -> QCResult:
             n_refs=len(refs),
             idea=json.dumps(idea, ensure_ascii=False, indent=1),
             identity=" ".join(settings.bible["identity"]["description"].split()),
+            content=" ".join((settings.bible.get("content") or {}).get("tone", "").split()),
         )
         data = llm.complete_json(prompt, images=[*refs, candidate], task="qc", context={"item": item})
     threshold = settings.get("qc.pass_score", 7.0)
@@ -56,6 +57,9 @@ def evaluate(settings: Settings, llm: LLM, image: Path, item: dict) -> QCResult:
     hard_fail = [k for k in ("is_collage", "has_text") if data.get(k)]
     if data.get("species_ok") is False:
         hard_fail.append("species")
+    # Tono: una foto que se lee como drogas, alcohol o algo sórdido no se sube aunque esté bien hecha.
+    if data.get("brand_safe") is False:
+        hard_fail.append("tono no apto para la cuenta")
     # Anatomía: un pie o una mano de más arruina la foto aunque el resto esté perfecto.
     if data.get("limb_count_ok") is False:
         hard_fail.append("miembros de más/duplicados: " + "; ".join(map(str, data.get("anatomy_issues") or [])))

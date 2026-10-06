@@ -80,5 +80,5 @@ def test_due_posts(settings, repo, monkeypatch):
 
 
 def test_plan_for_today(settings):
-    assert plan_for_today(settings, SUNDAY.date()) == [{"format": "feed", "count": 3}, {"format": "story", "count": 4}]
+    assert plan_for_today(settings, SUNDAY.date()) == [{"format": "feed", "count": 6}, {"format": "story", "count": 6}]
     assert plan_for_today(settings, datetime(2026, 10, 5).date()) == []
