@@ -4,20 +4,26 @@
 identity:
   species: "real adult macaque monkey (Old World monkey)"
   description: >-
-    The same ADULT macaque in every image, exactly as in the reference photos:
-    mature face with a tan-brown bare face, darker skin around the eyes, deep
-    fine wrinkles, short muzzle, calm half-closed amber-brown eyes, small ears
-    close to the head; warm brown fur (natural brown, never green, olive or
-    grey-green), dense and slightly tousled; adult body with human posture,
-    sitting and standing like a grown man, wearing normal adult clothes that fit
-    (as in the references). Dark leathery hands with long fingers.
+    The same ADULT macaque in every image, with exactly the face of the reference
+    photos: a round face with full, puffy cheeks; heavy, drooping upper eyelids
+    over small amber-brown eyes, so he always looks half-asleep, calm and
+    unbothered; a short, flat muzzle with a small nose; a small pursed mouth
+    with a slight pout; pale beige-pink bare skin on the face, slightly darker
+    and tan around the eyes, nose and mouth, with fine wrinkles on the brow and
+    under the eyes; soft, fluffy light-brown fur framing the face and covering
+    the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture,
+    sitting and standing like a grown man, wearing normal adult clothes that fit.
+    Dark leathery hands with long fingers.
   must_keep:
     - an adult macaque, never a baby, infant or juvenile
-    - facial features, muzzle shape, wrinkles and eye color identical to the reference images
+    - the face of the reference images: round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face
+    - his signature expression: calm, sleepy-eyed, unbothered; never wide-eyed or startled
     - warm brown fur color and texture; never greenish
     - sits, stands and dresses like a relaxed adult person, clothes that fit, as in the references
   never:
     - baby, infant or juvenile monkey, big childish eyes, oversized clothes on a tiny body
+    - a different macaque face: long or pointed muzzle, wide-open round eyes, gaunt or narrow face, bald head
     - chimpanzee, gorilla, orangutan or any great ape
     - cartoon, 3D render, anime, plush toy, mascot or costume
     - professional campaign pose, looking straight into the lens like a model
@@ -47,7 +53,7 @@ axes:
   pose: [sitting, reclining on a sofa, sitting with lower body partly hidden, leaning against something, seen from behind, profile, sitting on a bench, on an armchair, on a stool, at a table, looking out a window, standing in line, walking]
   # Sin "wide establishing": el modelo liviano casi nunca deja al mono chico en el cuadro.
   camera_distance: [medium wide, medium, medium close-up, close portrait]
-  expression: [absorbed, bored, mildly surprised, content, sleepy, skeptical, focused, amused, distracted, serene]
+  expression: [absorbed, mildly bored, content, sleepy, quietly skeptical, focused, faintly amused, distracted, serene]
   gaze: [at object in hands, out of frame left, out of frame right, down, out the window, at a screen, at another person, eyes closed, toward camera but unaware]
   lighting: [bright morning sun, soft window light, golden hour, overcast daylight, open shade on a sunny day, warm interior daylight, late afternoon sun]
   outfit: [white tee and baggy jeans, bucket hat and tee, varsity jacket and cargo pants, quilted jacket and grey jeans, oversized hoodie, linen shirt and shorts, wool overcoat and scarf, cheap suit too big, tracksuit, knitted sweater, raincoat, pajamas and slippers]

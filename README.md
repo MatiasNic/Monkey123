@@ -133,7 +133,7 @@ mono prune --days 60 [--dry-run]          # borra JPG/MP4 de tandas ya publicada
 ### Imagen, QC y retoque
 | Proveedor | Cuándo | Cómo |
 |---|---|---|
-| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-9b`, que mantiene bien el parecido y alcanza para 5 o 6 imágenes por día gratis; por eso se genera a diario en tandas de 3. `flux-2-klein-4b` da unas 50 por día, pero el parecido falla seguido. Como referencias recibe los recortes de `character/reference_crops/` (solo el mono, sin fondo). Se elige en `config.yaml → image.cloudflare_model`. |
+| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-9b`, que mantiene bien el parecido y alcanza para 5 o 6 imágenes por día gratis; por eso se genera a diario en tandas de 3. `flux-2-klein-4b` da unas 50 por día, pero el parecido falla seguido. Como referencias recibe los recortes de `character/reference_crops/` (tres primeros planos de la cara y uno de torso, sin fondo). Se elige en `config.yaml → image.cloudflare_model`. |
 | `manual` | Mejor consistencia, también gratis | `drafts/<tanda>/manual/<id>.md` trae el prompt y las referencias. Generás en Gemini, subís `inbox/<id>.jpg` y corrés `mono ingest`. |
 | `mock` | Tests y `--dry-run` | Imagen sintética, sin red. |
 

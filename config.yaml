@@ -24,7 +24,7 @@ dedup:
 qc:
   pass_score: 7.0          # 0-10
   min_anatomy: 6           # por debajo, rechazo directo (aunque el puntaje global sea alto)
-  min_identity: 6          # idem para el parecido con las referencias (edad, cara, pelaje)
+  min_identity: 7          # idem para el parecido con las referencias (cara, edad, pelaje): exigente a propósito
 
 video:
   provider: slideshow      # slideshow (ffmpeg, gratis) | futuro: proveedor de video IA
