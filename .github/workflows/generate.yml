@@ -21,10 +21,10 @@ on:
         description: "Tema o pista (opcional)"
         default: ""
       provider:
-        description: "Proveedor de imagen"
+        description: "Proveedor de imagen (config = el de config.yaml; hoy, manual con Gemini)"
         type: choice
-        options: [cloudflare, manual, mock]
-        default: cloudflare
+        options: [config, manual, cloudflare, mock]
+        default: config
 
 permissions:
   issues: write
@@ -73,7 +73,7 @@ jobs:
         env:
           HAS_CLAUDE: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
           HAS_CF: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
-          IN_PROVIDER: ${{ inputs.provider }}
+          IN_PROVIDER: ${{ inputs.provider != 'config' && inputs.provider || '' }}
         run: |
           provider="${IN_PROVIDER:-$(mono config image.provider)}"
           missing=()
@@ -98,7 +98,7 @@ jobs:
           PLAN: ${{ steps.plan.outputs.plan }}
           IN_SCENE: ${{ inputs.escena }}
           IN_THEME: ${{ inputs.tema }}
-          IN_PROVIDER: ${{ inputs.provider }}
+          IN_PROVIDER: ${{ inputs.provider != 'config' && inputs.provider || '' }}
           BRANCH: generate/${{ github.run_id }}
           REPO: ${{ github.repository }}
         run: |
