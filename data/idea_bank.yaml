@@ -1,17 +1,40 @@
 # Banco de ideas. Claude lo amplía en cada tanda y va consumiendo conceptos (used: true).
-# Estilo de las referencias: macaco adulto, lugares luminosos y prolijos, luz natural, vida cotidiana porteña.
 ideas:
-  - {concept: "reading the newspaper on a sunny balcony full of plants, iced coffee on the floor", used: false}
-  - {concept: "watering the balcony plants with a metal watering can in the morning sun", used: false}
-  - {concept: "pointing at medialunas behind the glass of a bright bakery counter", used: false}
-  - {concept: "working on a laptop at a café table by a big window, cortado next to him", used: false}
-  - {concept: "drinking mate on a plaza bench under the trees on a sunny afternoon", used: false}
-  - {concept: "choosing tomatoes at a neighborhood verdulería, paper bag in hand", used: false}
-  - {concept: "waiting at a colectivo stop with wired earphones, hands in jacket pockets", used: false}
-  - {concept: "browsing vinyl records in a tidy, sunlit record store", used: false}
-  - {concept: "reading a paperback on a sofa next to a window with afternoon light", used: false}
-  - {concept: "walking out of a kiosco with a bottle of water on a bright street", used: false}
-  - {concept: "riding a city bike along a tree-lined Palermo street", used: false}
-  - {concept: "trying on a cap at a street fair stall in San Telmo", used: false}
-  - {concept: "having breakfast at a café counter with toast and coffee", used: false}
-  - {concept: "carrying grocery bags up the steps of an old building entrance", used: false}
+- concept: reading the newspaper on a sunny balcony full of plants, iced coffee on the floor
+  used: false
+- concept: watering the balcony plants with a metal watering can in the morning sun
+  used: false
+- concept: pointing at medialunas behind the glass of a bright bakery counter
+  used: false
+- concept: working on a laptop at a café table by a big window, cortado next to him
+  used: false
+- concept: drinking mate on a plaza bench under the trees on a sunny afternoon
+  used: false
+- concept: choosing tomatoes at a neighborhood verdulería, paper bag in hand
+  used: false
+- concept: waiting at a colectivo stop with wired earphones, hands in jacket pockets
+  used: false
+- concept: browsing vinyl records in a tidy, sunlit record store
+  used: false
+- concept: reading a paperback on a sofa next to a window with afternoon light
+  used: false
+- concept: walking out of a kiosco with a bottle of water on a bright street
+  used: false
+- concept: riding a city bike along a tree-lined Palermo street
+  used: false
+- concept: trying on a cap at a street fair stall in San Telmo
+  used: false
+- concept: having breakfast at a café counter with toast and coffee
+  used: false
+- concept: carrying grocery bags up the steps of an old building entrance
+  used: false
+- concept: buying a coffee to go at a bright café counter, paying with his phone
+  used: false
+- concept: sitting on a rooftop terrace with a book and a glass of lemonade at golden hour
+  used: false
+- concept: folding clean laundry on a table in a bright laundromat
+  used: false
+- concept: choosing a paperback at a sunlit bookstore shelf
+  used: false
+- concept: waiting in line at a tidy bakery with a paper ticket in hand
+  used: false
