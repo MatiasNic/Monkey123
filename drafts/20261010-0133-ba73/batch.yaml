@@ -1,0 +1,336 @@
+id: 20261010-0133-ba73
+format: feed
+scene: null
+theme: null
+dry_run: false
+llm: claude_cli
+items:
+- id: 20261010-0133-ba73-01
+  batch: 20261010-0133-ba73
+  created_at: '2026-10-10T04:33:00+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires balcony
+  activity: reading the newspaper
+  pose: sitting
+  camera_distance: medium wide
+  expression: absorbed
+  gaze: at object in hands
+  outfit: linen shirt and shorts
+  lighting: bright morning sun
+  accessories:
+  - none
+  camera_look: iphone_daylight
+  concept: Reading the newspaper on a sunny balcony full of plants
+  concept_es: Leyendo el diario en un balcón soleado lleno de plantas
+  description: The adult macaque sits on a wooden chair on a bright Buenos Aires balcony crowded with green potted plants,
+    holding a large open newspaper in both hands. A glass of iced coffee stands on the tiled floor beside him. Warm morning
+    sun, calm half-lidded expression, relaxed human posture.
+  prompt: 'Candid real photograph of the macaque from the input images. Keep his FACE exactly as in the input images: same
+    round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face,
+    same skin and fur color. Only the clothes, place and action change.
+
+
+    Scene: The adult macaque sits on a wooden chair on a bright Buenos Aires balcony crowded with green potted plants, holding
+    a large open newspaper in both hands. A glass of iced coffee stands on the tiled floor beside him. Warm morning sun, calm
+    half-lidded expression, relaxed human posture.
+
+
+    Subject: The same ADULT macaque in every image, with exactly the face of the reference photos: a round face with full,
+    puffy cheeks; heavy, drooping upper eyelids over small amber-brown eyes, so he always looks half-asleep, calm and unbothered;
+    a short, flat muzzle with a small nose; a small pursed mouth with a slight pout; pale beige-pink bare skin on the face,
+    slightly darker and tan around the eyes, nose and mouth, with fine wrinkles on the brow and under the eyes; soft, fluffy
+    light-brown fur framing the face and covering the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture, sitting and standing like a grown man, wearing
+    normal adult clothes that fit. Dark leathery hands with long fingers. Pose: sitting. Expression: absorbed, always with
+    his calm, heavy-lidded look, looking at object in hands. Wearing linen shirt and shorts.
+
+
+    Setting: Buenos Aires balcony.
+
+    Lighting: bright morning sun.
+
+    Framing: medium wide, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: modern iPhone photo in daylight, sharp, natural colors, slightly casual framing.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI,
+    3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image, a different-looking monkey
+    face, wide-open eyes, long muzzle. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference_crops/crop_01_cara.jpg
+  - character/reference_crops/crop_02_cara_tres_cuartos.jpg
+  - character/reference_crops/crop_03_cara_gorra.jpg
+  - character/reference_crops/crop_04_torso.jpg
+  scene_photos: []
+  size: &id001
+  - 1080
+  - 1350
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 7'']'
+    - 'La cara no coincide del todo con las referencias: hocico más largo y prominente, cara más angosta y menos redonda,
+      sin cachetes llenos. Los párpados son algo pesados, pero los ojos y la expresión son menos ''medio dormidos''.'
+    - El pelaje es dorado claro y la cara muy rosada, más pálido que el marrón cálido de las referencias. Las orejas son más
+      grandes y salientes.
+    - Es un macaco adulto y real, sin rasgos de simio grande ni de caricatura.
+  - attempt: 2
+    score: 6.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 6 < 7'']'
+    - La cara es más rosada y angosta que la de las referencias, y el hocico es algo más largo. Los párpados pesados no se
+      notan tanto, aunque la mirada hacia abajo es tranquila.
+    - El pelaje es dorado claro y las referencias lo tienen marrón cálido más oscuro. Es una diferencia de tono, pero junto
+      con la cara hace que parezca un macaco parecido y no el mismo.
+    - Las manos oscuras de dedos largos y el cuerpo adulto con postura humana coinciden con las referencias. La camisa y los
+      shorts de lino quedan bien.
+  - attempt: 3
+    score: 7.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 6 < 7'']'
+    - Cara redonda, párpados pesados y entrecerrados, hocico bastante corto y boca chica fruncida, en línea con las referencias.
+    - Pelaje mucho más claro, beige o rubio grisáceo, que el marrón cálido de las referencias, y cara más rosada. Es una diferencia
+      de tono, no verde ni gris, pero baja la identidad.
+    - Parece adulto, aunque la cabeza algo grande y el cuerpo esbelto dan un aire un poco joven.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261010-0133-ba73-02
+  batch: 20261010-0133-ba73
+  created_at: '2026-10-10T04:33:00+00:00'
+  format: feed
+  scene: null
+  location: Palermo street corner
+  activity: waiting for the bus
+  pose: standing in line
+  camera_distance: medium
+  expression: mildly bored
+  gaze: out of frame left
+  outfit: quilted jacket and grey jeans
+  lighting: overcast daylight
+  accessories:
+  - wired earphones
+  - backpack
+  camera_look: street_overcast
+  concept: Waiting at a colectivo stop with wired earphones
+  concept_es: Esperando el colectivo con auriculares con cable
+  description: The adult macaque stands at a tidy colectivo stop on a tree-lined Palermo corner, hands in the pockets of a
+    quilted jacket, wired earphones in his ears and a backpack on his shoulders. He looks calmly down the street, waiting
+    for the bus. Soft overcast daylight, clean sidewalk.
+  prompt: 'Candid real photograph of the macaque from the input images. Keep his FACE exactly as in the input images: same
+    round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face,
+    same skin and fur color. Only the clothes, place and action change.
+
+
+    Scene: The adult macaque stands at a tidy colectivo stop on a tree-lined Palermo corner, hands in the pockets of a quilted
+    jacket, wired earphones in his ears and a backpack on his shoulders. He looks calmly down the street, waiting for the
+    bus. Soft overcast daylight, clean sidewalk.
+
+
+    Subject: The same ADULT macaque in every image, with exactly the face of the reference photos: a round face with full,
+    puffy cheeks; heavy, drooping upper eyelids over small amber-brown eyes, so he always looks half-asleep, calm and unbothered;
+    a short, flat muzzle with a small nose; a small pursed mouth with a slight pout; pale beige-pink bare skin on the face,
+    slightly darker and tan around the eyes, nose and mouth, with fine wrinkles on the brow and under the eyes; soft, fluffy
+    light-brown fur framing the face and covering the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture, sitting and standing like a grown man, wearing
+    normal adult clothes that fit. Dark leathery hands with long fingers. Pose: standing in line. Expression: mildly bored,
+    always with his calm, heavy-lidded look, looking out of frame left. Wearing quilted jacket and grey jeans, with wired
+    earphones, backpack.
+
+
+    Setting: Palermo street corner.
+
+    Lighting: overcast daylight.
+
+    Framing: medium, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: candid street photo on an overcast day, even soft light, sharp, muted natural colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI,
+    3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image, a different-looking monkey
+    face, wide-open eyes, long muzzle. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference_crops/crop_01_cara.jpg
+  - character/reference_crops/crop_02_cara_tres_cuartos.jpg
+  - character/reference_crops/crop_03_cara_gorra.jpg
+  - character/reference_crops/crop_04_torso.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 4 < 7'']'
+    - 'La cara no es la de las referencias: tiene el hocico más largo y salido, la cara más angosta y los ojos más abiertos.
+      Le faltan los cachetes llenos, los párpados pesados y la mirada medio dormida, y la piel es más rosada. Por eso identity_match
+      queda en 4.'
+    - Es un macaco adulto y la especie es correcta, sin rasgos de chimpancé ni de caricatura.
+    - 'La escena coincide casi punto por punto con la idea: parada de colectivo arbolada, campera acolchada, auriculares con
+      cable, mochila, jean gris, manos en los bolsillos, mirada a la calle y luz nublada.'
+  - attempt: 2
+    score: 6.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 7'']'
+    - 'La cara no coincide del todo con las referencias: de perfil el hocico se ve más largo y prominente, y la cara más angosta,
+      sin los cachetes llenos y esponjosos de las referencias.'
+    - No se aprecian los párpados pesados ni la mirada medio dormida de las referencias. Los ojos se ven más despiertos y
+      atentos.
+    - El pelaje es dorado claro, más pálido que el marrón cálido de las referencias. Es una diferencia leve, no verde ni gris.
+  - attempt: 3
+    score: 5.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 4 < 7'']'
+    - 'La cara no es la de las referencias: el hocico es más largo y prominente, la cara más angosta y alargada, y el tono
+      es rosado intenso. Parece otro macaco, tipo macaco japonés.'
+    - Los ojos están más abiertos y atentos, sin los párpados pesados ni la mirada medio dormida de las referencias.
+    - Los cachetes no son llenos y la boca no está chica y fruncida. El pelo de la cara es más ralo y barbudo, no el pelo
+      esponjoso que enmarca la cara.
+  discard_reason: no pasó el QC en 3 intento(s)
+- id: 20261010-0133-ba73-03
+  batch: 20261010-0133-ba73
+  created_at: '2026-10-10T04:33:00+00:00'
+  format: feed
+  scene: null
+  location: Palermo street corner
+  activity: buying fruit at a verdulería
+  pose: leaning against something
+  camera_distance: medium close-up
+  expression: quietly skeptical
+  gaze: down
+  outfit: knitted sweater
+  lighting: open shade on a sunny day
+  accessories:
+  - paper bag of groceries
+  - tote bag
+  camera_look: mirrorless_35mm
+  concept: Choosing tomatoes at a neighborhood verdulería
+  concept_es: Eligiendo tomates en la verdulería del barrio
+  description: The adult macaque stands at a colorful verdulería stall with crates of fresh red tomatoes and greens, leaning
+    slightly toward the display and holding one tomato up to inspect it. A brown paper grocery bag is in his other hand and
+    a canvas tote hangs from his shoulder. Soft open shade, sleepy skeptical look, neat and bright.
+  prompt: 'Candid real photograph of the macaque from the input images. Keep his FACE exactly as in the input images: same
+    round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face,
+    same skin and fur color. Only the clothes, place and action change.
+
+
+    Scene: The adult macaque stands at a colorful verdulería stall with crates of fresh red tomatoes and greens, leaning slightly
+    toward the display and holding one tomato up to inspect it. A brown paper grocery bag is in his other hand and a canvas
+    tote hangs from his shoulder. Soft open shade, sleepy skeptical look, neat and bright.
+
+
+    Subject: The same ADULT macaque in every image, with exactly the face of the reference photos: a round face with full,
+    puffy cheeks; heavy, drooping upper eyelids over small amber-brown eyes, so he always looks half-asleep, calm and unbothered;
+    a short, flat muzzle with a small nose; a small pursed mouth with a slight pout; pale beige-pink bare skin on the face,
+    slightly darker and tan around the eyes, nose and mouth, with fine wrinkles on the brow and under the eyes; soft, fluffy
+    light-brown fur framing the face and covering the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture, sitting and standing like a grown man, wearing
+    normal adult clothes that fit. Dark leathery hands with long fingers. Pose: leaning against something. Expression: quietly
+    skeptical, always with his calm, heavy-lidded look, looking down. Wearing knitted sweater, with paper bag of groceries,
+    tote bag.
+
+
+    Setting: Palermo street corner.
+
+    Lighting: open shade on a sunny day.
+
+    Framing: medium close-up, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: photo on a mirrorless camera with a 35mm lens, natural light, crisp detail, gentle background blur.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI,
+    3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image, a different-looking monkey
+    face, wide-open eyes, long muzzle. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference_crops/crop_01_cara.jpg
+  - character/reference_crops/crop_02_cara_tres_cuartos.jpg
+  - character/reference_crops/crop_03_cara_gorra.jpg
+  - character/reference_crops/crop_04_torso.jpg
+  scene_photos: []
+  size: *id001
+  provider: cloudflare
+  files: {}
+  qc: null
+  caption: null
+  status: discarded
+  ig_media_id: null
+  qc_attempts:
+  - attempt: 1
+    score: 6.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 7'']'
+    - Es un macaco adulto, bien logrado y fotorrealista, pero la cara es más angosta y de perfil. El hocico es algo más largo
+      que en las referencias y los cachetes son menos llenos y redondos.
+    - Las orejas son más grandes y rosadas que las de las referencias, y el pelaje es beige grisáceo, no el marrón cálido
+      de ellas.
+    - La mirada es tranquila y de párpados caídos, que es coherente con el personaje, aunque no tan marcada como en las referencias.
+  - attempt: 2
+    score: 6.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 7'']'
+    - La cara es más angosta y alargada que la de las referencias, con el hocico más marcado y los cachetes menos llenos.
+      Parece otro macaco, así que identity_match queda en 5.
+    - Los párpados caídos y la mirada tranquila y escéptica sí coinciden con las referencias.
+    - El pelaje es beige grisáceo y las referencias lo tienen marrón cálido. La diferencia es leve.
+  - attempt: 3
+    score: 6.0
+    passed: false
+    reasons:
+    - 'falla dura: [''identidad 5 < 7'']'
+    - 'La cara no coincide del todo con las referencias: el hocico es más largo y prominente, y la cara es más angosta, con
+      cachetes menos llenos y redondos.'
+    - Los párpados pesados y la mirada tranquila y medio dormida se parecen a las referencias, pero la mirada va hacia abajo
+      y la cara se ve más seria que adormilada.
+    - El pelaje es beige grisáceo y más claro que el marrón cálido de las referencias. No llega a verde, pero se aleja del
+      tono esperado.
+  discard_reason: no pasó el QC en 3 intento(s)
+dir: drafts/20261010-0133-ba73
