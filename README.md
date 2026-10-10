@@ -74,6 +74,16 @@ Es gratis y no necesita Google Cloud: un pequeño script corre con tu cuenta y r
 
 Si esos secrets no están cargados, el sistema sigue funcionando igual y simplemente no copia nada a Drive. Para subir a mano: `mono drive-sync` (o `--batch <id>`, o `--dry-run` para ver qué subiría).
 
+## Modo híbrido con Gemini (default)
+El generador automático gratis no logra copiar la cara exacta del mono. Por eso, por defecto, cada foto se hace en **Gemini** (gratis) y el resto sigue automático:
+1. Todos los días a las 9:00, `generate` abre un PR con 3 ideas. Cada una trae su bloque **📸 Generar en Gemini**.
+2. En [gemini.google.com](https://gemini.google.com) adjuntás las 3 fotos de referencia (los links están en el PR) y pegás el texto del bloque.
+3. Si la cara no es igual a la de tus fotos, pedís "otra".
+4. Descargás la imagen y la subís con el link **Subir foto** del PR. Alcanza con llamarla `01.jpg`, `02.jpg`, etc.
+5. `ingest` la procesa sola: control de calidad, recorte del logo ✦ de Gemini, caption y copia en Drive. Después mergeás el PR y se agenda.
+
+Para volver al modo automático: `config.yaml → image.provider: cloudflare`.
+
 ## Operación semanal
 | Cuándo (Buenos Aires) | Workflow | Qué pasa |
 |---|---|---|
