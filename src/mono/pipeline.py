@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import re
 import secrets
 import shutil
 from datetime import datetime
@@ -20,7 +21,7 @@ from .llm.base import LLM
 from .postprocess.looks import process
 from .prompting.builder import build_image_prompt
 from .providers import QUOTA_REASON, GenerationRequest, ImageProvider, QuotaExhausted, get_image_provider
-from .providers.image_manual import find_in_inbox
+from .providers.image_manual import find_in_inbox, item_number, manual_prompt
 from .qc.vision_qc import evaluate
 from .store import History, now_iso
 
@@ -93,10 +94,10 @@ def _request(settings: Settings, item: dict, attempt: int) -> GenerationRequest:
     )
 
 
-def finalize(settings: Settings, item: dict, raw: Path, out_dir: Path) -> Path:
+def finalize(settings: Settings, item: dict, raw: Path, out_dir: Path, trim: float = 0.0) -> Path:
     look = settings.bible["camera_looks"][item["camera_look"]]
     final = out_dir / f"{item['id']}.jpg"
-    process(raw, final, tuple(item["size"]), look.get("post", {}), seed=_seed(item["id"], 0))
+    process(raw, final, tuple(item["size"]), look.get("post", {}), seed=_seed(item["id"], 0), trim=trim)
     return final
 
 
@@ -121,7 +122,7 @@ def render_item(settings: Settings, item: dict, provider: ImageProvider, llm: LL
             continue
         if result.path is None:  # manual: queda esperando la imagen en inbox/
             item["status"] = "awaiting_manual"
-            item["files"] = {"manual_pack": result.meta.get("pack")}
+            item["files"] = {"manual_pack": result.meta.get("pack"), "manual_refs": result.meta.get("refs", [])}
             return item
         qc = evaluate(settings, llm, result.path, item)
         attempts.append({"attempt": attempt, "score": qc.score, "passed": qc.passed, "reasons": qc.reasons[:4]})
@@ -215,13 +216,18 @@ def ingest(settings: Settings, batch_dirs: list[Path] | None = None, force: bool
     inbox = settings.path("inbox")
     done = []
     folders = batch_dirs or sorted(p.parent for p in settings.path("drafts").glob("*/batch.yaml"))
+    # inbox/02.jpg vale como atajo solo si ese número de pieza está pendiente en una sola tanda.
+    pending = [i["id"] for f in folders for i in load_batch(f)["items"]
+               if i.get("status") in ("awaiting_manual", "qc_failed")]
+    numbers = [item_number(i) for i in pending]
+    trim = settings.get("image.manual_trim", 0.05)
     for folder in folders:
         batch = load_batch(folder)
         changed = False
         for item in batch["items"]:
             if item.get("status") not in ("awaiting_manual", "qc_failed"):
                 continue
-            src = find_in_inbox(inbox, item["id"])
+            src = find_in_inbox(inbox, item["id"], allow_short=numbers.count(item_number(item["id"])) == 1)
             if not src:
                 continue
             raw_dir = settings.path("output", "raw", batch["id"])
@@ -231,7 +237,7 @@ def ingest(settings: Settings, batch_dirs: list[Path] | None = None, force: bool
             qc = evaluate(settings, llm, raw, item)
             item["qc"] = qc.to_dict()
             if qc.passed or force:
-                final = finalize(settings, item, raw, folder)
+                final = finalize(settings, item, raw, folder, trim=trim)
                 item.update(status="draft", files={**item.get("files", {}), "raw": _rel(settings, raw),
                                                    "final": _rel(settings, final)})
                 if not dry_run:
@@ -274,6 +280,26 @@ def write_review(settings: Settings, batch: dict, folder: Path) -> Path:
     return path
 
 
+def _manual_steps(item: dict, image_base: str) -> list[str]:
+    """Bloque del PR para generar la pieza en Gemini: referencias, prompt para copiar y link de subida."""
+    number = item_number(item["id"])
+    refs = (item.get("files") or {}).get("manual_refs") or []
+    out = [f"**📸 Generar en Gemini (foto {number}):**", ""]
+    if item["status"] == "qc_failed":
+        out.insert(0, "**La foto que subiste no pasó el control de calidad.** Probá con otra.  ")
+    if refs:
+        links = " · ".join(f"[{Path(r).stem}]({image_base.rstrip('/')}/{r})" if image_base else f"`{r}`"
+                           for r in refs)
+        out.append(f"1. Descargá y adjuntá en Gemini: {links}")
+    out.append("2. Pegá este texto y pedí la imagen (vertical, una sola foto):")
+    out += ["", "```text", manual_prompt(item["prompt"]), "```", ""]
+    m = re.match(r"https://raw\.githubusercontent\.com/([^/]+/[^/]+)/(.+)", image_base or "")
+    upload = f"[Subir foto]({'https://github.com/' + m.group(1) + '/upload/' + m.group(2) + '/inbox'})" if m else \
+        "subila a la carpeta `inbox/` de esta rama"
+    out.append(f"3. {upload} y llamala `{number}.jpg`. Se procesa sola en unos minutos.")
+    return out
+
+
 def review_markdown(batch: dict, image_base: str = "") -> str:
     """Markdown de la tanda. `image_base` = URL base para que las imágenes se vean en el cuerpo del PR."""
     lines = [f"# Tanda {batch['id']}", "",
@@ -294,9 +320,8 @@ def review_markdown(batch: dict, image_base: str = "") -> str:
             cap = item["caption"]
             lines.append(f"**Caption:** {cap.get('caption')}  ")
             lines.append(f"**Hashtags:** {' '.join(cap.get('hashtags', []))}  ")
-        if item["status"] == "awaiting_manual":
-            lines.append(f"**Pendiente manual:** ver `{(item.get('files') or {}).get('manual_pack')}` "
-                         f"y subir `inbox/{item['id']}.jpg`")
+        if item["status"] in ("awaiting_manual", "qc_failed") and item.get("prompt"):
+            lines += _manual_steps(item, image_base)
         if item.get("discard_reason"):
             lines.append(f"**Descartada:** {item['discard_reason']}")
         lines.append("")

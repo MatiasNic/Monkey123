@@ -9,7 +9,8 @@ llm:
   timeout_s: 600
 
 image:
-  provider: cloudflare     # cloudflare | manual | mock
+  provider: manual         # manual = híbrido con Gemini (cara exacta, gratis) | cloudflare (automático) | mock
+  manual_trim: 0.05        # recorte por borde de las fotos de Gemini (saca el logo ✦ de la esquina)
   # klein-9b: mantiene mucho mejor la cara del personaje; ~1.700 neuronas por foto → 5-6 fotos/día gratis.
   # klein-4b: ~180 neuronas por foto → unas 50 fotos/día, pero el parecido falla seguido.
   cloudflare_model: "@cf/black-forest-labs/flux-2-klein-9b"
@@ -24,7 +25,7 @@ dedup:
 qc:
   pass_score: 7.0          # 0-10
   min_anatomy: 6           # por debajo, rechazo directo (aunque el puntaje global sea alto)
-  min_identity: 6          # idem para el parecido con las referencias (edad, cara, pelaje)
+  min_identity: 7          # idem para el parecido con las referencias (cara, edad, pelaje): exigente a propósito
 
 video:
   provider: slideshow      # slideshow (ffmpeg, gratis) | futuro: proveedor de video IA

@@ -78,3 +78,23 @@ def test_generator_gets_cropped_references(settings):
     refs = build_image_prompt(settings, idea)["references"]
     assert refs and all(r.startswith("character/reference_crops/") for r in refs)
     assert all("reference_crops" not in str(p) for p in settings.reference_images())
+
+
+def test_prompt_and_references_focus_on_the_face(settings):
+    from mono.ideation.ideas import generate_ideas as gen
+
+    idea = gen(settings, MockLLM(settings), 1, update_bank=False)[0]
+    built = build_image_prompt(settings, idea)
+    assert built["prompt"].startswith("Candid real photograph of the macaque from the input images.")
+    assert "heavy half-closed eyelids" in built["prompt"]
+    # Las primeras referencias (las que siempre entran, aun con foto de escena) son primeros planos de la cara.
+    assert all("cara" in r for r in built["references"][:3])
+
+
+def test_identity_threshold_is_strict(settings):
+    class Close(MockLLM):
+        def _qc(self, ctx):
+            return {"score": 8, "species_ok": True, "anatomy": 8, "limb_count_ok": True, "brand_safe": True,
+                    "identity_match": 6, "reasons": ["la cara se parece pero no es la misma"]}
+
+    assert not evaluate(settings, Close(settings), settings.reference_images()[0], {"description": "x"}).passed

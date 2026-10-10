@@ -74,6 +74,16 @@ Es gratis y no necesita Google Cloud: un pequeño script corre con tu cuenta y r
 
 Si esos secrets no están cargados, el sistema sigue funcionando igual y simplemente no copia nada a Drive. Para subir a mano: `mono drive-sync` (o `--batch <id>`, o `--dry-run` para ver qué subiría).
 
+## Modo híbrido con Gemini (default)
+El generador automático gratis no logra copiar la cara exacta del mono. Por eso, por defecto, cada foto se hace en **Gemini** (gratis) y el resto sigue automático:
+1. Todos los días a las 9:00, `generate` abre un PR con 3 ideas. Cada una trae su bloque **📸 Generar en Gemini**.
+2. En [gemini.google.com](https://gemini.google.com) adjuntás las 3 fotos de referencia (los links están en el PR) y pegás el texto del bloque.
+3. Si la cara no es igual a la de tus fotos, pedís "otra".
+4. Descargás la imagen y la subís con el link **Subir foto** del PR. Alcanza con llamarla `01.jpg`, `02.jpg`, etc.
+5. `ingest` la procesa sola: control de calidad, recorte del logo ✦ de Gemini, caption y copia en Drive. Después mergeás el PR y se agenda.
+
+Para volver al modo automático: `config.yaml → image.provider: cloudflare`.
+
 ## Operación semanal
 | Cuándo (Buenos Aires) | Workflow | Qué pasa |
 |---|---|---|
@@ -133,7 +143,7 @@ mono prune --days 60 [--dry-run]          # borra JPG/MP4 de tandas ya publicada
 ### Imagen, QC y retoque
 | Proveedor | Cuándo | Cómo |
 |---|---|---|
-| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-9b`, que mantiene bien el parecido y alcanza para 5 o 6 imágenes por día gratis; por eso se genera a diario en tandas de 3. `flux-2-klein-4b` da unas 50 por día, pero el parecido falla seguido. Como referencias recibe los recortes de `character/reference_crops/` (solo el mono, sin fondo). Se elige en `config.yaml → image.cloudflare_model`. |
+| `cloudflare` (default) | Automático | FLUX.2 con hasta 4 imágenes de entrada (escena + referencias del mono). Por defecto usa `flux-2-klein-9b`, que mantiene bien el parecido y alcanza para 5 o 6 imágenes por día gratis; por eso se genera a diario en tandas de 3. `flux-2-klein-4b` da unas 50 por día, pero el parecido falla seguido. Como referencias recibe los recortes de `character/reference_crops/` (tres primeros planos de la cara y uno de torso, sin fondo). Se elige en `config.yaml → image.cloudflare_model`. |
 | `manual` | Mejor consistencia, también gratis | `drafts/<tanda>/manual/<id>.md` trae el prompt y las referencias. Generás en Gemini, subís `inbox/<id>.jpg` y corrés `mono ingest`. |
 | `mock` | Tests y `--dry-run` | Imagen sintética, sin red. |
 

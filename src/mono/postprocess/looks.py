@@ -151,7 +151,17 @@ def save_jpeg(img: Image.Image, out: Path, quality: int = 92) -> Path:
     return out
 
 
-def process(src: Path, out: Path, size: tuple[int, int], look_params: dict, seed: int = 0) -> Path:
+def trim_edges(img: Image.Image, fraction: float) -> Image.Image:
+    """Recorta `fraction` de cada borde (p. ej. para sacar el logo de Gemini de una esquina)."""
+    if fraction <= 0:
+        return img
+    w, h = img.size
+    dx, dy = round(w * fraction), round(h * fraction)
+    return img.crop((dx, dy, w - dx, h - dy))
+
+
+def process(src: Path, out: Path, size: tuple[int, int], look_params: dict, seed: int = 0,
+            trim: float = 0.0) -> Path:
     with Image.open(src) as img:
-        img = crop_to_aspect(img.convert("RGB"), *size)
+        img = crop_to_aspect(trim_edges(img.convert("RGB"), trim), *size)
     return save_jpeg(apply_look(img, look_params, seed=seed), out)

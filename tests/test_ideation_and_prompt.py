@@ -19,7 +19,7 @@ def test_prompt_contains_identity_look_and_references(settings):
     assert "macaque" in built["prompt"]
     assert settings.bible["camera_looks"][idea["camera_look"]]["prompt"] in built["prompt"]
     assert "never a baby, chimpanzee" in built["prompt"]
-    assert len(built["references"]) == 3
+    assert len(built["references"]) == 4
     assert all("style_refs" not in r for r in built["references"])
     assert built["size"] == [1080, 1350]
 
