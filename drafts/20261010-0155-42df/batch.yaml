@@ -1,0 +1,252 @@
+id: 20261010-0155-42df
+format: feed
+scene: null
+theme: null
+dry_run: false
+llm: claude_cli
+items:
+- id: 20261010-0155-42df-01
+  batch: 20261010-0155-42df
+  created_at: '2026-10-10T04:55:59+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires balcony
+  activity: watering plants
+  pose: standing
+  camera_distance: medium wide
+  expression: serene
+  gaze: down
+  outfit: linen shirt and shorts
+  lighting: bright morning sun
+  accessories:
+  - none
+  camera_look: iphone_daylight
+  concept: Watering balcony plants in the morning sun
+  concept_es: Regando las plantas del balcón con el sol de la mañana
+  description: The adult macaque stands on a bright Buenos Aires balcony full of green plants, holding a metal watering can
+    and calmly watering a pot of geraniums. He wears a light linen shirt and shorts that fit him well, looking down at the
+    plants with sleepy, unbothered eyes in warm morning sun.
+  prompt: 'Candid real photograph of the macaque from the input images. Keep his FACE exactly as in the input images: same
+    round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face,
+    same skin and fur color. Only the clothes, place and action change.
+
+
+    Scene: The adult macaque stands on a bright Buenos Aires balcony full of green plants, holding a metal watering can and
+    calmly watering a pot of geraniums. He wears a light linen shirt and shorts that fit him well, looking down at the plants
+    with sleepy, unbothered eyes in warm morning sun.
+
+
+    Subject: The same ADULT macaque in every image, with exactly the face of the reference photos: a round face with full,
+    puffy cheeks; heavy, drooping upper eyelids over small amber-brown eyes, so he always looks half-asleep, calm and unbothered;
+    a short, flat muzzle with a small nose; a small pursed mouth with a slight pout; pale beige-pink bare skin on the face,
+    slightly darker and tan around the eyes, nose and mouth, with fine wrinkles on the brow and under the eyes; soft, fluffy
+    light-brown fur framing the face and covering the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture, sitting and standing like a grown man, wearing
+    normal adult clothes that fit. Dark leathery hands with long fingers. Pose: standing. Expression: serene, always with
+    his calm, heavy-lidded look, looking down. Wearing linen shirt and shorts.
+
+
+    Setting: Buenos Aires balcony.
+
+    Lighting: bright morning sun.
+
+    Framing: medium wide, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: modern iPhone photo in daylight, sharp, natural colors, slightly casual framing.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI,
+    3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image, a different-looking monkey
+    face, wide-open eyes, long muzzle. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference_crops/crop_01_cara.jpg
+  - character/reference_crops/crop_02_cara_tres_cuartos.jpg
+  - character/reference_crops/crop_03_cara_gorra.jpg
+  - character/reference_crops/crop_04_torso.jpg
+  scene_photos: []
+  size: &id001
+  - 1080
+  - 1350
+  provider: manual
+  files:
+    manual_pack: drafts/20261010-0155-42df/manual/20261010-0155-42df-01.md
+    manual_refs:
+    - character/reference/ref_01_balcon_diario.jpg
+    - character/reference/ref_02_balcon_diario_b.jpg
+    - character/reference/ref_03_tienda_camisetas.jpg
+  qc: null
+  caption: null
+  status: awaiting_manual
+  ig_media_id: null
+- id: 20261010-0155-42df-02
+  batch: 20261010-0155-42df
+  created_at: '2026-10-10T04:55:59+00:00'
+  format: feed
+  scene: null
+  location: Buenos Aires café
+  activity: working on a laptop
+  pose: at a table
+  camera_distance: medium close-up
+  expression: focused
+  gaze: at a screen
+  outfit: knitted sweater
+  lighting: soft window light
+  accessories:
+  - wireless earbuds
+  camera_look: window_light_interior
+  concept: Working on a laptop at a café window table
+  concept_es: Trabajando con la notebook en una mesa junto a la ventana de un café
+  description: The adult macaque sits at a wooden café table beside a big window, typing on a silver laptop with a ceramic
+    cup of cortado next to it. He wears a cozy knitted sweater and earbuds, eyes half-closed and calm as he looks at the screen
+    in soft daylight.
+  prompt: 'Candid real photograph of the macaque from the input images. Keep his FACE exactly as in the input images: same
+    round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face,
+    same skin and fur color. Only the clothes, place and action change.
+
+
+    Scene: The adult macaque sits at a wooden café table beside a big window, typing on a silver laptop with a ceramic cup
+    of cortado next to it. He wears a cozy knitted sweater and earbuds, eyes half-closed and calm as he looks at the screen
+    in soft daylight.
+
+
+    Subject: The same ADULT macaque in every image, with exactly the face of the reference photos: a round face with full,
+    puffy cheeks; heavy, drooping upper eyelids over small amber-brown eyes, so he always looks half-asleep, calm and unbothered;
+    a short, flat muzzle with a small nose; a small pursed mouth with a slight pout; pale beige-pink bare skin on the face,
+    slightly darker and tan around the eyes, nose and mouth, with fine wrinkles on the brow and under the eyes; soft, fluffy
+    light-brown fur framing the face and covering the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture, sitting and standing like a grown man, wearing
+    normal adult clothes that fit. Dark leathery hands with long fingers. Pose: at a table. Expression: focused, always with
+    his calm, heavy-lidded look, looking at a screen. Wearing knitted sweater, with wireless earbuds.
+
+
+    Setting: Buenos Aires café.
+
+    Lighting: soft window light.
+
+    Framing: medium close-up, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: indoor photo with soft natural window light, clean and bright, sharp, true-to-life colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI,
+    3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image, a different-looking monkey
+    face, wide-open eyes, long muzzle. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference_crops/crop_01_cara.jpg
+  - character/reference_crops/crop_02_cara_tres_cuartos.jpg
+  - character/reference_crops/crop_03_cara_gorra.jpg
+  - character/reference_crops/crop_04_torso.jpg
+  scene_photos: []
+  size: *id001
+  provider: manual
+  files:
+    manual_pack: drafts/20261010-0155-42df/manual/20261010-0155-42df-02.md
+    manual_refs:
+    - character/reference/ref_01_balcon_diario.jpg
+    - character/reference/ref_02_balcon_diario_b.jpg
+    - character/reference/ref_03_tienda_camisetas.jpg
+  qc: null
+  caption: null
+  status: awaiting_manual
+  ig_media_id: null
+- id: 20261010-0155-42df-03
+  batch: 20261010-0155-42df
+  created_at: '2026-10-10T04:55:59+00:00'
+  format: feed
+  scene: null
+  location: Palermo street corner
+  activity: waiting for the bus
+  pose: leaning against something
+  camera_distance: medium
+  expression: mildly bored
+  gaze: out of frame left
+  outfit: quilted jacket and grey jeans
+  lighting: overcast daylight
+  accessories:
+  - tote bag
+  - wired earphones
+  camera_look: street_overcast
+  concept: Waiting for the colectivo with a tote bag
+  concept_es: Esperando el colectivo con una bolsa de tela
+  description: The adult macaque leans casually against a bus-stop pole on a tidy tree-lined Palermo corner, a canvas tote
+    bag on his shoulder and wired earphones in. He wears a quilted jacket and grey jeans that fit, glancing sleepily down
+    the street for the bus in soft overcast light.
+  prompt: 'Candid real photograph of the macaque from the input images. Keep his FACE exactly as in the input images: same
+    round face, puffy cheeks, heavy half-closed eyelids, short flat muzzle, small pursed mouth, fluffy fur framing the face,
+    same skin and fur color. Only the clothes, place and action change.
+
+
+    Scene: The adult macaque leans casually against a bus-stop pole on a tidy tree-lined Palermo corner, a canvas tote bag
+    on his shoulder and wired earphones in. He wears a quilted jacket and grey jeans that fit, glancing sleepily down the
+    street for the bus in soft overcast light.
+
+
+    Subject: The same ADULT macaque in every image, with exactly the face of the reference photos: a round face with full,
+    puffy cheeks; heavy, drooping upper eyelids over small amber-brown eyes, so he always looks half-asleep, calm and unbothered;
+    a short, flat muzzle with a small nose; a small pursed mouth with a slight pout; pale beige-pink bare skin on the face,
+    slightly darker and tan around the eyes, nose and mouth, with fine wrinkles on the brow and under the eyes; soft, fluffy
+    light-brown fur framing the face and covering the cheeks like sideburns; small rounded ears close to the head. Warm light
+    brown fur (never green, olive or grey). Adult body with human posture, sitting and standing like a grown man, wearing
+    normal adult clothes that fit. Dark leathery hands with long fingers. Pose: leaning against something. Expression: mildly
+    bored, always with his calm, heavy-lidded look, looking out of frame left. Wearing quilted jacket and grey jeans, with
+    tote bag, wired earphones.
+
+
+    Setting: Palermo street corner.
+
+    Lighting: overcast daylight.
+
+    Framing: medium, vertical 4:5 composition, natural framing like the reference photos.
+
+    Camera: candid street photo on an overcast day, even soft light, sharp, muted natural colors.
+
+
+    real, clean and sharp photo taken with a modern phone or mirrorless camera, like the reference images; natural daylight,
+    true-to-life colors, bright and airy, believable depth of field, everyday candid moment
+
+    Anatomy: anatomically correct: exactly two arms, two hands, two legs and two feet; five digits per hand and per foot;
+    no extra, duplicated or merged limbs.
+
+    Avoid: baby or juvenile monkey, film grain, heavy noise, vignette, black and white, direct flash, motion blur, washed-out
+    or yellow color cast, mirrors, reflections, extra limbs, extra feet, extra hands, duplicated body parts, green or olive
+    tinted fur, chimpanzee face, human face, cinematic look, HDR, advertising polish, perfect symmetry, plastic skin, CGI,
+    3D render, AI-generated look, oversaturated colors, text, watermark, collage, grid, split image, a different-looking monkey
+    face, wide-open eyes, long muzzle. Must be a real adult macaque, never a baby, chimpanzee, gorilla or cartoon. Single
+    photograph, not a collage.'
+  references:
+  - character/reference_crops/crop_01_cara.jpg
+  - character/reference_crops/crop_02_cara_tres_cuartos.jpg
+  - character/reference_crops/crop_03_cara_gorra.jpg
+  - character/reference_crops/crop_04_torso.jpg
+  scene_photos: []
+  size: *id001
+  provider: manual
+  files:
+    manual_pack: drafts/20261010-0155-42df/manual/20261010-0155-42df-03.md
+    manual_refs:
+    - character/reference/ref_01_balcon_diario.jpg
+    - character/reference/ref_02_balcon_diario_b.jpg
+    - character/reference/ref_03_tienda_camisetas.jpg
+  qc: null
+  caption: null
+  status: awaiting_manual
+  ig_media_id: null
+dir: drafts/20261010-0155-42df
